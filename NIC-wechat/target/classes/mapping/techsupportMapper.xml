@@ -20,6 +20,9 @@
     techsupport_describe, techsupport_picture, techsupport_feedback, techsupport_uptime, 
     techsupport_endtime, status_id, manager_id
   </sql>
+  <select id="selectAllTS" resultMap="BaseResultMap">
+    select * from nic_techsupport
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

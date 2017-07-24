@@ -1,5 +1,7 @@
 package com.litt.nic.Dao;
 
+import java.util.List;
+
 import com.litt.nic.pojo.repair;
 
 public interface repairMapper {
@@ -14,4 +16,5 @@ public interface repairMapper {
     int updateByPrimaryKeySelective(repair record);
 
     int updateByPrimaryKey(repair record);
+    List<repair> selectAllRP();
 }

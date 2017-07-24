@@ -1,5 +1,7 @@
 package com.litt.nic.Dao;
 
+import java.util.List;
+
 import com.litt.nic.pojo.techsupport;
 
 public interface techsupportMapper {
@@ -14,4 +16,5 @@ public interface techsupportMapper {
     int updateByPrimaryKeySelective(techsupport record);
 
     int updateByPrimaryKey(techsupport record);
+    List<techsupport> selectAllTS();
 }

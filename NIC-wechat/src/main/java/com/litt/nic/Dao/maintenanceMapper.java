@@ -1,5 +1,7 @@
 package com.litt.nic.Dao;
 
+import java.util.List;
+
 import com.litt.nic.pojo.maintenance;
 
 public interface maintenanceMapper {
@@ -14,4 +16,6 @@ public interface maintenanceMapper {
     int updateByPrimaryKeySelective(maintenance record);
 
     int updateByPrimaryKey(maintenance record);
+    
+    List<maintenance> selectAllMT();
 }
