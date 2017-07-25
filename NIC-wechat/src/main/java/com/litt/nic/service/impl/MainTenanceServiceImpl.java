@@ -11,11 +11,16 @@ import com.litt.nic.service.IMainTenanceService;
 @Service
 public class MainTenanceServiceImpl implements IMainTenanceService{
    @Autowired
-	private maintenanceMapper maintenance;
+	private maintenanceMapper mainTenanceMapper;
 
 	public List<maintenance> findAllMT() {
 		// TODO Auto-generated method stub
-		return maintenance.selectAllMT();
+		return mainTenanceMapper.selectAllMT();
+	}
+
+	public List<com.litt.nic.pojo.maintenance> findByMutiInfo(String key, String val) {
+		// TODO Auto-generated method stub
+		return mainTenanceMapper.selectMTMultiInfo(key, val);
 	}
 	
 }

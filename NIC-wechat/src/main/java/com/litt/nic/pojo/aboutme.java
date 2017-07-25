@@ -1,13 +1,21 @@
 package com.litt.nic.pojo;
 
 public class aboutme {
+    private Integer aboutmeId;
+
     private String aboutmeIntroduce;
 
     private String aboutmeName;
 
     private String aboutmeTelephone;
 
-    private Integer aboutmeId;
+    public Integer getAboutmeId() {
+        return aboutmeId;
+    }
+
+    public void setAboutmeId(Integer aboutmeId) {
+        this.aboutmeId = aboutmeId;
+    }
 
     public String getAboutmeIntroduce() {
         return aboutmeIntroduce;
@@ -31,13 +39,5 @@ public class aboutme {
 
     public void setAboutmeTelephone(String aboutmeTelephone) {
         this.aboutmeTelephone = aboutmeTelephone == null ? null : aboutmeTelephone.trim();
-    }
-
-    public Integer getAboutmeId() {
-        return aboutmeId;
-    }
-
-    public void setAboutmeId(Integer aboutmeId) {
-        this.aboutmeId = aboutmeId;
     }
 }

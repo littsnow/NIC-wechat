@@ -11,6 +11,8 @@ public class manager {
 
     private Integer managerTyp;
 
+    private String managerPassword;
+
     public Integer getManagerId() {
         return managerId;
     }
@@ -49,5 +51,13 @@ public class manager {
 
     public void setManagerTyp(Integer managerTyp) {
         this.managerTyp = managerTyp;
+    }
+
+    public String getManagerPassword() {
+        return managerPassword;
+    }
+
+    public void setManagerPassword(String managerPassword) {
+        this.managerPassword = managerPassword == null ? null : managerPassword.trim();
     }
 }
