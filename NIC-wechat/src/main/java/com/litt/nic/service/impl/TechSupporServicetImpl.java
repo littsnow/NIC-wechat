@@ -12,11 +12,16 @@ import com.litt.nic.service.ITechSupportService;
 public class TechSupporServicetImpl implements ITechSupportService{
 
 	@Autowired
-	private techsupportMapper techSupport;
+	private techsupportMapper techSupportMapper;
 	
 	public List<techsupport> findAllTS() {
 		
-		return techSupport.selectAllTS();
+		return techSupportMapper.selectAllTS();
+	}
+
+	public List<techsupport> findByMutilInfo(String key, String val) {
+		// TODO Auto-generated method stub
+		return techSupportMapper.selectTSMultiInfo(key, val);
 	}
 
 }

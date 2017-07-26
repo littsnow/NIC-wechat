@@ -23,7 +23,21 @@
   <select id="selectAllTS" resultMap="BaseResultMap">
     select * from nic_techsupport
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectTSMultiInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+  select * from nic_techsupport  
+  <where>
+     <if test="key=='department'">
+     techsupport_department like CONCAT('%',#{val},'%')
+     </if>
+     <if test="key=='address'">
+     techsupport_location like CONCAT('%',#{val},'%')
+     </if>
+     <if test="key=='uptime'">
+      techsupport_uptime like CONCAT('%',#{val},'%')
+     </if>
+     </where>
+     </select>
+ <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from nic_techsupport

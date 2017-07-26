@@ -13,37 +13,60 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin.css">
 <script src="${pageContext.request.contextPath }/js/jquery.js"></script>
 <script src="${pageContext.request.contextPath }/js/pintuer.js"></script>
+<script type="text/javascript">
+//搜索
+$(function(){
+	/* alert("asdfghjhnbvcx"); */
+	$("#searchArticleForm").off();
+	$("#searchArticleForm").on("submit",function(){
+		var key=$(this).find("select[name=key]").val();
+		var val=$(this).find("input[name=val]").val();
+		/* alert(key+","+val); */
+		
+		$(".panel").load("${pageContext.request.contextPath }/serviceDock/searchLists",{
+			key:key,
+			val:val
+		});
+		//阻止表单默认行为 （提交）
+		return false;
+	});
+});
+</script>
 </head>
 <body>
-<form method="post" action="" id="listform">
+<%-- <form method="post" action="${pageContext.request.contextPath }/serviceDock/searchLists" id="listform"> --%>
   <div class="panel admin-panel">
     <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
-    <div class="padding border-bottom">
+   <form role="search" id="searchArticleForm">
+    <div class="padding border-bottom ">
       <ul class="search" style="padding-left:10px;">
       
        <!--  <if condition="$iscid eq 1"> -->
           <li>
-            <select name="cid" class="input" style="width:200px; line-height:17px;" onchange="changesearch()">
-              <option value="">请选择分类</option>
-              <option value="">产品分类</option>
-              <option value="">产品分类</option>
-              <option value="">产品分类</option>
-              <option value="">产品分类</option>
+            <select name="key" class="input" style="width:200px; line-height:17px;">
+              <option value="">请选择分类</option> 
+              <option value="service">业务类型(技术支持，设备报修，日常运维)</option>
+              <option value="department">部门</option>
+              <option value="address">地点</option>
+              <option value="uptime">提交时间</option>
+             <!--  <option value="keyword">关键字筛选</option> -->
             </select>
           </li>
        <!--  </if> -->
         <li>
-          <input type="text" placeholder="请输入搜索关键字" name="keywords" class="input" style="width:250px; line-height:17px;display:inline-block" />
-          <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()" > 搜索</a></li>
+          <input type="text" placeholder="请输入搜索关键字" name="val" class="input" style="width:250px; line-height:17px;display:inline-block" />
+          <!-- <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()" > 搜索</a> -->
+          <input type="submit" class="button border-main icon-search" value="查询" />
+          </li>
       </ul>
     </div>
-
+</form>
     <div>
     <c:if test="${! empty tsList}">
     <div >
-    <p>1. 技术支持</p>
-    <br>
-    <table class="table table-hover text-center" style="margin: 0 auto;align:center">
+    <p style="margin-left: 19px;margin-top: 4px;font-size: 14px;">1. 技术支持</p>
+    
+    <table class="table table-hover text-center" style="margin: 0 auto;align:center;margin-top: -10px;">
       <tr>
         <th style="text-align:left; padding-left:20px;">序号</th>
         <th>联系人</th>
@@ -83,9 +106,9 @@
    		
    		<c:if test="${! empty rpList}">
     <div>
-    <p>2. 设备报修</p>
-    <br>
-    <table class="table table-hover text-center" style="margin: 0 auto;align:center">
+    <p style="margin-left: 19px;margin-top: 4px;font-size: 14px;">2. 设备报修</p>
+    
+    <table class="table table-hover text-center" style="margin: 0 auto;align:center;margin-top: -10px;">
       <tr>
         <th>序号</th>
         <th >联系人</th>
@@ -126,9 +149,9 @@
    	<div>	
    	<c:if test="${!empty mtList}">
     
-    <p>3. 日常运维</p>
-    <br>
-    <table class="table table-hover text-center" style="margin: 0 auto;align:center;">
+    <p style="margin-left: 19px;margin-top: 4px;font-size: 14px;">3. 日常运维</p>
+   
+    <table class="table table-hover text-center" style="margin: 0 auto;align:center;margin-top: -10px;">
       <tr>
         <th>序号</th>
         <th>联系人</th>
@@ -175,12 +198,12 @@
     </table>
   </div>
   </div>
-</form>
+<!-- </form> -->
 <script type="text/javascript">
 
 //搜索
 function changesearch(){	 
-		
+	
 }
 
 //单个删除

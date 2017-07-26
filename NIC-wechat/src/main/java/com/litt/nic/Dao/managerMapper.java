@@ -1,3 +1,6 @@
+
+
+
 package com.litt.nic.Dao;
 
 import com.litt.nic.pojo.manager;
@@ -15,3 +18,4 @@ public interface managerMapper {
 
     int updateByPrimaryKey(manager record);
 }
+

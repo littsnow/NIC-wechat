@@ -10,7 +10,7 @@
     <result column="repair_describe" property="repairDescribe" jdbcType="VARCHAR" />
     <result column="repair_picture" property="repairPicture" jdbcType="VARCHAR" />
     <result column="repair_feedback" property="repairFeedback" jdbcType="VARCHAR" />
-    <result column="repair_uptime" property="repairUptime" jdbcType="VARCHAR" />
+    <result column="repair_uptime" property="repairUptime" jdbcType="TIMESTAMP" />
     <result column="repair_endtime" property="repairEndtime" jdbcType="TIMESTAMP" />
     <result column="status_id" property="statusId" jdbcType="INTEGER" />
     <result column="manager_id" property="managerId" jdbcType="INTEGER" />
@@ -22,6 +22,20 @@
   <select id="selectAllRP" resultMap="BaseResultMap">
      select * from nic_repair
   </select>
+   <select id="selectRPMultiInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+  select * from nic_repair  
+  <where>
+     <if test="key=='department'">
+     repair_department like CONCAT('%',#{val},'%')
+     </if>
+     <if test="key=='address'">
+     repair_location like CONCAT('%',#{val},'%')
+     </if>
+     <if test="key=='uptime'">
+      repair_uptime like CONCAT('%',#{val},'%')
+     </if>
+     </where>
+     </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -40,7 +54,7 @@
       )
     values (#{repairId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{repairDepartment,jdbcType=VARCHAR}, 
       #{repairDevicename,jdbcType=VARCHAR}, #{repairLocation,jdbcType=VARCHAR}, #{repairDescribe,jdbcType=VARCHAR}, 
-      #{repairPicture,jdbcType=VARCHAR}, #{repairFeedback,jdbcType=VARCHAR}, #{repairUptime,jdbcType=VARCHAR}, 
+      #{repairPicture,jdbcType=VARCHAR}, #{repairFeedback,jdbcType=VARCHAR}, #{repairUptime,jdbcType=TIMESTAMP}, 
       #{repairEndtime,jdbcType=TIMESTAMP}, #{statusId,jdbcType=INTEGER}, #{managerId,jdbcType=INTEGER}
       )
   </insert>
@@ -110,7 +124,7 @@
         #{repairFeedback,jdbcType=VARCHAR},
       </if>
       <if test="repairUptime != null" >
-        #{repairUptime,jdbcType=VARCHAR},
+        #{repairUptime,jdbcType=TIMESTAMP},
       </if>
       <if test="repairEndtime != null" >
         #{repairEndtime,jdbcType=TIMESTAMP},
@@ -148,7 +162,7 @@
         repair_feedback = #{repairFeedback,jdbcType=VARCHAR},
       </if>
       <if test="repairUptime != null" >
-        repair_uptime = #{repairUptime,jdbcType=VARCHAR},
+        repair_uptime = #{repairUptime,jdbcType=TIMESTAMP},
       </if>
       <if test="repairEndtime != null" >
         repair_endtime = #{repairEndtime,jdbcType=TIMESTAMP},
@@ -171,7 +185,7 @@
       repair_describe = #{repairDescribe,jdbcType=VARCHAR},
       repair_picture = #{repairPicture,jdbcType=VARCHAR},
       repair_feedback = #{repairFeedback,jdbcType=VARCHAR},
-      repair_uptime = #{repairUptime,jdbcType=VARCHAR},
+      repair_uptime = #{repairUptime,jdbcType=TIMESTAMP},
       repair_endtime = #{repairEndtime,jdbcType=TIMESTAMP},
       status_id = #{statusId,jdbcType=INTEGER},
       manager_id = #{managerId,jdbcType=INTEGER}

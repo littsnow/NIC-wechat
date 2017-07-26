@@ -6,4 +6,5 @@ import com.litt.nic.pojo.repair;
 
 public interface IRepairService {
  List<repair>  findAllRP();
+ List<repair> findByMutilInfo(String key, String value);
 }

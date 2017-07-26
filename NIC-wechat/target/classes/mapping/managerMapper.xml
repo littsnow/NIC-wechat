@@ -7,9 +7,10 @@
     <result column="manager_telephone" property="managerTelephone" jdbcType="VARCHAR" />
     <result column="manager_duty" property="managerDuty" jdbcType="VARCHAR" />
     <result column="manager_typ" property="managerTyp" jdbcType="INTEGER" />
+    <result column="manager_password" property="managerPassword" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    manager_id, manager_name, manager_telephone, manager_duty, manager_typ
+    manager_id, manager_name, manager_telephone, manager_duty, manager_typ, manager_password
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -23,9 +24,11 @@
   </delete>
   <insert id="insert" parameterType="com.litt.nic.pojo.manager" >
     insert into nic_manager (manager_id, manager_name, manager_telephone, 
-      manager_duty, manager_typ)
+      manager_duty, manager_typ, manager_password
+      )
     values (#{managerId,jdbcType=INTEGER}, #{managerName,jdbcType=VARCHAR}, #{managerTelephone,jdbcType=VARCHAR}, 
-      #{managerDuty,jdbcType=VARCHAR}, #{managerTyp,jdbcType=INTEGER})
+      #{managerDuty,jdbcType=VARCHAR}, #{managerTyp,jdbcType=INTEGER}, #{managerPassword,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.litt.nic.pojo.manager" >
     insert into nic_manager
@@ -45,6 +48,9 @@
       <if test="managerTyp != null" >
         manager_typ,
       </if>
+      <if test="managerPassword != null" >
+        manager_password,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="managerId != null" >
@@ -61,6 +67,9 @@
       </if>
       <if test="managerTyp != null" >
         #{managerTyp,jdbcType=INTEGER},
+      </if>
+      <if test="managerPassword != null" >
+        #{managerPassword,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -79,6 +88,9 @@
       <if test="managerTyp != null" >
         manager_typ = #{managerTyp,jdbcType=INTEGER},
       </if>
+      <if test="managerPassword != null" >
+        manager_password = #{managerPassword,jdbcType=VARCHAR},
+      </if>
     </set>
     where manager_id = #{managerId,jdbcType=INTEGER}
   </update>
@@ -87,7 +99,8 @@
     set manager_name = #{managerName,jdbcType=VARCHAR},
       manager_telephone = #{managerTelephone,jdbcType=VARCHAR},
       manager_duty = #{managerDuty,jdbcType=VARCHAR},
-      manager_typ = #{managerTyp,jdbcType=INTEGER}
+      manager_typ = #{managerTyp,jdbcType=INTEGER},
+      manager_password = #{managerPassword,jdbcType=VARCHAR}
     where manager_id = #{managerId,jdbcType=INTEGER}
   </update>
 </mapper>

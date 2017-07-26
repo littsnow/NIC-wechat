@@ -9,6 +9,8 @@ public class user {
 
     private String userDepartment;
 
+    private String userOpenid;
+
     public Integer getUserId() {
         return userId;
     }
@@ -39,5 +41,13 @@ public class user {
 
     public void setUserDepartment(String userDepartment) {
         this.userDepartment = userDepartment == null ? null : userDepartment.trim();
+    }
+
+    public String getUserOpenid() {
+        return userOpenid;
+    }
+
+    public void setUserOpenid(String userOpenid) {
+        this.userOpenid = userOpenid == null ? null : userOpenid.trim();
     }
 }

@@ -29,8 +29,8 @@
   </ul>   
   <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
   <ul>
-    <li><a href="list.html" target="right"><span class="icon-caret-right"></span>内容管理</a></li>
-    <li><a href="add.html" target="right"><span class="icon-caret-right"></span>添加内容</a></li>
+    <li><a href="${pageContext.request.contextPath}/serviceDock/showList" target="right"><span class="icon-caret-right"></span>业务对接</a></li>
+    <li><a href="/1.jsp" target="right"><span class="icon-caret-right"></span>添加内容</a></li>
     <li><a href="cate.html" target="right"><span class="icon-caret-right"></span>分类管理</a></li>        
   </ul>  
 </div>

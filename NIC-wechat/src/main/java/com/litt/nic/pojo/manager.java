@@ -1,3 +1,4 @@
+
 package com.litt.nic.pojo;
 
 public class manager {
@@ -61,3 +62,4 @@ public class manager {
         this.managerPassword = managerPassword == null ? null : managerPassword.trim();
     }
 }
+

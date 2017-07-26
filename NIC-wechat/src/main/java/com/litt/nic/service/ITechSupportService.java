@@ -7,4 +7,5 @@ import com.litt.nic.pojo.techsupport;
 
 public interface ITechSupportService {
      List<techsupport> findAllTS();
+     List<techsupport> findByMutilInfo(String key,String val);
 }
