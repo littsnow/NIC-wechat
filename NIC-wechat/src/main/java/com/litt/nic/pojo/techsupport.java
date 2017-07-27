@@ -19,9 +19,9 @@ public class techsupport {
 
     private String techsupportFeedback;
 
-    private String techsupportUptime;
+    private Date techsupportUptime;
 
-    private String techsupportEndtime;
+    private Date techsupportEndtime;
 
     private Integer statusId;
 
@@ -91,7 +91,7 @@ public class techsupport {
         this.techsupportFeedback = techsupportFeedback == null ? null : techsupportFeedback.trim();
     }
 
-   /* public Date getTechsupportUptime() {
+    public Date getTechsupportUptime() {
         return techsupportUptime;
     }
 
@@ -106,29 +106,12 @@ public class techsupport {
     public void setTechsupportEndtime(Date techsupportEndtime) {
         this.techsupportEndtime = techsupportEndtime;
     }
-*/
-    
+
     public Integer getStatusId() {
         return statusId;
     }
 
-    public String getTechsupportUptime() {
-		return techsupportUptime;
-	}
-
-	public void setTechsupportUptime(String techsupportUptime) {
-		this.techsupportUptime = techsupportUptime;
-	}
-
-	public String getTechsupportEndtime() {
-		return techsupportEndtime;
-	}
-
-	public void setTechsupportEndtime(String techsupportEndtime) {
-		this.techsupportEndtime = techsupportEndtime;
-	}
-
-	public void setStatusId(Integer statusId) {
+    public void setStatusId(Integer statusId) {
         this.statusId = statusId;
     }
 

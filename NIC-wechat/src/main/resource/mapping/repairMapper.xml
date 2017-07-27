@@ -19,23 +19,6 @@
     repair_id, user_id, repair_department, repair_devicename, repair_location, repair_describe, 
     repair_picture, repair_feedback, repair_uptime, repair_endtime, status_id, manager_id
   </sql>
-  <select id="selectAllRP" resultMap="BaseResultMap">
-     select * from nic_repair
-  </select>
-   <select id="selectRPMultiInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
-  select * from nic_repair  
-  <where>
-     <if test="key=='department'">
-     repair_department like CONCAT('%',#{val},'%')
-     </if>
-     <if test="key=='address'">
-     repair_location like CONCAT('%',#{val},'%')
-     </if>
-     <if test="key=='uptime'">
-      repair_uptime like CONCAT('%',#{val},'%')
-     </if>
-     </where>
-     </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
