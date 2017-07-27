@@ -19,9 +19,9 @@ public class repair {
 
     private String repairFeedback;
 
-    private String repairUptime;
+    private Date repairUptime;
 
-    private String repairEndtime;
+    private Date repairEndtime;
 
     private Integer statusId;
 
@@ -91,39 +91,21 @@ public class repair {
         this.repairFeedback = repairFeedback == null ? null : repairFeedback.trim();
     }
 
-   /* public Date getRepairUptime() {
+    public Date getRepairUptime() {
         return repairUptime;
     }
 
     public void setRepairUptime(Date repairUptime) {
         this.repairUptime = repairUptime;
-    }*/
-    
+    }
 
-  /*  public Date getRepairEndtime() {
+    public Date getRepairEndtime() {
         return repairEndtime;
-    }*/
-    
+    }
 
-    public String getRepairUptime() {
-		return repairUptime;
-	}
-
-	public String getRepairEndtime() {
-		return repairEndtime;
-	}
-
-	public void setRepairEndtime(String repairEndtime) {
-		this.repairEndtime = repairEndtime;
-	}
-
-	public void setRepairUptime(String repairUptime) {
-		this.repairUptime = repairUptime;
-	}
-
-	/*public void setRepairEndtime(Date repairEndtime) {
+    public void setRepairEndtime(Date repairEndtime) {
         this.repairEndtime = repairEndtime;
-    }*/
+    }
 
     public Integer getStatusId() {
         return statusId;

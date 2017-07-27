@@ -20,29 +20,6 @@
     maintenance_describe, maintenance_picture, maintenance_feedback, maintenance_uptime, 
     maintenance_endtime, status_id, manager_id
   </sql>
-  <select id="selectAllMT" resultMap="BaseResultMap">
-    select * from nic_maintenance 
-  </select>
-  <select id="selectMTMultiInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
-  select * from nic_maintenance  
-  <where>
-     <if test="key=='department'">
-     maintenance_department like CONCAT('%',#{val},'%')
-     </if>
-     <if test="key=='address'">
-     maintenance_location like CONCAT('%',#{val},'%')
-     </if>
-     <if test="key=='uptime'">
-      maintenance_uptime like CONCAT('%',#{val},'%')
-     </if>
-   <!--   <if test="key='keyword'">
-     maintenance_department like CONCAT('%',#{val},'%') or maintenance_equipment like CONCAT('%',#{val},'%') or maintenance_location like CONCAT('%',#{val},'%') 
-     or maintenance_describe like CONCAT('%',#{val},'%') or maintenance_feedback like CONCAT('%',#{val},'%') or maintenance_uptime like CONCAT('%',#{val},'%') 
-     or maintenance_endtime like CONCAT('%',#{val},'%')  
-      
-     </if> -->
-    </where>
-  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
