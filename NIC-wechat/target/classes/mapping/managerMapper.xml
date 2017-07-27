@@ -18,6 +18,14 @@
     from nic_manager
     where manager_id = #{managerId,jdbcType=INTEGER}
   </select>
+  
+  <select id="selectByNamePsw" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from nic_manager
+    where manager_name = #{0} and manager_password = #{1}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from nic_manager
     where manager_id = #{managerId,jdbcType=INTEGER}

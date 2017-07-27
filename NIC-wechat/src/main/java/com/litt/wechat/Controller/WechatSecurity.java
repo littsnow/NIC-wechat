@@ -1,6 +1,7 @@
 package com.litt.wechat.Controller;
 
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.litt.wechat.Dispatcher.EventDispatcher;
+import com.litt.wechat.Dispatcher.MsgDispatcher;
+import com.litt.wechat.Util.MenuMain;
+import com.litt.wechat.Util.MessageUtil;
 import com.litt.wechat.Util.SignUtil;
-
-
  
  
 @Controller
@@ -30,7 +33,6 @@ public class WechatSecurity {
      * @param @param timestamp
      * @param @param nonce
      * @param @param echostr
-     * @author dapengniao
      * @date 2016年3月4日 下午6:20:00
      */
     @RequestMapping(value = "security", method = RequestMethod.GET)
@@ -55,8 +57,29 @@ public class WechatSecurity {
     }
  
     @RequestMapping(value = "security", method = RequestMethod.POST)
-    // post方法用于接收微信服务端消息
-    public void DoPost() {
-        System.out.println("这是post方法！");
+    public void DoPost(HttpServletRequest request,HttpServletResponse response) {
+    	
+        try{
+        	// 将请求、响应的编码均设置为UTF-8（防止中文乱码）  
+            request.setCharacterEncoding("UTF-8");  
+            response.setCharacterEncoding("UTF-8");  
+            
+            Map<String, String> map=MessageUtil.parseXml(request);
+            String msgtype=map.get("MsgType");
+            if(MessageUtil.REQ_MESSAGE_TYPE_EVENT.equals(msgtype)){
+                EventDispatcher.processEvent(map); //进入事件处理
+            }else{
+                String msg = MsgDispatcher.processMessage(map); //进入消息处理
+                
+                
+                // 响应消息  
+                   PrintWriter out = response.getWriter();  
+                   out.print(msg);  
+                   out.close(); 
+            }
+        }catch(Exception e){
+            logger.error(e,e);
+        }
+     
     }
 }
