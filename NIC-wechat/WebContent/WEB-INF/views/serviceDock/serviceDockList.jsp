@@ -16,12 +16,12 @@
 <script type="text/javascript">
 //搜索
 $(function(){
-	/* alert("asdfghjhnbvcx"); */
+	 /* alert("asdfghjhnbvcx");  */
 	$("#searchArticleForm").off();
 	$("#searchArticleForm").on("submit",function(){
 		var key=$(this).find("select[name=key]").val();
 		var val=$(this).find("input[name=val]").val();
-		/* alert(key+","+val); */
+		/* alert(key+","+val);  */
 		
 		$(".panel").load("${pageContext.request.contextPath }/serviceDock/searchLists",{
 			key:key,
@@ -30,18 +30,18 @@ $(function(){
 		//阻止表单默认行为 （提交）
 		return false;
 	});
+	
 });
+
 </script>
 </head>
 <body>
-<%-- <form method="post" action="${pageContext.request.contextPath }/serviceDock/searchLists" id="listform"> --%>
   <div class="panel admin-panel">
     <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
    <form role="search" id="searchArticleForm">
     <div class="padding border-bottom ">
       <ul class="search" style="padding-left:10px;">
       
-       <!--  <if condition="$iscid eq 1"> -->
           <li>
             <select name="key" class="input" style="width:200px; line-height:17px;">
               <option value="">请选择分类</option> 
@@ -52,61 +52,97 @@ $(function(){
              <!--  <option value="keyword">关键字筛选</option> -->
             </select>
           </li>
-       <!--  </if> -->
         <li>
           <input type="text" placeholder="请输入搜索关键字" name="val" class="input" style="width:250px; line-height:17px;display:inline-block" />
-          <!-- <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()" > 搜索</a> -->
           <input type="submit" class="button border-main icon-search" value="查询" />
           </li>
       </ul>
     </div>
 </form>
     <div>
-    <c:if test="${! empty tsList}">
-    <div >
-    <p style="margin-left: 19px;margin-top: 4px;font-size: 14px;">1. 技术支持</p>
-    
-    <table class="table table-hover text-center" style="margin: 0 auto;align:center;margin-top: -10px;">
+ 
+    <div id="divtable">
+    <table class="table table-hover text-center" style="margin: 0 auto;align:center;margin-top: 10px;">
       <tr>
         <th style="text-align:left; padding-left:20px;">序号</th>
         <th>联系人</th>
-        <th>相关照片</th>
+        <th>业务类型</th>
+        <th>设备名称</th>
         <th>部门</th>
         <th>具体地点</th>
-       <!--  <th>需求描述</th> -->
         <th>提交时间</th>
         <th>完成时间</th>
         <th>进度</th>
         <th>处理人</th>
+        <th>操作</th>
       </tr>
-      <c:forEach items="${tsList }" var="s" varStatus="a">
+      <c:forEach items="${tsList }" var="t" varStatus="a">
         <tr>
         <!--   <td style="text-align:left; padding-left:20px;"><input type="checkbox" name="id[]" value="" />
            1</td> -->
-           <td>${a.index+1}</td>
-          <td>${s.userId}</td>
-          <td width="10%"><img src="<%-- ${s.techsupportPicture } --%>" alt="" width="70" height="50" /></td>
-          <td>${s.techsupportDepartment}</td>
-          <td>${s.techsupportLocation}</td>
-         <%--  <td> ${s.techsupportDescribe}</td> --%>
-          <td>${s.techsupportUptime}</td>
-          <c:if test="${! empty  s.techsupportEndtime}">
-          <td>${s.techsupportEndtime}</td>
+           <td id="ts">${a.index+1}</td>
+          <td>${tsUser[a.index]}</td>
+          <td>技术支持</td>
+          <td></td>
+          <td>${t.techsupportDepartment}</td>
+          <td>${t.techsupportLocation}</td>
+          <td>${t.techsupportUptime}</td>
+          <c:if test="${! empty  t.techsupportEndtime}">
+          <td>${t.techsupportEndtime}</td>
           </c:if>
-          <c:if test="${empty s.techsupportEndtime }">
+          <c:if test="${empty t.techsupportEndtime }">
           <td></td>
           </c:if>
           <td>${tsStatus[a.index]}</td>
           <td>${tsManager[a.index]}</td>
+          <td><a href="#########">编辑</a></td>
+        </tr>
+         </c:forEach> 
+   		<c:forEach items="${rpList }" var="r" varStatus="c" >
+        <tr>
+        <!--   <td style="text-align:left; padding-left:20px;"><input type="checkbox" name="id[]" value="" />
+           1</td> -->
+           <td id="rp">${(c.index+1)+(tsLen)}</td>
+          <td>${rpUser[c.index]}</td>
+          <td>设备报修</td>
+          <td>${r.repairDevicename}</td>
+          <td>${r.repairDepartment}</td>
+          <td>${r.repairLocation}</td>
+          <td>${r.repairUptime}</td>
+          <c:if test="${!empty r.repairEndtime }">
+          <td>${r.repairEndtime}</td></c:if>
+          <c:if test="${empty r.repairEndtime }">
+          <td></td></c:if>
+          <td>${rpStatus[c.index]}</td>
+          <td>${rpManager[c.index]}</td>
+          <td><a href="#########">编辑</a></td>
+        </tr>
+       </c:forEach> 
+   		 <c:forEach items="${mtList }" var="m"  varStatus="b">
+        <tr>
+          <td id="mt">${(b.index+1)+(tsLen)+(rpLen)}
+          </td>
+          <td>${mtUser[b.index]}</td>
+          <td>日常运维</td>
+          <td>${m.maintenanceDevicename}</td>
+          <td>${m.maintenanceDepartment}</td>
+          <td>${m.maintenanceLocation}</td>
+          <td>${m.maintenanceUptime}</td>
+          <c:if test="${!empty m.maintenanceEndtime}">
+          <td>${m.maintenanceEndtime}</td></c:if>
+          <c:if test="${empty m.maintenanceEndtime}">
+          <td></td>
+          </c:if>
+          <td>${mtStatus[b.index]}</td>
+          <td>${mtManager[b.index]}</td>
+          <td><a href="#########">编辑</a></td>
         </tr>
        </c:forEach> 
    		</table>
-   		</div>
-   		</c:if>
    		
-   		<c:if test="${! empty rpList}">
+   		
+   		<%-- <c:if test="${! empty rpList}">
     <div>
-    <p style="margin-left: 19px;margin-top: 4px;font-size: 14px;">2. 设备报修</p>
     
     <table class="table table-hover text-center" style="margin: 0 auto;align:center;margin-top: -10px;">
       <tr>
@@ -128,11 +164,11 @@ $(function(){
            1</td> -->
            <td>${a.index+1}</td>
           <td>${s.userId}</td>
-          <td width="10%"><img src="<%-- ${s.repairPicture } --%>" alt="" width="70" height="50" /></td>
+          <td width="10%"><img src="${s.repairPicture }" alt="" width="70" height="50" /></td>
           <td>${s.repairDevicename}</td>
           <td>${s.repairDepartment}</td>
           <td>${s.repairLocation}</td>
-          <%-- <td>${s.repairDescribe}</td> --%>
+          <td>${s.repairDescribe}</td>
           <td>${s.repairUptime}</td>
           <c:if test="${!empty s.repairEndtime }">
           <td>${s.repairEndtime}</td></c:if>
@@ -171,11 +207,11 @@ $(function(){
            1</td> -->
           <td>${a.index+1}</td>
           <td>${s.userId}</td>
-          <td width="10%"><img src="<%-- ${s.maintenancePicture } --%>" alt="" width="70" height="50" /></td>
+          <td width="10%"><img src="${s.maintenancePicture }" alt="" width="70" height="50" /></td>
           <td>${s.maintenanceDevicename}</td>
           <td>${s.maintenanceDepartment}</td>
           <td>${s.maintenanceLocation}</td>
-        <%--   <td>${s.maintenanceDescribe}</td> --%>
+          <td>${s.maintenanceDescribe}</td>
           <td>${s.maintenanceUptime}</td>
           <c:if test="${!empty s.maintenanceEndtime}">
           <td>${s.maintenanceEndtime}</td></c:if>
@@ -187,15 +223,16 @@ $(function(){
        </c:forEach> 
    		</table>
    		</c:if>
-   		</div>
+   		</div>--%>
    		
-   		</div>
+   		</div> 
    		<div>
       <table class="table table-hover text-center">
       <tr>
         <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
       </tr>
     </table>
+    </div>
   </div>
   </div>
 <!-- </form> -->

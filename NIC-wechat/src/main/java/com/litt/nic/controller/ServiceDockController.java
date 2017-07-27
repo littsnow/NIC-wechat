@@ -19,6 +19,7 @@ import com.litt.nic.service.IManagerService;
 import com.litt.nic.service.IRepairService;
 import com.litt.nic.service.IStatusService;
 import com.litt.nic.service.ITechSupportService;
+import com.litt.nic.service.IUserService;
 
 /**
  * 业务对接
@@ -39,6 +40,8 @@ public class ServiceDockController {
 	private IStatusService statusService;
 	@Autowired
 	private IManagerService managerService;
+	@Autowired
+	private IUserService userService;
 	
 	private List<techsupport> techSupportList;
 	private List<repair> repairList;
@@ -46,12 +49,15 @@ public class ServiceDockController {
 	
 	List<String> tsStatusList = new ArrayList<String>();
 	List<String> tsManagerList = new ArrayList<String>();
+	List<String> tsUserList=new ArrayList<String>();
 	
 	List<String> rpStatusList=new ArrayList<String>();
 	List<String> rpManagerList=new ArrayList<String>();
+	List<String> rpUserList=new ArrayList<String>();
 	
 	List<String> mtStatusList=new ArrayList<String>();
 	List<String> mtManagerList=new ArrayList<String>();
+	List<String> mtUserList=new ArrayList<String>();
 	
 	/**
 	 * 搜索全部信息
@@ -66,10 +72,18 @@ public class ServiceDockController {
 		 techSupportList=techSupportService.findAllTS();
 		 repairList=repairService.findAllRP();
 		 mainTenList=mainTenanceService.findAllMT();
-		getMTLists(request, mainTenList);
+		if(techSupportList.isEmpty()&&repairList.isEmpty()&&mainTenList.isEmpty())
+		{
+			return "/jsp/error/null";
+			
+		}else{
+		 getMTLists(request, mainTenList);
 		getRPLists(request, repairList);
 		getTSLists(request, techSupportList);
-		return "/WEB-INF/views/serviceDock/serviceDockList"; 
+		return "/WEB-INF/views/serviceDock/serviceDockList";
+		}
+			
+	
 	}
 	/**
 	 * 搜索表单
@@ -85,20 +99,20 @@ public class ServiceDockController {
 		System.out.println("key="+key+"value="+value);
 		if(key!=null)
 		{
-			techSupportList=techSupportService.findByMutilInfo(key, value);
-			mainTenList=mainTenanceService.findByMutiInfo(key, value);
-		    repairList=repairService.findByMutilInfo(key, value);
 			//key是否匹配给定的正则表达式
 			if(key.equals("service"))
 			{
 				switch (value) {
 				case "技术支持":
+					techSupportList=techSupportService.findByMutilInfo(key, value);
 					getTSLists(request,techSupportList);
 					break;
 				case "设备报修":
+					 repairList=repairService.findByMutilInfo(key, value);
 					 getRPLists(request, repairList);
 					 break;
 				case "日常运维":
+					mainTenList=mainTenanceService.findByMutiInfo(key, value);
 					getMTLists(request, mainTenList);
 				default:
 					break;
@@ -106,7 +120,10 @@ public class ServiceDockController {
 				return "/WEB-INF/views/serviceDock/serviceDockList"; 
 			}else
 			{
-				getTSLists(request,techSupportList);
+				techSupportList=techSupportService.findByMutilInfo(key, value);
+				 repairList=repairService.findByMutilInfo(key, value);
+				 mainTenList=mainTenanceService.findByMutiInfo(key, value);
+				 getTSLists(request,techSupportList);
 				 getRPLists(request, repairList);
 				 getMTLists(request, mainTenList);
 			}
@@ -123,10 +140,14 @@ public class ServiceDockController {
 		{
 			tsStatusList.add(statusService.findById(techSupportList.get(i).getStatusId()).getStatusName());
 			tsManagerList.add(managerService.findById(techSupportList.get(i).getManagerId()).getManagerName());
+			tsUserList.add(userService.findById(techSupportList.get(i).getUserId()).getUserName());
 		}
+		System.out.println("tsList="+techSupportList);
 		request.setAttribute("tsStatus", tsStatusList);
 		request.setAttribute("tsManager", tsManagerList);
 		request.setAttribute("tsList", techSupportList);
+		request.setAttribute("tsUser", tsUserList);
+		request.setAttribute("tsLen", techSupportList.size());
 	}
 	public void getRPLists(HttpServletRequest request,List<repair> repairList)
 	{
@@ -134,10 +155,14 @@ public class ServiceDockController {
 			{
 				rpStatusList.add(statusService.findById(repairList.get(i).getStatusId()).getStatusName());
 				rpManagerList.add(managerService.findById(repairList.get(i).getManagerId()).getManagerName());
+				rpUserList.add(userService.findById(repairList.get(i).getUserId()).getUserName());
 			}
+		 System.out.println("rpList="+repairList);
 			request.setAttribute("rpList", repairList);
 			request.setAttribute("rpStatus", rpStatusList);
 			request.setAttribute("rpManager", rpManagerList);
+			request.setAttribute("rpUser", rpUserList);
+			request.setAttribute("rpLen", repairList.size());
 	}
 	public void getMTLists(HttpServletRequest request,List<maintenance> mainTenList)
 	{
@@ -145,17 +170,15 @@ public class ServiceDockController {
 		{
 			mtManagerList.add(managerService.findById(mainTenList.get(i).getManagerId()).getManagerName());
 			mtStatusList.add(statusService.findById(mainTenList.get(i).getStatusId()).getStatusName());
+			mtUserList.add(userService.findById(mainTenList.get(i).getUserId()).getUserName());
 		}
 		request.setAttribute("mtList", mainTenList);
 		request.setAttribute("mtStatus", mtStatusList);
 		request.setAttribute("mtManager", mtManagerList);
+		request.setAttribute("mtUser", mtUserList);
+		request.setAttribute("mtLen", mainTenList.size());
 		
 	}
 	
-	public String dateToSTring()
-	{
-		
-		return null;
-		
-	}
+
 }
