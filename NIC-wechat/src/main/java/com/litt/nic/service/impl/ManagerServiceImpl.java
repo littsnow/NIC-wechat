@@ -6,14 +6,21 @@ import org.springframework.stereotype.Service;
 import com.litt.nic.Dao.managerMapper;
 import com.litt.nic.pojo.manager;
 import com.litt.nic.service.IManagerService;
+
 @Service
-public class ManagerServiceImpl implements IManagerService{
-@Autowired
-private managerMapper managerMapper;
-	
+public class ManagerServiceImpl implements IManagerService {
+	@Autowired
+	private managerMapper managerMapper;
+
 	public manager findById(int id) {
 		// TODO Auto-generated method stub
 		return managerMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public manager findByNamePsw(String name, String psw) {
+		// TODO Auto-generated method stub
+		return managerMapper.selectByNamePsw(name, psw);
 	}
 
 }

@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.litt.nic.Dao.managerMapper" >
@@ -19,6 +18,14 @@
     from nic_manager
     where manager_id = #{managerId,jdbcType=INTEGER}
   </select>
+  
+  <select id="selectByNamePsw" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from nic_manager
+    where manager_name = #{0} and manager_password = #{1}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from nic_manager
     where manager_id = #{managerId,jdbcType=INTEGER}
