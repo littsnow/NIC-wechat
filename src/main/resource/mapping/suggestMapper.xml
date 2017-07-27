@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.litt.nic.Dao.suggestMapper" >
+  <resultMap id="BaseResultMap" type="com.litt.nic.pojo.suggest" >
+    <id column="suggest_id" property="suggestId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="suggest_title" property="suggestTitle" jdbcType="VARCHAR" />
+    <result column="suggest_content" property="suggestContent" jdbcType="VARCHAR" />
+    <result column="suggest_time" property="suggestTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    suggest_id, user_id, suggest_title, suggest_content, suggest_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from nic_suggest
+    where suggest_id = #{suggestId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from nic_suggest
+    where suggest_id = #{suggestId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.litt.nic.pojo.suggest" >
+    insert into nic_suggest (suggest_id, user_id, suggest_title, 
+      suggest_content, suggest_time)
+    values (#{suggestId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{suggestTitle,jdbcType=VARCHAR}, 
+      #{suggestContent,jdbcType=VARCHAR}, #{suggestTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.litt.nic.pojo.suggest" >
+    insert into nic_suggest
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="suggestId != null" >
+        suggest_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="suggestTitle != null" >
+        suggest_title,
+      </if>
+      <if test="suggestContent != null" >
+        suggest_content,
+      </if>
+      <if test="suggestTime != null" >
+        suggest_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="suggestId != null" >
+        #{suggestId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="suggestTitle != null" >
+        #{suggestTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestContent != null" >
+        #{suggestContent,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestTime != null" >
+        #{suggestTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.litt.nic.pojo.suggest" >
+    update nic_suggest
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="suggestTitle != null" >
+        suggest_title = #{suggestTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestContent != null" >
+        suggest_content = #{suggestContent,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestTime != null" >
+        suggest_time = #{suggestTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where suggest_id = #{suggestId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.litt.nic.pojo.suggest" >
+    update nic_suggest
+    set user_id = #{userId,jdbcType=INTEGER},
+      suggest_title = #{suggestTitle,jdbcType=VARCHAR},
+      suggest_content = #{suggestContent,jdbcType=VARCHAR},
+      suggest_time = #{suggestTime,jdbcType=TIMESTAMP}
+    where suggest_id = #{suggestId,jdbcType=INTEGER}
+  </update>
+</mapper>
