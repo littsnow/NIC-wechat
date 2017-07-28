@@ -1,3 +1,4 @@
+
 package com.litt.nic.pojo;
 
 public class manager {
@@ -12,22 +13,11 @@ public class manager {
     private Integer managerTyp;
 
     private String managerPassword;
-    
-    public manager() {};
-    
-    public manager(Integer managerId,String managerName,String managerTelephone,String managerDuty,Integer managerTyp,String managerPassword) {
-    	this.setManagerId(managerId);
-    	this.setManagerName(managerName);
-    	this.setManagerTelephone(managerTelephone);
-    	this.setManagerDuty(managerDuty);
-    	this.setManagerTyp(managerTyp);
-    	this.setManagerPassword(managerPassword);
-    }
-    
+
     public Integer getManagerId() {
         return managerId;
     }
-    
+
     public void setManagerId(Integer managerId) {
         this.managerId = managerId;
     }
@@ -71,12 +61,5 @@ public class manager {
     public void setManagerPassword(String managerPassword) {
         this.managerPassword = managerPassword == null ? null : managerPassword.trim();
     }
-
-	@Override
-	public String toString() {
-		return "manager [managerId=" + managerId + ", managerName=" + managerName + ", managerTelephone="
-				+ managerTelephone + ", managerDuty=" + managerDuty + ", managerTyp=" + managerTyp
-				+ ", managerPassword=" + managerPassword + "]";
-	}
-    
 }
+

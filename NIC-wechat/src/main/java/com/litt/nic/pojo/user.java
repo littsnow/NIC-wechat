@@ -1,64 +1,53 @@
 package com.litt.nic.pojo;
 
 public class user {
-	private Integer userId;
+    private Integer userId;
 
-	private String userName;
+    private String userName;
 
-	private String userTelephone;
+    private String userTelephone;
 
-	private String userDepartment;
+    private String userDepartment;
 
-	private String userOpenid;
+    private String userOpenid;
 
-	public user() {
-	}
+    public Integer getUserId() {
+        return userId;
+    }
 
-	public user(Integer userId, String userName, String userTelephone, String userDepartment, String userOpenid) {
-		this.setUserId(userId);
-		this.setUserName(userName);
-		this.setUserTelephone(userTelephone);
-		this.setUserDepartment(userDepartment);
-		this.setUserOpenid(userOpenid);
-	}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
-	public Integer getUserId() {
-		return userId;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public String getUserTelephone() {
+        return userTelephone;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName == null ? null : userName.trim();
-	}
+    public void setUserTelephone(String userTelephone) {
+        this.userTelephone = userTelephone == null ? null : userTelephone.trim();
+    }
 
-	public String getUserTelephone() {
-		return userTelephone;
-	}
+    public String getUserDepartment() {
+        return userDepartment;
+    }
 
-	public void setUserTelephone(String userTelephone) {
-		this.userTelephone = userTelephone == null ? null : userTelephone.trim();
-	}
+    public void setUserDepartment(String userDepartment) {
+        this.userDepartment = userDepartment == null ? null : userDepartment.trim();
+    }
 
-	public String getUserDepartment() {
-		return userDepartment;
-	}
+    public String getUserOpenid() {
+        return userOpenid;
+    }
 
-	public void setUserDepartment(String userDepartment) {
-		this.userDepartment = userDepartment == null ? null : userDepartment.trim();
-	}
-
-	public String getUserOpenid() {
-		return userOpenid;
-	}
-
-	public void setUserOpenid(String userOpenid) {
-		this.userOpenid = userOpenid == null ? null : userOpenid.trim();
-	}
+    public void setUserOpenid(String userOpenid) {
+        this.userOpenid = userOpenid == null ? null : userOpenid.trim();
+    }
 }
