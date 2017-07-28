@@ -19,9 +19,9 @@ public class maintenance {
 
     private String maintenanceFeedback;
 
-    private Date maintenanceUptime;
+    private String maintenanceUptime;
 
-    private Date maintenanceEndtime;
+    private String maintenanceEndtime;
 
     private Integer statusId;
 
@@ -91,7 +91,7 @@ public class maintenance {
         this.maintenanceFeedback = maintenanceFeedback == null ? null : maintenanceFeedback.trim();
     }
 
-    public Date getMaintenanceUptime() {
+  /*  public Date getMaintenanceUptime() {
         return maintenanceUptime;
     }
 
@@ -105,13 +105,30 @@ public class maintenance {
 
     public void setMaintenanceEndtime(Date maintenanceEndtime) {
         this.maintenanceEndtime = maintenanceEndtime;
-    }
+    }*/
 
+    
     public Integer getStatusId() {
         return statusId;
     }
 
-    public void setStatusId(Integer statusId) {
+    public String getMaintenanceUptime() {
+		return maintenanceUptime;
+	}
+
+	public void setMaintenanceUptime(String maintenanceUptime) {
+		this.maintenanceUptime = maintenanceUptime;
+	}
+
+	public String getMaintenanceEndtime() {
+		return maintenanceEndtime;
+	}
+
+	public void setMaintenanceEndtime(String maintenanceEndtime) {
+		this.maintenanceEndtime = maintenanceEndtime;
+	}
+
+	public void setStatusId(Integer statusId) {
         this.statusId = statusId;
     }
 
