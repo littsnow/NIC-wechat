@@ -14,6 +14,15 @@
     from nic_status
     where status_id = #{statusId,jdbcType=INTEGER}
   </select>
+  <select id="findAllStatus" resultMap="BaseResultMap" >
+    select *
+    from nic_status
+  </select>
+  <select id="findByName" resultMap="BaseResultMap" >
+    select *
+    from nic_status
+    where status_name=#{statusName,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from nic_status
     where status_id = #{statusId,jdbcType=INTEGER}

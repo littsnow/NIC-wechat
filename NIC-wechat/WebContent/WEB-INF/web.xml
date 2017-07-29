@@ -46,6 +46,15 @@
 		<async-supported>true</async-supported>
 
 	</servlet>
+	
+	<servlet>
+        <servlet-name>initServlet</servlet-name>
+        <servlet-class>
+            com.litt.wechat.Util.Token.InitServlet
+        </servlet-class>
+        
+        <load-on-startup>0</load-on-startup>
+    </servlet>
 	<servlet-mapping>
 		<servlet-name>SpringMVC</servlet-name>
 		<!-- 此处可以可以配置成*.do，对应struts的后缀习惯 -->

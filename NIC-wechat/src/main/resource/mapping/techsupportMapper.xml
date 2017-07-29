@@ -23,6 +23,11 @@
   <select id="selectAllTS" resultMap="BaseResultMap">
     select * from nic_techsupport
   </select>
+   <select id="findAllUnfinished" resultMap="BaseResultMap">
+    select * from nic_techsupport 
+    where status_id= 1
+    
+  </select>
   <select id="selectTSMultiInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
   select * from nic_techsupport  
   <where>
@@ -133,10 +138,10 @@
         #{techsupportEndtime,jdbcType=TIMESTAMP},
       </if>
       <if test="statusId != null" >
-        #{statusId,jdbcType=INTEGER},
+        #{statusId},
       </if>
       <if test="managerId != null" >
-        #{managerId,jdbcType=INTEGER},
+        #{managerId},
       </if>
     </trim>
   </insert>
@@ -193,5 +198,20 @@
       status_id = #{statusId,jdbcType=INTEGER},
       manager_id = #{managerId,jdbcType=INTEGER}
     where techsupport_id = #{techsupportId,jdbcType=INTEGER}
+  </update>
+  <update id="updateStatus_id" parameterType="java.lang.Integer" >
+    update nic_techsupport
+    set status_id =#{1}
+    where techsupport_id = #{0} 
+  </update>
+  <update id="updateManager_id" parameterType="java.lang.Integer" >
+    update nic_techsupport
+    set manager_id =#{1}
+    where techsupport_id = #{0} 
+  </update>
+  <update id="updateEndTime"  >
+    update nic_techsupport
+    set techsupport_endtime =#{1}
+    where techsupport_id = #{0} 
   </update>
 </mapper>

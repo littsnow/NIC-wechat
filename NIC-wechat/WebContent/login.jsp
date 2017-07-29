@@ -35,6 +35,11 @@
                             <span class="icon icon-key margin-small"></span>
                         </div>
                     </div>
+                    <div class="">
+                        <div class=" " style="text-align: center;width: 330px;">
+                            <span class="" style="color: red;">${msg}</span>
+                        </div>
+                    </div>
                 </div>
                 <div style="padding:30px;"><input type="submit" class="button button-block bg-main text-big input-big" value="登录"></div>
             </div>
@@ -45,6 +50,3 @@
 
 </body>
 </html>
- <script> 
-alert("${msg}");
-</script>

@@ -1,5 +1,7 @@
 package com.litt.nic.Dao;
 
+import java.util.List;
+
 import com.litt.nic.pojo.manager;
 
 public interface managerMapper {
@@ -16,4 +18,11 @@ public interface managerMapper {
 	int updateByPrimaryKeySelective(manager record);
 
 	int updateByPrimaryKey(manager record);
+
+	List<manager> selectAllManager();
+
+	/**
+	 * 按名字查
+	 */
+	manager findByName(String name);
 }
