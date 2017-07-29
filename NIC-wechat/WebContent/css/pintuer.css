@@ -302,7 +302,7 @@ textarea.input{height:auto;}
 .form-group{padding-bottom:10px;}
 .field-icon .input{text-indent:25px;}
 .field-icon .icon{position:absolute;left:0;right:auto;width:34px;height:34px;text-align:center;line-height:34px;font-size:16px;font-weight:normal;}
-.field-icon-right .icon{position:absolute;right:0;top:0;width:34px;height:34px;text-align:center;line-height:34px;font-size:16px;font-weight:normal;}
+.field-icon-right .icon{position:absolute;right:0;top:0;width:34px;height:25px;text-align:center;line-height:34px;font-size:16px;font-weight:normal;}
 .form-x .form-group:after, .form-inline:after{clear:both;content:" ";display:block;height:0;overflow:hidden;visibility:hidden;}
 @media (min-width:760px){
 .form-x .form-group .label{float:left;width:15%;text-align:right;padding:7px 7px 7px 0;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
@@ -746,7 +746,7 @@ dd{padding:8px 0 15px 0;}
 .dl-inline dt{width:15%;display:inline-block;float:left;text-align:right;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
 .dl-inline dd{width:85%;display:inline-block;float:left;padding:0 0 15px 15px;}
 }
-.table{width:85%;max-width:100%;border-collapse:collapse;border-spacing:0;}
+.table{width:100%;max-width:100%;border-collapse:collapse;border-spacing:0;}
 .table th{border-bottom:2px solid #ddd;vertical-align:bottom;padding:5px;text-align:left;}
 .table td{border-top:1px solid #ddd;padding:8px;vertical-align:top;}
 .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th{background-color:#f9f9f9;}/*条纹-IE9以下无效果*/

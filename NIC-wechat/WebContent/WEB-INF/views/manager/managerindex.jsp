@@ -25,8 +25,16 @@
   <ul style="display:block">
     <li><a href="${pageContext.request.contextPath }/feedback/unfinishedlist" target="right"><span class="icon-caret-right"></span>待处理业务</a></li>
     <li><a href="info.html" target="right"><span class="icon-caret-right"></span>已完成业务</a></li>
-    <li><a href="${pageContext.request.contextPath }/" target="right"><span class="icon-caret-right"></span>发布消息</a></li>
+    <li><a href="info.html" target="right"><span class="icon-caret-right"></span>发布消息</a></li>
   </ul>   
+  <h2><span class="icon-user"></span>用户管理</h2>
+  <ul style="display:block" id="show">
+    <li><a href="${pageContext.request.contextPath }/manager/toadd" target="right"><span class="icon-caret-right"></span>添加用户</a></li>
+    <li><a href="${pageContext.request.contextPath }/manager/load" target="right"><span class="icon-caret-right"></span>查询用户</a></li>
+  </ul>
+  <ul>
+    <li><a href="${pageContext.request.contextPath}/" target="right"><span class="icon-caret-right"></span>相关报表</a></li>
+  </ul>
   <h2><span class="icon-user"></span>相关报表</h2>
   <ul>
     <li><a href="${pageContext.request.contextPath}/" target="right"><span class="icon-caret-right"></span>相关报表</a></li>
@@ -37,12 +45,12 @@ $(function(){
   $(".leftnav h2").click(function(){
 	  $(this).next().slideToggle(200);	
 	  $(this).toggleClass("on"); 
-  })
+  });
   $(".leftnav ul li a").click(function(){
 	    $("#a_leader_txt").text($(this).text());
   		$(".leftnav ul li a").removeClass("on");
 		$(this).addClass("on");
-  })
+  });
 });
 </script>
 <ul class="bread">

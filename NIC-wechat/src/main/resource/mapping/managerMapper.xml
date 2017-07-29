@@ -12,13 +12,22 @@
   <sql id="Base_Column_List" >
     manager_id, manager_name, manager_telephone, manager_duty, manager_typ, manager_password
   </sql>
+  <select id="findByName" resultMap="BaseResultMap" >
+    select *
+    from nic_manager
+    where manager_name= #{managerName,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from nic_manager
     where manager_id = #{managerId,jdbcType=INTEGER}
   </select>
-  
+   <select id="selectAllManager" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from nic_manager
+</select>
   <select id="selectByNamePsw" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />
