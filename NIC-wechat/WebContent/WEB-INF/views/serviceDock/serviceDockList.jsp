@@ -11,8 +11,11 @@
 <title></title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/pintuer.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/jquery.editable-select.min.css">
 <script src="${pageContext.request.contextPath }/js/jquery.js"></script>
 <script src="${pageContext.request.contextPath }/js/pintuer.js"></script>
+<!-- 可输入下拉框 --> 
+ <script src="${pageContext.request.contextPath }/js/jquery.editable-select.min.js"></script>
 <script type="text/javascript">
 //搜索
 $(function(){
@@ -20,20 +23,75 @@ $(function(){
 	$("#searchArticleForm").off();
 	$("#searchArticleForm").on("submit",function(){
 		var key=$(this).find("select[name=key]").val();
-		var val=$(this).find("input[name=val]").val();
-		/* alert(key+","+val);  */
 		
-		$(".panel").load("${pageContext.request.contextPath }/serviceDock/searchLists",{
-			key:key,
-			val:val
-		});
+		var val1=$(this).find("select[name=val]").val();
+		var val2=$(this).find("input[name=val]").val();
+		/* alert(key+","+val);  */
+		if(val1==null)
+			{
+			$(".panel").load("${pageContext.request.contextPath }/serviceDock/searchLists",{
+				key:key,
+				val:val2
+			});
+			}
+		else{
+			$(".panel").load("${pageContext.request.contextPath }/serviceDock/searchLists",{
+				key:key,
+				val:val1
+			});
+		}
+		
 		//阻止表单默认行为 （提交）
 		return false;
 	});
 	
 });
-
+/* alert("hhhhhhhhhhh"); */
+ //二级联动
+		
+	function btnChange(){
+		var childs=new Array();
+		var departname=new Array();
+		<c:forEach items="${dpNameList }" var="item">
+		departname.push("${item}");
+		/* alert("${item}"); */
+		</c:forEach>
+		var parentEle=document.getElementById("parent");	
+   
+	 /*   alert("进入了change方法"); */
+	 var childEle=document.getElementById("child");
+	childEle.innerHTML="";//每次进来先清空子搜索列表
+	/* alert("进入了"+parentEle.innerHTML) */;
+	var parentValue=parentEle.options[parentEle.selectedIndex].value;
+	/* alert("进入了123"+parentValue); */
+	switch(parentValue){
+	case "service":
+	     childs=['技术支持','设备报修','日常运维'];
+		break;
+	case"department":
+	     childs=departname;
+		break;
+	default:
+		var ddl=document.getElementById("child");
+	   ddl.style.display="none";
+	  
+	    $("#inputsearch").show();
+	    $("#inputsearch").style.display="inline-block";
+	    
+		
+	}
+	   for(var i=0;i<childs.length;i++){
+		   /* alert("for"); */
+           var option=document.createElement('option'); //先创建option
+           
+           var textNode=document.createTextNode(childs[i]); //再把城市名作为子节点填入，也可用innerHTML
+           childEle.appendChild(option);
+           option.text = childs[i];
+        
+       } 
+} 
 </script>
+
 </head>
 <body>
   <div class="panel admin-panel">
@@ -43,9 +101,9 @@ $(function(){
       <ul class="search" style="padding-left:10px;">
       
           <li>
-            <select name="key" class="input" style="width:200px; line-height:17px;">
+            <select  id="parent" onchange='btnChange();' name="key" class="input" style="width:200px; line-height:17px;">
               <option value="">请选择分类</option> 
-              <option value="service">业务类型(技术支持，设备报修，日常运维)</option>
+              <option value="service">业务类型</option>
               <option value="department">部门</option>
               <option value="address">地点</option>
               <option value="uptime">提交时间</option>
@@ -53,7 +111,10 @@ $(function(){
             </select>
           </li>
         <li>
-          <input type="text" placeholder="请输入搜索关键字" name="val" class="input" style="width:250px; line-height:17px;display:inline-block" />
+         <select id="child" type="text" name="val" class="input" style="width:250px;line-height:17px;display:inline-block;" >
+          <option value="">请下拉选择</option> 
+         </select>
+          <input id="inputsearch" type="text" placeholder="请输入搜索关键字" name="val" style="font-size:14px;padding:10px;border:solid 1px #ddd;border-radius:3px;width:250px; line-height:17px;display: none;" />
           <input type="submit" class="button border-main icon-search" value="查询" />
           </li>
       </ul>

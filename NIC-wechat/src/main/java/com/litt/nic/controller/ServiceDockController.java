@@ -11,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.litt.nic.Dao.repairMapper;
+import com.litt.nic.pojo.department;
 import com.litt.nic.pojo.maintenance;
 import com.litt.nic.pojo.repair;
 import com.litt.nic.pojo.techsupport;
+import com.litt.nic.service.IDepartmentService;
 import com.litt.nic.service.IMainTenanceService;
 import com.litt.nic.service.IManagerService;
 import com.litt.nic.service.IRepairService;
@@ -42,6 +44,8 @@ public class ServiceDockController {
 	private IManagerService managerService;
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private IDepartmentService departmentService;
 	
 	private List<techsupport> techSupportList;
 	private List<repair> repairList;
@@ -59,6 +63,9 @@ public class ServiceDockController {
 	List<String> mtManagerList=new ArrayList<String>();
 	List<String> mtUserList=new ArrayList<String>();
 	
+	List<department> departList=new ArrayList<department>();
+	List<String> departNameList=new ArrayList<String>();
+	
 	/**
 	 * 搜索全部信息
 	 * @param request
@@ -69,6 +76,8 @@ public class ServiceDockController {
 	@RequestMapping(value="/showList")
 	public String ShowServiceList(HttpServletRequest request, HttpServletResponse response)
 	{
+		 departList=departmentService.findAllInfo();
+		 
 		 techSupportList=techSupportService.findAllTS();
 		 repairList=repairService.findAllRP();
 		 mainTenList=mainTenanceService.findAllMT();
@@ -77,6 +86,7 @@ public class ServiceDockController {
 			return "/jsp/error/null";
 			
 		}else{
+			getDPNameList(request,departList);
 		 getMTLists(request, mainTenList);
 		getRPLists(request, repairList);
 		getTSLists(request, techSupportList);
@@ -120,12 +130,16 @@ public class ServiceDockController {
 				return "/WEB-INF/views/serviceDock/serviceDockList"; 
 			}else
 			{
+				
 				techSupportList=techSupportService.findByMutilInfo(key, value);
 				 repairList=repairService.findByMutilInfo(key, value);
 				 mainTenList=mainTenanceService.findByMutiInfo(key, value);
 				 getTSLists(request,techSupportList);
 				 getRPLists(request, repairList);
 				 getMTLists(request, mainTenList);
+				 departList=departmentService.findAllInfo();
+				 getDPNameList(request,departList);
+				 
 			}
 		return "/WEB-INF/views/serviceDock/serviceDockList"; 
 	}else
@@ -178,6 +192,14 @@ public class ServiceDockController {
 		request.setAttribute("mtUser", mtUserList);
 		request.setAttribute("mtLen", mainTenList.size());
 		
+	}
+	public void getDPNameList(HttpServletRequest request,List<department> departList)
+	{
+		for(int i=0;i<departList.size();i++)
+		{
+			departNameList.add(departList.get(i).getDepartmentName());
+		}
+		request.setAttribute("dpNameList", departNameList);
 	}
 	
 
