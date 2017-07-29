@@ -29,7 +29,7 @@
   </ul>   
   <h2><span class="icon-user"></span>相关报表</h2>
   <ul>
-    <li><a href="${pageContext.request.contextPath}/" target="right"><span class="icon-caret-right"></span>相关报表</a></li>
+    <li><a href="${pageContext.request.contextPath}/serviceDock/showList" target="right"><span class="icon-caret-right"></span>查看历史记录</a></li>
   </ul>  
 </div>
 <script type="text/javascript">
@@ -50,7 +50,7 @@ $(function(){
   <li><a href="##" id="a_leader_txt">网站信息</a></li>
 </ul>
 <div class="admin">
-  <iframe scrolling="auto" rameborder="0" src="${pageContext.request.contextPath}/serviceDock/showList" name="right" width="100%" height="100%"></iframe>
+  <iframe scrolling="auto" rameborder="0" src="${pageContext.request.contextPath}/feedback/unfinishedlist" name="right" width="100%" height="100%"></iframe>
 </div>
 </body>
 </html>
