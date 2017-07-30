@@ -55,8 +55,6 @@
      <if test="key=='uptime'">
       maintenance_uptime like CONCAT('%',#{val},'%') and status_id!=3
      </if>
-    </where>
-    </select>
      <if test="key=='endtime'">
       maintenance_endtime like CONCAT('%',#{val},'%')
      </if>

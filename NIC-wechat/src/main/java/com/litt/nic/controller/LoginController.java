@@ -16,7 +16,7 @@ import com.litt.nic.service.IManagerService;
 /**
  * 业务对接
  * 
- * @author ljx
+ * @author litt
  * 
  */
 @Controller

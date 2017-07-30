@@ -29,8 +29,9 @@ public class MsgDispatcher {
 		txtmsg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
 		System.out.println("来了哦");
 		if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) { // 文本消息
-			System.out.println("==============这是图片消息！");
+			System.out.println("==============这是文本消息！");
 			txtmsg.setContent("你好，这里是栗童童个人账号！");
+
 			return MessageUtil.textMessageToXml(txtmsg);
 		}
 
@@ -46,7 +47,7 @@ public class MsgDispatcher {
 			article.setDescription("这是图文消息1"); // 图文消息的描述
 			article.setPicUrl("http://res.cuiyongzhi.com/2016/03/201603086749_6850.png"); // 图文消息图片地址
 			article.setTitle("图文消息1"); // 图文消息标题
-			article.setUrl("http://www.baidu.com"); // 图文url链接
+			article.setUrl("http://cf887ed4.ngrok.io/NIC-wechat/login.jsp"); // 图文url链接
 			List<Article> list = new ArrayList<Article>();
 			list.add(article); // 这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
 			newmsg.setArticleCount(list.size());

@@ -1,5 +1,7 @@
 package com.litt.nic.pojo;
 
+import java.util.Date;
+
 public class user {
     private Integer userId;
 
@@ -10,6 +12,24 @@ public class user {
     private String userDepartment;
 
     private String userOpenid;
+
+    private Integer userSubscribe;
+
+    private Date userSubscribetime;
+
+    private String userNickname;
+
+    private Integer userSex;
+
+    private String userCountry;
+
+    private String userProvince;
+
+    private String userCity;
+
+    private String userLanguage;
+
+    private String userHeadimgurl;
 
     public Integer getUserId() {
         return userId;
@@ -49,5 +69,77 @@ public class user {
 
     public void setUserOpenid(String userOpenid) {
         this.userOpenid = userOpenid == null ? null : userOpenid.trim();
+    }
+
+    public Integer getUserSubscribe() {
+        return userSubscribe;
+    }
+
+    public void setUserSubscribe(Integer userSubscribe) {
+        this.userSubscribe = userSubscribe;
+    }
+
+    public Date getUserSubscribetime() {
+        return userSubscribetime;
+    }
+
+    public void setUserSubscribetime(Date userSubscribetime) {
+        this.userSubscribetime = userSubscribetime;
+    }
+
+    public String getUserNickname() {
+        return userNickname;
+    }
+
+    public void setUserNickname(String userNickname) {
+        this.userNickname = userNickname == null ? null : userNickname.trim();
+    }
+
+    public Integer getUserSex() {
+        return userSex;
+    }
+
+    public void setUserSex(Integer userSex) {
+        this.userSex = userSex;
+    }
+
+    public String getUserCountry() {
+        return userCountry;
+    }
+
+    public void setUserCountry(String userCountry) {
+        this.userCountry = userCountry == null ? null : userCountry.trim();
+    }
+
+    public String getUserProvince() {
+        return userProvince;
+    }
+
+    public void setUserProvince(String userProvince) {
+        this.userProvince = userProvince == null ? null : userProvince.trim();
+    }
+
+    public String getUserCity() {
+        return userCity;
+    }
+
+    public void setUserCity(String userCity) {
+        this.userCity = userCity == null ? null : userCity.trim();
+    }
+
+    public String getUserLanguage() {
+        return userLanguage;
+    }
+
+    public void setUserLanguage(String userLanguage) {
+        this.userLanguage = userLanguage == null ? null : userLanguage.trim();
+    }
+
+    public String getUserHeadimgurl() {
+        return userHeadimgurl;
+    }
+
+    public void setUserHeadimgurl(String userHeadimgurl) {
+        this.userHeadimgurl = userHeadimgurl == null ? null : userHeadimgurl.trim();
     }
 }

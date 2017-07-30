@@ -1,12 +1,7 @@
 package com.litt.wechat.Menu;
 
-/**
- * 菜单
- * 
- * @author liufeng
- * @date 2013-08-08
- */
 public class Menu {
+	// 一级菜单
 	private Button[] button;
 
 	public Button[] getButton() {
