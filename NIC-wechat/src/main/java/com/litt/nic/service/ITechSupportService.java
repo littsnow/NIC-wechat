@@ -25,9 +25,13 @@ public interface ITechSupportService {
 	 * @param techsupport_id
 	 * @param manager_id
 	 */
-	public void updateManager_id(int techsupport_id, int manager_id);
+	void updateManager_id(int techsupport_id, int manager_id);
 
-	public techsupport findById(Integer techsupportId);
+	techsupport findById(Integer techsupportId);
 
-	public void updateEndTime(int techsupport_id, String endtime);
+	void updateEndTime(int techsupport_id, String endtime);
+
+	void updateFeedback(int id, String info);
+
+	List<com.litt.nic.pojo.techsupport> findByEnd(String dateString);
 }

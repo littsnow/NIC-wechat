@@ -17,7 +17,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <div class="panel admin-panel">
-  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加内容</strong></div>
+  <div class="panel-head" id="add">
+  <strong><span class="icon-pencil-square-o"></span>发布新消息</strong></div>
   <div class="body-content">
     <form method="post" class="form-x" action="">  
       <div class="form-group">

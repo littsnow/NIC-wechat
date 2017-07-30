@@ -27,7 +27,7 @@ public interface techsupportMapper {
 	/**
 	 * 查询所有业务未完成的信息
 	 */
-	public List<techsupport> findAllUnfinished();
+	List<techsupport> findAllUnfinished();
 
 	/**
 	 * 修改状态
@@ -35,7 +35,7 @@ public interface techsupportMapper {
 	 * @param techsupport_id
 	 * @param status_id
 	 */
-	public void updateStatus_id(int techsupport_id, int status_id);
+	void updateStatus_id(int techsupport_id, int status_id);
 
 	/**
 	 * 修改负责人
@@ -43,7 +43,12 @@ public interface techsupportMapper {
 	 * @param techsupport_id
 	 * @param manager_id
 	 */
-	public void updateManager_id(int techsupport_id, int manager_id);
+	void updateManager_id(int techsupport_id, int manager_id);
 
-	public void updateEndTime(int techsupport_id, String endtime);
+	void updateEndTime(int techsupport_id, String endtime);
+
+	void updateFeedback(int id, String info);
+
+	List<techsupport> selectfinish(String dateString);
+
 }

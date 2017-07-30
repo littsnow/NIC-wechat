@@ -31,4 +31,8 @@ public interface IMainTenanceService {
 	 * @param manager_id
 	 */
 	public void updateManager_id(int maintenanceId, int manager_id);
+
+	void updateFeedback(int id, String info);
+
+	List<maintenance> findByEnd(String dateString);
 }

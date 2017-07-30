@@ -14,7 +14,7 @@
   <div class="logo margin-big-left fadein-top">
     <h1><img src="${pageContext.request.contextPath }/images/y.jpg" class="radius-circle rotate-hover" height="50" alt="" />网络信息管理中心</h1>
   </div>
-  <div class="head-l"><a class="button button-little bg-green" href="" target="_blank">
+  <div class="head-l"><a class="button button-little bg-green" href="${pageContext.request.contextPath }/feedback/unfinishedlist" target="_blank">
   <span class="icon-home"></span> 前台首页</a> &nbsp;&nbsp;
   <a class="button button-little bg-blue" href="${pageContext.request.contextPath }/login.jsp">
   <span class="icon-power-off"></span> 退出登录</a> </div>
@@ -24,7 +24,7 @@
   <h2><span class="icon-pencil-square-o"></span>业务办理</h2>
   <ul style="display:block">
     <li><a href="${pageContext.request.contextPath }/feedback/unfinishedlist" target="right"><span class="icon-caret-right"></span>待处理业务</a></li>
-    <li><a href="info.html" target="right"><span class="icon-caret-right"></span>已完成业务</a></li>
+    <li><a href="${pageContext.request.contextPath }/feedback/finishedlist" target="right"><span class="icon-caret-right"></span>已完成业务</a></li>
     <li><a href="${pageContext.request.contextPath }/" target="right"><span class="icon-caret-right"></span>发布消息</a></li>
   </ul>   
   <h2><span class="icon-user"></span>相关报表</h2>

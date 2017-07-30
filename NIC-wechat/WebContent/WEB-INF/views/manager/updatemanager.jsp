@@ -23,7 +23,7 @@
 
 	<div class="panel admin-panel">
 		<div class="panel-head">
-			<strong><span class="icon-key"></span> 注册</strong>
+			<strong><span class="icon-key"></span> 修改信息</strong>
 		</div>
 		<div class="body-content">
 			<form method="post" class="form-x"

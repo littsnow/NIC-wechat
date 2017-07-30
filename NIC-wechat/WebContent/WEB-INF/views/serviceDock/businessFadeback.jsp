@@ -105,7 +105,8 @@ $(function(){
 <body>
 	<%-- <form method="post" action="${pageContext.request.contextPath }/serviceDock/searchLists" id="listform"> --%>
 	<div class="panel admin-panel">
-		<div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
+		<div class="panel-head">
+		 </div>
    <form role="search" id="searchArticleForm">
     <div class="padding border-bottom ">
       <ul class="search" style="padding-left:10px;">
@@ -125,7 +126,7 @@ $(function(){
           <option value="">请下拉选择</option> 
          </select>
           <input id="inputsearch" type="text" placeholder="请输入搜索关键字" name="val" style="font-size:14px;padding:10px;border:solid 1px #ddd;border-radius:3px;width:250px; line-height:17px;display: none;" />
-          <input type="submit" class="button border-main icon-search" value="查询" />
+          <input type="submit" style="width: 60px;" class="button border-main icon-search" value="查询" />
           </li>
       </ul>
     </div>
@@ -180,9 +181,11 @@ $(function(){
 						</select></td>
 						<td>
 							<div class="button-group">
-									<a class="button border-main" style="padding: 2px 2px;"  href="" name="submit" onclick="document.getElementById('subform').submit();return false"> 
+									<a class="button border-main" style="padding: 2px 2px;" 
+									 href="" name="submit" onclick="document.getElementById('subform').submit();return false"> 
 									<span class="icon-edit"></span>提交</a>
-									<a class="button border-red" style="padding: 2px 2px;"> <span class="icon-edit"></span>反馈
+									<a class="button border-red" style="padding: 2px 2px;" 
+									href="${pageContext.request.contextPath }/feedback/toaddinfo?techsupportId=${s.techsupportId}"> <span class="icon-edit"></span>反馈
 									</a>
 								</div>
 							</td>
@@ -198,7 +201,7 @@ $(function(){
            1</td> -->
 							<td id="rp">${(b.index+1)+(tsLen)}</td>
 							<td><input type="hidden" name="repairId"
-								value="repairId"></td>
+								value="${s.repairId}"></td>
 							<td>${rpUser[b.index]}</td>
 							<td>设备报修</td>
 							<td>${s.repairDevicename}</td>
@@ -229,7 +232,8 @@ $(function(){
 								<div class="button-group">
 									<a class="button border-main" style="padding: 2px 2px;"  href="" name="submit" onclick="document.getElementById('subform').submit();return false"> 
 									<span class="icon-edit"></span>提交</a>
-									<a class="button border-red" style="padding: 2px 2px;"> <span class="icon-edit"></span>反馈
+									<a class="button border-red" style="padding: 2px 2px;"
+									href="${pageContext.request.contextPath }/feedback/toaddinfo?repairId=${s.repairId}"> <span class="icon-edit"></span>反馈
 									</a>
 								</div>
 							</td>
@@ -273,7 +277,8 @@ $(function(){
 							<div class="button-group">
 									<a class="button border-main" style="padding: 2px 2px;"  href="" name="submit" onclick="document.getElementById('subform').submit();return false"> 
 									<span class="icon-edit"></span>提交</a>
-									<a class="button border-red" style="padding: 2px 2px;"> <span class="icon-edit"></span>反馈
+									<a class="button border-red" style="padding: 2px 2px;"
+									href="${pageContext.request.contextPath }/feedback/toaddinfo?maintenanceId=${s.maintenanceId}"> <span class="icon-edit"></span>反馈
 									</a>
 								</div>
 							</td>
@@ -284,7 +289,7 @@ $(function(){
 		</div>
 	</div>
 
-	<div>
+	<!-- <div>
 		<table class="table table-hover text-center">
 			<tr>
 				<td colspan="8"><div class="pagelist">
@@ -293,7 +298,7 @@ $(function(){
 					</div></td>
 			</tr>
 		</table>
-	</div>
+	</div> -->
 	<!-- </form> -->
 	<script type="text/javascript">
 		//搜索

@@ -46,4 +46,8 @@ public interface repairMapper {
 	 * @param manager_id
 	 */
 	public void updateManager_id(int repairId, int manager_id);
+
+	void updateFeedback(int id, String info);
+
+	List<repair> selectfinish(String dateString);
 }

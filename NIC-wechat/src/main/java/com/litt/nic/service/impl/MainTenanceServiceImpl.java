@@ -45,4 +45,16 @@ public class MainTenanceServiceImpl implements IMainTenanceService {
 		mainTenanceMapper.updateManager_id(maintenanceId, manager_id);
 	}
 
+	@Override
+	public void updateFeedback(int id, String info) {
+
+		mainTenanceMapper.updateFeedback(id, info);
+	}
+
+	@Override
+	public List<maintenance> findByEnd(String dateString) {
+		// TODO Auto-generated method stub
+		return mainTenanceMapper.selectfinish(dateString);
+	}
+
 }

@@ -60,4 +60,17 @@ public class TechSupporServicetImpl implements ITechSupportService {
 
 	}
 
+	@Override
+	public void updateFeedback(int id, String info) {
+
+		techSupportMapper.updateFeedback(id, info);
+	}
+
+	@Override
+	public List<techsupport> findByEnd(String dateString) {
+		// TODO Auto-generated method stub
+		System.out.println("reservice");
+		return techSupportMapper.selectfinish(dateString);
+	}
+
 }
