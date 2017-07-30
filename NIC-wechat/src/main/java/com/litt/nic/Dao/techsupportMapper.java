@@ -46,4 +46,7 @@ public interface techsupportMapper {
 	public void updateManager_id(int techsupport_id, int manager_id);
 
 	public void updateEndTime(int techsupport_id, String endtime);
+	
+	List<techsupport> selectUnFinishedTSByMultiInfo(@Param("key") String key,
+			@Param("val") String val);
 }

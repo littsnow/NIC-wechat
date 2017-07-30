@@ -25,8 +25,9 @@
   </select>
   <select id="findAllUnfinished" resultMap="BaseResultMap">
     select * from nic_maintenance 
-    where status_id=1
+    where status_id!=3
   </select>
+  <!-- 多条件查询所有的记录 -->
   <select id="selectMTMultiInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
   select * from nic_maintenance  
   <where>
@@ -39,14 +40,23 @@
      <if test="key=='uptime'">
       maintenance_uptime like CONCAT('%',#{val},'%')
      </if>
-   <!--   <if test="key='keyword'">
-     maintenance_department like CONCAT('%',#{val},'%') or maintenance_equipment like CONCAT('%',#{val},'%') or maintenance_location like CONCAT('%',#{val},'%') 
-     or maintenance_describe like CONCAT('%',#{val},'%') or maintenance_feedback like CONCAT('%',#{val},'%') or maintenance_uptime like CONCAT('%',#{val},'%') 
-     or maintenance_endtime like CONCAT('%',#{val},'%')  
-      
-     </if> -->
     </where>
   </select>
+  <!-- 多条件查询未完成的记录 -->
+  <select id="selectUnFinishedByMuliInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+  select * from nic_maintenance  
+  <where>
+     <if test="key=='department'">
+     maintenance_department like CONCAT('%',#{val},'%') and status_id!=3
+     </if>
+     <if test="key=='address'">
+     maintenance_location like CONCAT('%',#{val},'%') and status_id!=3
+     </if>
+     <if test="key=='uptime'">
+      maintenance_uptime like CONCAT('%',#{val},'%') and status_id!=3
+     </if>
+    </where>
+    </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

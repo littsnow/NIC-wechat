@@ -60,4 +60,10 @@ public class TechSupporServicetImpl implements ITechSupportService {
 
 	}
 
+	@Override
+	public List<techsupport> findUnFinishedTSByMultiInfo(String key, String val) {
+		// TODO Auto-generated method stub
+		return techSupportMapper.selectUnFinishedTSByMultiInfo(key, val);
+	}
+
 }

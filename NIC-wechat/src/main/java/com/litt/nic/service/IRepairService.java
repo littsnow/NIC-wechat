@@ -33,4 +33,5 @@ public interface IRepairService {
 	 * @param manager_id
 	 */
 	public void updateManager_id(int repairId, int manager_id);
+	List<repair> findUnfinishedRPByMultiInfo(String key,String val);
 }

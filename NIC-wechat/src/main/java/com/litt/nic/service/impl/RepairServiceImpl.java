@@ -45,4 +45,11 @@ public class RepairServiceImpl implements IRepairService {
 		repairMap.updateManager_id(repairId, manager_id);
 	}
 
+	@Override
+	public List<repair> findUnfinishedRPByMultiInfo(String key, String val) {
+		
+		return repairMap.selectUnfinishedRPByMultiInfo(key, val);
+	}
+	
+
 }
