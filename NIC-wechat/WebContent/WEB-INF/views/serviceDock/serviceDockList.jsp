@@ -47,12 +47,12 @@ $(function(){
 	
 });
 /* alert("hhhhhhhhhhh"); */
- //二级联动
-		
-	function btnChange(){
+function btnChange(){
 		var childs=new Array();
 		var departname=new Array();
+		
 		<c:forEach items="${dpNameList }" var="item">
+		/* alert("${item}"); */
 		departname.push("${item}");
 		/* alert("${item}"); */
 		</c:forEach>
@@ -64,22 +64,25 @@ $(function(){
 	/* alert("进入了"+parentEle.innerHTML) */;
 	var parentValue=parentEle.options[parentEle.selectedIndex].value;
 	/* alert("进入了123"+parentValue); */
+	var ddl=document.getElementById("child");
 	switch(parentValue){
 	case "service":
+		ddl.style.display="inline-block";
+		$("#inputsearch").hide();
 	     childs=['技术支持','设备报修','日常运维'];
 		break;
 	case"department":
-	     childs=departname;
+		ddl.style.display="inline-block";
+		$("#inputsearch").hide();
+		childs=departname;
 		break;
 	default:
-		var ddl=document.getElementById("child");
 	   ddl.style.display="none";
-	  
 	    $("#inputsearch").show();
 	    $("#inputsearch").style.display="inline-block";
-	    
 		
 	}
+	 
 	   for(var i=0;i<childs.length;i++){
 		   /* alert("for"); */
            var option=document.createElement('option'); //先创建option
@@ -89,15 +92,14 @@ $(function(){
            option.text = childs[i];
         
        } 
-} 
+}
 </script>
 
 </head>
 <body>
   <div class="panel admin-panel">
-    <div class="panel-head">
-    </div>
-   <form role="search" id="searchArticleForm">
+    <div class="panel-head"></div>
+   <form role="search" id="searchArticleForm" method="post" action="${pageContext.request.contextPath }/serviceDock/searchLists">
     <div class="padding border-bottom ">
       <ul class="search" style="padding-left:10px;">
       

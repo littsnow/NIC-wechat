@@ -46,6 +46,11 @@ public class RepairServiceImpl implements IRepairService {
 	}
 
 	@Override
+	public List<repair> findUnfinishedRPByMultiInfo(String key, String val) {
+		
+		return repairMap.selectUnfinishedRPByMultiInfo(key, val);
+	}
+	
 	public void updateFeedback(int id, String info) {
 
 		repairMap.updateFeedback(id, info);

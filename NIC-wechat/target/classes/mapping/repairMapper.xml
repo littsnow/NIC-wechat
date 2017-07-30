@@ -24,7 +24,7 @@
   </select>
   <select id="findAllUnfinished" resultMap="BaseResultMap">
      select * from nic_repair
-     where status_id=1
+     where status_id!=3
   </select>
    <select id="selectRPMultiInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
   select * from nic_repair  
@@ -49,6 +49,22 @@
       repair_endtime like CONCAT('%',#{val},'%') and status_id=3
      </where>
      </select>
+      
+   <select id="selectUnfinishedRPByMultiInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+  select * from nic_repair  
+  <where>
+     <if test="key=='department'">
+     repair_department like CONCAT('%',#{val},'%') and status_id!=3
+     </if>
+     <if test="key=='address'">
+     repair_location like CONCAT('%',#{val},'%') and status_id!=3
+     </if>
+     <if test="key=='uptime'">
+      repair_uptime like CONCAT('%',#{val},'%') and status_id!=3
+     </if>
+     </where>
+     </select>
+     
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

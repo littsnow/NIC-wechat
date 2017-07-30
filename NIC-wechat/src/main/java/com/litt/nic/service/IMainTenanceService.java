@@ -31,6 +31,7 @@ public interface IMainTenanceService {
 	 * @param manager_id
 	 */
 	public void updateManager_id(int maintenanceId, int manager_id);
+	List<maintenance> selectUnFinishedByMuliInfo(String key,String val);
 
 	void updateFeedback(int id, String info);
 

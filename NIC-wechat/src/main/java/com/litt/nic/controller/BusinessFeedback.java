@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.litt.nic.pojo.department;
 import com.litt.nic.pojo.maintenance;
 import com.litt.nic.pojo.manager;
 import com.litt.nic.pojo.repair;
 import com.litt.nic.pojo.status;
 import com.litt.nic.pojo.techsupport;
+import com.litt.nic.service.IDepartmentService;
 import com.litt.nic.service.IMainTenanceService;
 import com.litt.nic.service.IManagerService;
 import com.litt.nic.service.IRepairService;
@@ -40,13 +42,15 @@ public class BusinessFeedback {
 	private IRepairService repairService;
 	@Autowired
 	private IMainTenanceService mainTenanceService;
-
 	@Autowired
 	private IStatusService statusService;
 	@Autowired
 	private IUserService userService;
 	@Autowired
 	private IManagerService managerService;
+	@Autowired
+	private IDepartmentService departmentService;
+
 
 	private List<techsupport> techsupportList;
 	private List<repair> repairList;
@@ -67,6 +71,9 @@ public class BusinessFeedback {
 	List<String> mtStatusList = new ArrayList<String>();
 	List<String> mtManagerList = new ArrayList<String>();
 	List<String> mtUserList = new ArrayList<String>();
+	
+	List<department> departList = new ArrayList<department>();
+	List<String> departNameList = new ArrayList<String>();
 
 	/**
 	 * 加载所有未完成的信息
@@ -74,6 +81,7 @@ public class BusinessFeedback {
 	@RequestMapping(value = "/unfinishedlist")
 	public String loadAllUnfinished(HttpServletRequest request,
 			HttpServletResponse response) {
+		
 		techsupportList = techSupportService.findAllUnfinished();
 		repairList = repairService.findAllUnfinished();
 		mainTenList = mainTenanceService.findAllUnfinished();
@@ -84,6 +92,12 @@ public class BusinessFeedback {
 		List<manager> listManager = managerService.selectAllManager();
 		request.setAttribute("listManager", listManager);
 
+		if (techsupportList.isEmpty() && repairList.isEmpty()
+				&& mainTenList.isEmpty()) {
+			return "/jsp/error/null";
+
+		} else {
+		getDPNameList(request);
 		getTSLists(request, techsupportList);
 		getRPLists(request, repairList);
 		getMTLists(request, mainTenList);
@@ -91,6 +105,7 @@ public class BusinessFeedback {
 		request.setAttribute("rpList", repairList);
 		request.setAttribute("mtList", mainTenList);
 		return "/WEB-INF/views/serviceDock/businessFadeback";
+		}
 	}
 
 	/**
@@ -126,7 +141,7 @@ public class BusinessFeedback {
 					status.getStatusId());
 			techSupportService.updateManager_id(techsupportId,
 					manager.getManagerId());
-			return "redirect:showUnfinishedList";
+			return "redirect:unfinishedlist";
 		} catch (Exception e) {
 			System.out.println("传递参数不是techsupportId");
 		}
@@ -151,7 +166,7 @@ public class BusinessFeedback {
 			System.out.println("manager id" + manager.getManagerId());
 			repairService.updateStatus_id(repairId, status.getStatusId());
 			repairService.updateManager_id(repairId, manager.getManagerId());
-			return "redirect:showUnfinishedList";
+			return "redirect:unfinishedlist";
 		} catch (Exception e) {
 			System.out.println("传递参数不是repairId");
 		}
@@ -179,7 +194,60 @@ public class BusinessFeedback {
 		} catch (Exception e) {
 			System.out.println("传递参数不是maintenanceId");
 		}
-		return null;
+		/*return "redirect:showUnfinishedList";*/
+		return "redirect:unfinishedlist";
+	}
+/**
+ * 搜索表单，多条件搜索
+ * @param request
+ * @param response
+ * @return
+ */
+	@RequestMapping(value = "/searchLists")
+	public String searchByInfo(HttpServletRequest request,
+			HttpServletResponse response) {
+		String key = request.getParameter("key");
+		String value = request.getParameter("val");
+		System.out.println("key=" + key + "value=" + value);
+		if (key!= null) {
+			
+			if (key.equals("service")) {
+				System.out.println("业务类型-------------");
+				switch (value) {
+				case "技术支持":
+					techsupportList = techSupportService.findAllUnfinished();
+					getTSLists(request, techsupportList);
+					break;
+				case "设备报修":
+					repairList = repairService.findAllUnfinished();
+					getRPLists(request, repairList);
+					break;
+				case "日常运维":
+					mainTenList = mainTenanceService.findAllUnfinished();
+					getMTLists(request, mainTenList);
+					break;
+				default:
+					break;
+				}
+				return "/WEB-INF/views/serviceDock/businessFadeback";
+			} else {
+				System.out.println("qita=------------------");
+				techsupportList = techSupportService.findUnFinishedTSByMultiInfo(key, value);
+				getTSLists(request, techsupportList);
+				repairList = repairService.findUnfinishedRPByMultiInfo(key, value);
+				getRPLists(request, repairList);
+				mainTenList = mainTenanceService.selectUnFinishedByMuliInfo(key, value);
+				getMTLists(request, mainTenList);
+				
+				/*departList = departmentService.findAllInfo();
+				getDPNameList(request, departList);*/
+				return "/WEB-INF/views/serviceDock/businessFadeback";
+			}
+			
+		} else {
+			System.out.println("空值的情况-----------");
+			return loadAllUnfinished(request, response);
+		}
 	}
 
 	/**
@@ -311,14 +379,12 @@ public class BusinessFeedback {
 		request.setAttribute("tsManager", tsManagerList);
 		request.setAttribute("tsList", techSupportList);
 		request.setAttribute("tsLen", techSupportList.size());
-		System.out.println(techSupportList.size());
+		System.out.println(techSupportList.size()+"++++++++++++++++++");
 		request.setAttribute("tsUser", tsUserList);
 	}
 
 	public void getRPLists(HttpServletRequest request, List<repair> repairList) {
-		rpManagerList.clear();
 		for (int i = 0; i < repairList.size(); i++) {
-			System.out.println("循环========" + rpManagerList.size());
 			rpStatusList.add(statusService.findById(
 					repairList.get(i).getStatusId()).getStatusName());
 			rpManagerList.add(managerService.findById(
@@ -326,12 +392,12 @@ public class BusinessFeedback {
 			rpUserList.add(userService.findById(repairList.get(i).getUserId())
 					.getUserName());
 		}
+		System.out.println("rpList=" + repairList);
 		request.setAttribute("rpList", repairList);
 		request.setAttribute("rpStatus", rpStatusList);
 		request.setAttribute("rpManager", rpManagerList);
-		request.setAttribute("rpLen", rpManagerList.size());
-		System.out.println("re========" + rpManagerList.size());
 		request.setAttribute("rpUser", rpUserList);
+		request.setAttribute("rpLen", repairList.size());
 	}
 
 	public void getMTLists(HttpServletRequest request,
@@ -348,5 +414,13 @@ public class BusinessFeedback {
 		request.setAttribute("mtStatus", mtStatusList);
 		request.setAttribute("mtManager", mtManagerList);
 		request.setAttribute("mtUser", mtUserList);
+	}
+	public void getDPNameList(HttpServletRequest request) {
+		departNameList.clear();
+		departList = departmentService.findAllInfo();
+		for (int i = 0; i < departList.size(); i++) {
+			departNameList.add(departList.get(i).getDepartmentName());
+		}
+		request.setAttribute("dpNameList", departNameList);
 	}
 }

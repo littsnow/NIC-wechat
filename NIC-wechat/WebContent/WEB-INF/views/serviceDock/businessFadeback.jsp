@@ -31,24 +31,25 @@
 //搜索
 $(function(){
 	$("#searchArticleForm").off();
-	$("#searchArticleForm").on("submit",function(){
+	$("#searchArticleForm").bind("submit",function(){
 		var key=$(this).find("select[name=key]").val();
 		
 		var val1=$(this).find("select[name=val]").val();
 		var val2=$(this).find("input[name=val]").val();
-		 /* alert(key+","+val);  */
 		if(val1==null)
 			{
-			$(".panel").load("${pageContext.request.contextPath }/serviceDock/searchLists",{
+
+			$(".panel").load("${pageContext.request.contextPath }/feedback/searchLists",{
 				key:key,
 				val:val2
-			});
+			});  
+			
 			}
 		else{
-			$(".panel").load("${pageContext.request.contextPath }/serviceDock/searchLists",{
+			$(".panel").load("${pageContext.request.contextPath }/feedback/searchLists",{
 				key:key,
 				val:val1
-			});
+			}); 
 		}
 		
 		//阻止表单默认行为 （提交）
@@ -62,7 +63,9 @@ $(function(){
 	function btnChange(){
 		var childs=new Array();
 		var departname=new Array();
+		
 		<c:forEach items="${dpNameList }" var="item">
+		/* alert("${item}"); */
 		departname.push("${item}");
 		/* alert("${item}"); */
 		</c:forEach>
@@ -74,22 +77,25 @@ $(function(){
 	/* alert("进入了"+parentEle.innerHTML) */;
 	var parentValue=parentEle.options[parentEle.selectedIndex].value;
 	/* alert("进入了123"+parentValue); */
+	var ddl=document.getElementById("child");
 	switch(parentValue){
 	case "service":
+		ddl.style.display="inline-block";
+		$("#inputsearch").hide();
 	     childs=['技术支持','设备报修','日常运维'];
 		break;
 	case"department":
-	     childs=departname;
+		ddl.style.display="inline-block";
+		$("#inputsearch").hide();
+		childs=departname;
 		break;
 	default:
-		var ddl=document.getElementById("child");
 	   ddl.style.display="none";
-	  
 	    $("#inputsearch").show();
 	    $("#inputsearch").style.display="inline-block";
-	    
 		
 	}
+	 
 	   for(var i=0;i<childs.length;i++){
 		   /* alert("for"); */
            var option=document.createElement('option'); //先创建option
@@ -103,11 +109,11 @@ $(function(){
 </script>
 </head>
 <body>
-	<%-- <form method="post" action="${pageContext.request.contextPath }/serviceDock/searchLists" id="listform"> --%>
+	<%-- <form method="post" action="${pageContext.request.contextPath }/serviceDock/searchLists" id="listform">  --%>
 	<div class="panel admin-panel">
 		<div class="panel-head">
-		 </div>
-   <form role="search" id="searchArticleForm">
+    </div>
+   <form role="search" id="searchArticleForm" class="load" method="post" action="${pageContext.request.contextPath }/feedback/searchLists">
     <div class="padding border-bottom ">
       <ul class="search" style="padding-left:10px;">
       
@@ -287,8 +293,7 @@ $(function(){
 				</c:forEach>
 			</table>
 		</div>
-	</div>
-
+	
 	<!-- <div>
 		<table class="table table-hover text-center">
 			<tr>
@@ -300,166 +305,6 @@ $(function(){
 		</table>
 	</div> -->
 	<!-- </form> -->
-	<script type="text/javascript">
-		//搜索
-		function changesearch() {
-
-		}
-
-		//单个删除
-		function del(id, mid, iscid) {
-			if (confirm("您确定要删除吗?")) {
-
-			}
-		}
-
-		//全选
-		$("#checkall").click(function() {
-			$("input[name='id[]']").each(function() {
-				if (this.checked) {
-					this.checked = false;
-				} else {
-					this.checked = true;
-				}
-			});
-		})
-
-		//批量删除
-		function DelSelect() {
-			var Checkbox = false;
-			$("input[name='id[]']").each(function() {
-				if (this.checked == true) {
-					Checkbox = true;
-				}
-			});
-			if (Checkbox) {
-				var t = confirm("您确认要删除选中的内容吗？");
-				if (t == false)
-					return false;
-				$("#listform").submit();
-			} else {
-				alert("请选择您要删除的内容!");
-				return false;
-			}
-		}
-
-		//批量排序
-		function sorts() {
-			var Checkbox = false;
-			$("input[name='id[]']").each(function() {
-				if (this.checked == true) {
-					Checkbox = true;
-				}
-			});
-			if (Checkbox) {
-
-				$("#listform").submit();
-			} else {
-				alert("请选择要操作的内容!");
-				return false;
-			}
-		}
-
-		//批量首页显示
-		function changeishome(o) {
-			var Checkbox = false;
-			$("input[name='id[]']").each(function() {
-				if (this.checked == true) {
-					Checkbox = true;
-				}
-			});
-			if (Checkbox) {
-
-				$("#listform").submit();
-			} else {
-				alert("请选择要操作的内容!");
-
-				return false;
-			}
-		}
-
-		//批量推荐
-		function changeisvouch(o) {
-			var Checkbox = false;
-			$("input[name='id[]']").each(function() {
-				if (this.checked == true) {
-					Checkbox = true;
-				}
-			});
-			if (Checkbox) {
-
-				$("#listform").submit();
-			} else {
-				alert("请选择要操作的内容!");
-
-				return false;
-			}
-		}
-
-		//批量置顶
-		function changeistop(o) {
-			var Checkbox = false;
-			$("input[name='id[]']").each(function() {
-				if (this.checked == true) {
-					Checkbox = true;
-				}
-			});
-			if (Checkbox) {
-
-				$("#listform").submit();
-			} else {
-				alert("请选择要操作的内容!");
-
-				return false;
-			}
-		}
-
-		//批量移动
-		function changecate(o) {
-			var Checkbox = false;
-			$("input[name='id[]']").each(function() {
-				if (this.checked == true) {
-					Checkbox = true;
-				}
-			});
-			if (Checkbox) {
-
-				$("#listform").submit();
-			} else {
-				alert("请选择要操作的内容!");
-
-				return false;
-			}
-		}
-
-		//批量复制
-		function changecopy(o) {
-			var Checkbox = false;
-			$("input[name='id[]']").each(function() {
-				if (this.checked == true) {
-					Checkbox = true;
-				}
-			});
-			if (Checkbox) {
-				var i = 0;
-				$("input[name='id[]']").each(function() {
-					if (this.checked == true) {
-						i++;
-					}
-				});
-				if (i > 1) {
-					alert("只能选择一条信息!");
-					$(o).find("option:first").prop("selected", "selected");
-				} else {
-
-					$("#listform").submit();
-				}
-			} else {
-				alert("请选择要复制的内容!");
-				$(o).find("option:first").prop("selected", "selected");
-				return false;
-			}
-		}
-	</script>
+	</div>
 </body>
 </html>

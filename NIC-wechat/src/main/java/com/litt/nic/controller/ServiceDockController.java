@@ -126,6 +126,7 @@ public class ServiceDockController {
 				case "日常运维":
 					mainTenList = mainTenanceService.findByMutiInfo(key, value);
 					getMTLists(request, mainTenList);
+					break;
 				default:
 					break;
 				}
@@ -139,11 +140,12 @@ public class ServiceDockController {
 				getTSLists(request, techSupportList);
 				getRPLists(request, repairList);
 				getMTLists(request, mainTenList);
-				departList = departmentService.findAllInfo();
-				getDPNameList(request, departList);
+				/*departList = departmentService.findAllInfo();
+				getDPNameList(request, departList);*/
+				return "/WEB-INF/views/serviceDock/serviceDockList";
 
 			}
-			return "/WEB-INF/views/serviceDock/serviceDockList";
+			
 		} else {
 			return ShowServiceList(request, response);
 		}
@@ -204,6 +206,7 @@ public class ServiceDockController {
 
 	public void getDPNameList(HttpServletRequest request,
 			List<department> departList) {
+		departNameList.clear();
 		for (int i = 0; i < departList.size(); i++) {
 			departNameList.add(departList.get(i).getDepartmentName());
 		}

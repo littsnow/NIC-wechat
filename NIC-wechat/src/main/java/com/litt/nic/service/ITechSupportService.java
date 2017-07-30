@@ -29,6 +29,8 @@ public interface ITechSupportService {
 
 	techsupport findById(Integer techsupportId);
 
+	public void updateEndTime(int techsupport_id, String endtime);
+	List<techsupport> findUnFinishedTSByMultiInfo(String key,String val);
 	void updateEndTime(int techsupport_id, String endtime);
 
 	void updateFeedback(int id, String info);
