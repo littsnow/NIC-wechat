@@ -98,7 +98,7 @@ function btnChange(){
 </head>
 <body>
   <div class="panel admin-panel">
-    <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
+    <div class="panel-head"></div>
    <form role="search" id="searchArticleForm" method="post" action="${pageContext.request.contextPath }/serviceDock/searchLists">
     <div class="padding border-bottom ">
       <ul class="search" style="padding-left:10px;">

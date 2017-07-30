@@ -49,4 +49,8 @@ public interface maintenanceMapper {
 	
 	List<maintenance> selectUnFinishedByMuliInfo(@Param("key") String key,
 			@Param("val") String val);
+
+	void updateFeedback(int id, String info);
+
+	List<maintenance> selectfinish(String dateString);
 }

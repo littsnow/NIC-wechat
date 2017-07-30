@@ -38,6 +38,15 @@
      <if test="key=='uptime'">
       repair_uptime like CONCAT('%',#{val},'%')
      </if>
+     <if test="key=='endtime'">
+      repair_endtime like CONCAT('%',#{val},'%')
+     </if>
+     </where>
+     </select>
+     <select id="selectfinish" resultMap="BaseResultMap" parameterType="java.lang.String">
+  select * from nic_repair  
+  <where>
+      repair_endtime like CONCAT('%',#{val},'%') and status_id=3
      </where>
      </select>
       
@@ -219,6 +228,11 @@
   <update id="updateManager_id" parameterType="java.lang.Integer" >
     update nic_repair
     set manager_id =#{1}
+    where repair_id =#{0}
+  </update>
+  <update id="updateFeedback">
+    update nic_repair
+    set repair_feedback =#{1}
     where repair_id =#{0}
   </update>
 </mapper>

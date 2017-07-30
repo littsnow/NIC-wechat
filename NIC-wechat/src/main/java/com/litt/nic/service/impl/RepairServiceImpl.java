@@ -51,5 +51,15 @@ public class RepairServiceImpl implements IRepairService {
 		return repairMap.selectUnfinishedRPByMultiInfo(key, val);
 	}
 	
+	public void updateFeedback(int id, String info) {
+
+		repairMap.updateFeedback(id, info);
+	}
+
+	@Override
+	public List<repair> findByEnd(String dateString) {
+		// TODO Auto-generated method stub
+		return repairMap.selectfinish(dateString);
+	}
 
 }

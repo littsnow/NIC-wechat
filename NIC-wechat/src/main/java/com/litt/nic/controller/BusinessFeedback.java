@@ -55,6 +55,9 @@ public class BusinessFeedback {
 	private List<techsupport> techsupportList;
 	private List<repair> repairList;
 	private List<maintenance> mainTenList;
+	private techsupport techsupport;
+	private repair repair;
+	private maintenance maintenance;
 
 	List<String> tsStatusList = new ArrayList<String>();
 	List<String> tsManagerList = new ArrayList<String>();
@@ -246,6 +249,122 @@ public class BusinessFeedback {
 			return loadAllUnfinished(request, response);
 		}
 	}
+
+	/**
+	 * 跳转到反馈信息页面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/toaddinfo")
+	public String toaddinfo(HttpServletRequest request,
+			HttpServletResponse response) {
+		try {
+			int techsupportId = Integer.parseInt(request
+					.getParameter("techsupportId"));
+			System.out.println(techsupportId);
+			request.setAttribute("techsupportId", techsupportId);
+		} catch (Exception e) {
+		}
+		try {
+			int repairId = Integer.parseInt(request.getParameter("repairId"));
+			System.out.println(repairId);
+			request.setAttribute("repairId", repairId);
+		} catch (Exception e) {
+		}
+		try {
+			int maintenanceId = Integer.parseInt(request
+					.getParameter("maintenanceId"));
+			System.out.println(maintenanceId);
+			request.setAttribute("maintenanceId", maintenanceId);
+		} catch (Exception e) {
+		}
+
+		return "/WEB-INF/views/work/feedback_info";
+	}
+
+	/**
+	 * 提交反馈信息
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/addinfo")
+	public String addinfo(HttpServletRequest request,
+			HttpServletResponse response) {
+		try {
+
+			String info = request.getParameter("note");
+			int id = Integer.parseInt(request.getParameter("techsupportId"));
+			System.out.println("技术支持-------" + info + id);
+			techSupportService.updateFeedback(id, info);
+		} catch (Exception e) {
+
+		}
+		try {
+			String info = request.getParameter("note");
+			int id = Integer.parseInt(request.getParameter("repairId"));
+			System.out.println("维修-------" + info + id);
+			repairService.updateFeedback(id, info);
+		} catch (Exception e) {
+
+		}
+		try {
+			String info = request.getParameter("note");
+			int id = Integer.parseInt(request.getParameter("maintenanceId"));
+			System.out.println("运维-------" + info + id);
+			mainTenanceService.updateFeedback(id, info);
+		} catch (Exception e) {
+
+		}
+		return "redirect:unfinishedlist";
+
+	}
+
+	/**
+	 * 跳转到发布新消息页面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/toshownews")
+	public String toshow(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		return "/WEB-INF/views/work/shownews";
+	}
+
+	/**
+	 * 查找今天已完成的任务列表
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/finishedlist")
+	public String finishedlist(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		// 获取到当前的年月日,转换成对应的格式
+		Date date = new Date();
+		System.out.println(date);
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString = formatter.format(date);
+		System.out.println(dateString.toString());
+		techsupportList = techSupportService.findByEnd(dateString);
+		repairList = repairService.findByEnd(dateString);
+		mainTenList = mainTenanceService.findByEnd(dateString);
+		if (techsupportList.isEmpty() && repairList.isEmpty()
+				&& mainTenList.isEmpty()) {
+			return "/jsp/error/null";
+
+		} else {
+
+			getTSLists(request, techsupportList);
+			getRPLists(request, repairList);
+			getMTLists(request, mainTenList);
+			request.setAttribute("tsList", techsupportList);
+			request.setAttribute("rpList", repairList);
+			request.setAttribute("mtList", mainTenList);
+			return "/WEB-INF/views/serviceDock/finished";
+		}
+	}
+
 	public void getTSLists(HttpServletRequest request,
 			List<techsupport> techSupportList) {
 		for (int i = 0; i < techSupportList.size(); i++) {

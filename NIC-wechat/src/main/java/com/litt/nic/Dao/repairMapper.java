@@ -49,4 +49,8 @@ public interface repairMapper {
 	
 	List<repair> selectUnfinishedRPByMultiInfo(@Param("key") String key,
 			@Param("val") String val);
+
+	void updateFeedback(int id, String info);
+
+	List<repair> selectfinish(String dateString);
 }

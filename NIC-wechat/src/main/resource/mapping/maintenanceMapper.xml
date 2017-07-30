@@ -57,6 +57,23 @@
      </if>
     </where>
     </select>
+     <if test="key=='endtime'">
+      maintenance_endtime like CONCAT('%',#{val},'%')
+     </if>
+   <!--   <if test="key='keyword'">
+     maintenance_department like CONCAT('%',#{val},'%') or maintenance_equipment like CONCAT('%',#{val},'%') or maintenance_location like CONCAT('%',#{val},'%') 
+     or maintenance_describe like CONCAT('%',#{val},'%') or maintenance_feedback like CONCAT('%',#{val},'%') or maintenance_uptime like CONCAT('%',#{val},'%') 
+     or maintenance_endtime like CONCAT('%',#{val},'%')  
+      
+     </if> -->
+    </where>
+  </select>
+  <select id="selectfinish" resultMap="BaseResultMap" parameterType="java.lang.String">
+  select * from nic_maintenance  
+  <where>
+      maintenance_endtime like CONCAT('%',#{val},'%') and status_id=3
+     </where>
+     </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -222,6 +239,11 @@
    <update id="updateManager_id" parameterType="java.lang.Integer" >
 	update nic_maintenance
 	set manager_id = #{1}
+	where maintenance_id = #{0}
+  </update>
+  <update id="updateFeedback" >
+	update nic_maintenance
+	set maintenance_feedback = #{1}
 	where maintenance_id = #{0}
   </update>
 </mapper>

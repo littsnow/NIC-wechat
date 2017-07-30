@@ -14,9 +14,9 @@ public interface IRepairService {
 	 * 
 	 * @return
 	 */
-	public List<repair> findAllUnfinished();
+	List<repair> findAllUnfinished();
 
-	public repair findById(int id);
+	repair findById(int id);
 
 	/**
 	 * 修改状态
@@ -24,7 +24,7 @@ public interface IRepairService {
 	 * @param repairId
 	 * @param status_id
 	 */
-	public void updateStatus_id(int repairId, int status_id);
+	void updateStatus_id(int repairId, int status_id);
 
 	/**
 	 * 修改负责人
@@ -34,4 +34,9 @@ public interface IRepairService {
 	 */
 	public void updateManager_id(int repairId, int manager_id);
 	List<repair> findUnfinishedRPByMultiInfo(String key,String val);
+	void updateManager_id(int repairId, int manager_id);
+
+	void updateFeedback(int id, String info);
+
+	List<repair> findByEnd(String dateString);
 }
