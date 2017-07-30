@@ -27,32 +27,6 @@ public class MenuMain {
 		WeixinUtil weixinUtil = new WeixinUtil();
 		System.out.println("定义菜单了啊");
 
-		// ClickButton cbt = new ClickButton();
-		// cbt.setKey("image");
-		// cbt.setName("关于我们");
-		// cbt.setType("click");
-		//
-		// ViewButton vbt = new ViewButton();
-		// vbt.setUrl("http://www.cuiyongzhi.com");
-		// vbt.setName("最新消息");
-		// vbt.setType("view");
-		//
-		// JSONArray sub_button = new JSONArray();
-		// sub_button.add(vbt);
-		// sub_button.add(cbt);
-		//
-		// JSONObject buttonOne = new JSONObject();
-		// buttonOne.put("name", "业务对接");
-		// buttonOne.put("sub_button", sub_button);
-		//
-		// JSONArray button = new JSONArray();
-		// button.add(vbt);
-		// button.add(buttonOne);
-		// button.add(cbt);
-		//
-		// JSONObject menujson = new JSONObject();
-		// menujson.put("button", button);
-
 		CommonButton btn11 = new CommonButton();
 		btn11.setName("最新消息");
 		btn11.setType("click");
@@ -83,21 +57,9 @@ public class MenuMain {
 		btn31.setType("click");
 		btn31.setKey("31");
 
-		/*
-		 * ComplexButton mainBtn1 = new ComplexButton();
-		 * mainBtn1.setName("最新消息"); mainBtn1.setSub_button(new CommonButton[] {
-		 * btn11 });
-		 */
-
 		ComplexButton mainBtn2 = new ComplexButton();
 		mainBtn2.setName("业务对接");
 		mainBtn2.setSub_button(new CommonButton[] { btn21, btn22, btn23, btn24 });
-
-		/*
-		 * ComplexButton mainBtn3 = new ComplexButton();
-		 * mainBtn3.setName("关于我们"); mainBtn3.setSub_button(new CommonButton[] {
-		 * btn31 });
-		 */
 
 		Menu menu = new Menu();
 		menu.setButton(new Button[] { btn11, mainBtn2, btn31 });
