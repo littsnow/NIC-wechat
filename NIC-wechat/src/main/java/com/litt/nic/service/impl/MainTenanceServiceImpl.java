@@ -48,6 +48,8 @@ public class MainTenanceServiceImpl implements IMainTenanceService {
 	@Override
 	public List<maintenance> selectUnFinishedByMuliInfo(String key, String val) {
 		return mainTenanceMapper.selectUnFinishedByMuliInfo(key, val);
+	}
+
 	public void updateFeedback(int id, String info) {
 
 		mainTenanceMapper.updateFeedback(id, info);

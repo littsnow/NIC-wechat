@@ -51,8 +51,6 @@ public interface techsupportMapper {
 
 	List<techsupport> selectfinish(String dateString);
 
-	public void updateEndTime(int techsupport_id, String endtime);
-	
 	List<techsupport> selectUnFinishedTSByMultiInfo(@Param("key") String key,
 			@Param("val") String val);
 }
