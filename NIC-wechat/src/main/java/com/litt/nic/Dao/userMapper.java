@@ -3,15 +3,17 @@ package com.litt.nic.Dao;
 import com.litt.nic.pojo.user;
 
 public interface userMapper {
-    int deleteByPrimaryKey(Integer userId);
+	int deleteByPrimaryKey(Integer userId);
 
-    int insert(user record);
+	int insert(user record);
 
-    int insertSelective(user record);
+	int insertSelective(user record);
 
-    user selectByPrimaryKey(Integer userId);
+	user selectByPrimaryKey(Integer userId);
 
-    int updateByPrimaryKeySelective(user record);
+	int updateByPrimaryKeySelective(user record);
 
-    int updateByPrimaryKey(user record);
+	int updateByPrimaryKey(user record);
+
+	user selectByOpenid(String openid);
 }

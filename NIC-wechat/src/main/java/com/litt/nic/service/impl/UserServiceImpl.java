@@ -20,14 +20,14 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void addUser(String name, String telephone) {
-		// TODO Auto-generated method stub
-
+	public void addUser(user user) {
+		usermapper.insert(user);
 	}
 
-	// @Override
-	// public void addUser(String name, String telephone) {
-	// // TODO Auto-generated method stub
-	// usermapper.i
-	// }
+	@Override
+	public user findByOpenid(String openid) {
+
+		return usermapper.selectByOpenid(openid);
+	}
+
 }

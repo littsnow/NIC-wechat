@@ -28,6 +28,15 @@
     from nic_user
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
+  
+  <select id="selectByOpenid" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from nic_user
+    where user_openid = #{0}
+  </select>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from nic_user
     where user_id = #{userId,jdbcType=INTEGER}

@@ -23,19 +23,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="point">
                 <span>用户必须完善信息之后才能提交相关业务信息。</span>
             </div>
-            <form action="${pageContext.request.contextPath }/user/weixinOauth" method="post">
+            <form action="${pageContext.request.contextPath }/user/adduser" method="post">
                 <div class="message">
-                    <input type="text" placeholder="请输入您的姓名"  name="name" />
-                    <input type=tel placeholder="请输入手机号" pattern="0-9]{11}" name="telephone"/>
-                    <select name="job">
-                        <option value="choose">选择部门</option>
-                        <option value="boss">老板</option>
-                        <option value="staff">员工</option>
+                    <table style="width: 100%; font-size: 40px;">
+	                	<tr>
+	                		<td style="width:30%;"><label>姓名：</label></td>
+	                		<td><input type="text" placeholder="请输入设备名称"  name="name" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td> <label>联系方式：</label></td>
+	                		<td><input type=tel placeholder="请输入具体描述" name="telephone"/></td>
+	                	</tr>
+                	</table>
+                    <select name="department">
+                        <option value="qwe">选择部门</option>
+                        <option value="qwe">计算机系</option>
+                        <option value="asd">化工系</option>
                     </select>
-                    <div class="icons">
-                        <b><img src="images/zc-2.jpg" alt=""/></b>
-                        <b><img src="images/zc-1.jpg" alt=""/></b>
-                    </div>
+                    
                 </div>
                 <button class="submit" type="submit">提交信息</button>
             </form>

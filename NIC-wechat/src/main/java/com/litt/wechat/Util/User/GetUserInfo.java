@@ -2,7 +2,7 @@ package com.litt.wechat.Util.User;
 
 import net.sf.json.JSONObject;
 
-import com.litt.wechat.Message.UserInfo;
+import com.litt.nic.pojo.user;
 import com.litt.wechat.Util.CommonUtil;
 
 /**
@@ -22,8 +22,8 @@ public class GetUserInfo {
 	 *            用户标识
 	 * @return WeixinUserInfo
 	 */
-	public static UserInfo getUserInfo(String accessToken, String openId) {
-		UserInfo weixinUserInfo = null;
+	public static user getUserInfo(String accessToken, String openId) {
+		user weixinUserInfo = null;
 		// 拼接请求地址
 		String requestUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID";
 		requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken).replace(
@@ -34,33 +34,33 @@ public class GetUserInfo {
 
 		if (null != jsonObject) {
 			try {
-				weixinUserInfo = new UserInfo();
+				weixinUserInfo = new user();
 				// 用户的标识
-				weixinUserInfo.setOpenId(jsonObject.getString("openid"));
+				weixinUserInfo.setUserOpenid(jsonObject.getString("openid"));
 				// 关注状态（1是关注，0是未关注），未关注时获取不到其余信息
-				weixinUserInfo.setSubscribe(jsonObject.getInt("subscribe"));
-				// 用户关注时间
-				weixinUserInfo.setSubscribeTime(jsonObject
-						.getString("subscribe_time"));
+				weixinUserInfo.setUserSubscribe(jsonObject.getInt("subscribe"));
 				// 昵称
-				weixinUserInfo.setNickname(jsonObject.getString("nickname"));
-				// 用户的性别（1是男性，2是女性，0是未知）
-				weixinUserInfo.setSex(jsonObject.getInt("sex"));
-				// 用户所在国家
-				weixinUserInfo.setCountry(jsonObject.getString("country"));
-				// 用户所在省份
-				weixinUserInfo.setProvince(jsonObject.getString("province"));
-				// 用户所在城市
-				weixinUserInfo.setCity(jsonObject.getString("city"));
-				// 用户的语言，简体中文为zh_CN
-				weixinUserInfo.setLanguage(jsonObject.getString("language"));
-				// 用户头像
 				weixinUserInfo
-						.setHeadImgUrl(jsonObject.getString("headimgurl"));
+						.setUserNickname(jsonObject.getString("nickname"));
+				// 用户的性别（1是男性，2是女性，0是未知）
+				weixinUserInfo.setUserSex(jsonObject.getInt("sex"));
+				// 用户所在国家
+				weixinUserInfo.setUserCountry(jsonObject.getString("country"));
+				// 用户所在省份
+				weixinUserInfo
+						.setUserProvince(jsonObject.getString("province"));
+				// 用户所在城市
+				weixinUserInfo.setUserCity(jsonObject.getString("city"));
+				// 用户的语言，简体中文为zh_CN
+				weixinUserInfo
+						.setUserLanguage(jsonObject.getString("language"));
+				// 用户头像
+				weixinUserInfo.setUserHeadimgurl(jsonObject
+						.getString("headimgurl"));
 			} catch (Exception e) {
-				if (0 == weixinUserInfo.getSubscribe()) {
-					System.out
-							.println("用户{}已取消关注" + weixinUserInfo.getOpenId());
+				if (0 == weixinUserInfo.getUserSubscribe()) {
+					System.out.println("用户{}已取消关注"
+							+ weixinUserInfo.getUserOpenid());
 				} else {
 					int errorCode = jsonObject.getInt("errcode");
 					String errorMsg = jsonObject.getString("errmsg");

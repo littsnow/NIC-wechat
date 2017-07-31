@@ -9,7 +9,7 @@ import java.util.Map;
 import org.apache.http.ParseException;
 import org.apache.log4j.Logger;
 
-import com.litt.wechat.Message.UserInfo;
+import com.litt.nic.pojo.user;
 import com.litt.wechat.Message.resp.Article;
 import com.litt.wechat.Message.resp.ImageMessage;
 import com.litt.wechat.Message.resp.NewsMessage;
@@ -28,9 +28,11 @@ public class EventDispatcher {
 
 	private static Logger logger = Logger.getLogger(EventDispatcher.class);
 
+	public static String openid;
+
 	public static String processEvent(Map<String, String> map)
 			throws ParseException, IOException {
-		String openid = map.get("FromUserName"); // 用户openid
+		openid = map.get("FromUserName"); // 用户openid
 		String mpid = map.get("ToUserName"); // 公众号原始ID
 		// 图片消息
 		ImageMessage imgmsg = new ImageMessage();
@@ -57,13 +59,13 @@ public class EventDispatcher {
 			System.out.println("==============这是关注事件！" + openid.toString());
 			try {
 				System.out.println("jinlaile-------------------");
-				UserInfo userinfo = GetUserInfo.getUserInfo(WeixinUtil
+				user userinfo = GetUserInfo.getUserInfo(WeixinUtil
 						.getAccessToken().getAccessToken(), openid);
 
 				Article article = new Article();
 				article.setDescription("欢迎来到崔用志的个人博客：菜鸟程序员成长之路！"); // 图文消息的描述
-				article.setPicUrl(userinfo.getHeadImgUrl()); // 图文消息图片地址
-				article.setTitle("尊敬的：" + userinfo.getNickname() + ",你好！"); // 图文消息标题
+				article.setPicUrl(userinfo.getUserHeadimgurl()); // 图文消息图片地址
+				article.setTitle("尊敬的：" + userinfo.getUserNickname() + ",你好！"); // 图文消息标题
 				article.setUrl("http://www.cuiyongzhi.com"); // 图文url链接
 				List<Article> list = new ArrayList<Article>();
 				list.add(article); // 这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
@@ -85,4 +87,13 @@ public class EventDispatcher {
 
 		return null;
 	}
+
+	public String getOpenid() {
+		return openid;
+	}
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+
 }

@@ -78,4 +78,10 @@ public class TechSupporServicetImpl implements ITechSupportService {
 		return techSupportMapper.selectfinish(dateString);
 	}
 
+	@Override
+	public void addtech(techsupport techsupport) {
+
+		techSupportMapper.insert(techsupport);
+	}
+
 }

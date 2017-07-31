@@ -61,4 +61,10 @@ public class MainTenanceServiceImpl implements IMainTenanceService {
 		return mainTenanceMapper.selectfinish(dateString);
 	}
 
+	@Override
+	public void addmaintenance(maintenance maintenance) {
+		// TODO Auto-generated method stub
+		mainTenanceMapper.insert(maintenance);
+	}
+
 }

@@ -47,10 +47,10 @@ public class RepairServiceImpl implements IRepairService {
 
 	@Override
 	public List<repair> findUnfinishedRPByMultiInfo(String key, String val) {
-		
+
 		return repairMap.selectUnfinishedRPByMultiInfo(key, val);
 	}
-	
+
 	public void updateFeedback(int id, String info) {
 
 		repairMap.updateFeedback(id, info);
@@ -60,6 +60,12 @@ public class RepairServiceImpl implements IRepairService {
 	public List<repair> findByEnd(String dateString) {
 		// TODO Auto-generated method stub
 		return repairMap.selectfinish(dateString);
+	}
+
+	@Override
+	public void addrepair(repair repair) {
+		// TODO Auto-generated method stub
+		repairMap.insert(repair);
 	}
 
 }

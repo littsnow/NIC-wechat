@@ -29,12 +29,12 @@ public class MenuMain {
 		ViewButton button21 = new ViewButton();
 		button21.setName("完善个人 信息");
 		button21.setType("view");
-		button21.setUrl("http://cf887ed4.ngrok.io/NIC-wechat/jsp/user_info.jsp");
+		button21.setUrl("http://42aa0b2b.ngrok.io/NIC-wechat/jsp/user_info.jsp");
 
 		ViewButton button22 = new ViewButton();
 		button22.setName("提交业务");
 		button22.setType("view");
-		button22.setUrl("http://cf887ed4.ngrok.io/NIC-wechat/jsp/work_info.jsp");
+		button22.setUrl("http://42aa0b2b.ngrok.io/NIC-wechat/jsp/work_info.jsp");
 
 		ClickButton button31 = new ClickButton();
 		button31.setName("关于我们");

@@ -39,4 +39,6 @@ public interface IRepairService {
 	void updateFeedback(int id, String info);
 
 	List<repair> findByEnd(String dateString);
+
+	void addrepair(com.litt.nic.pojo.repair repair);
 }
