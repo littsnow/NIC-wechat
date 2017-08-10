@@ -51,7 +51,6 @@ public class BusinessFeedback {
 	@Autowired
 	private IDepartmentService departmentService;
 
-
 	private List<techsupport> techsupportList;
 	private List<repair> repairList;
 	private List<maintenance> mainTenList;
@@ -71,7 +70,7 @@ public class BusinessFeedback {
 	List<String> mtStatusList = new ArrayList<String>();
 	List<String> mtManagerList = new ArrayList<String>();
 	List<String> mtUserList = new ArrayList<String>();
-	
+
 	List<department> departList = new ArrayList<department>();
 	List<String> departNameList = new ArrayList<String>();
 
@@ -81,7 +80,7 @@ public class BusinessFeedback {
 	@RequestMapping(value = "/unfinishedlist")
 	public String loadAllUnfinished(HttpServletRequest request,
 			HttpServletResponse response) {
-		
+
 		techsupportList = techSupportService.findAllUnfinished();
 		repairList = repairService.findAllUnfinished();
 		mainTenList = mainTenanceService.findAllUnfinished();
@@ -97,14 +96,14 @@ public class BusinessFeedback {
 			return "/jsp/error/null";
 
 		} else {
-		getDPNameList(request);
-		getTSLists(request, techsupportList);
-		getRPLists(request, repairList);
-		getMTLists(request, mainTenList);
-		request.setAttribute("tsList", techsupportList);
-		request.setAttribute("rpList", repairList);
-		request.setAttribute("mtList", mainTenList);
-		return "/WEB-INF/views/serviceDock/businessFadeback";
+			getDPNameList(request);
+			getTSLists(request, techsupportList);
+			getRPLists(request, repairList);
+			getMTLists(request, mainTenList);
+			request.setAttribute("tsList", techsupportList);
+			request.setAttribute("rpList", repairList);
+			request.setAttribute("mtList", mainTenList);
+			return "/WEB-INF/views/serviceDock/businessFadeback";
 		}
 	}
 
@@ -194,23 +193,25 @@ public class BusinessFeedback {
 		} catch (Exception e) {
 			System.out.println("传递参数不是maintenanceId");
 		}
-		/*return "redirect:showUnfinishedList";*/
+		/* return "redirect:showUnfinishedList"; */
 		return "redirect:unfinishedlist";
 	}
-/**
- * 搜索表单，多条件搜索
- * @param request
- * @param response
- * @return
- */
+
+	/**
+	 * 搜索表单，多条件搜索
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value = "/searchLists")
 	public String searchByInfo(HttpServletRequest request,
 			HttpServletResponse response) {
 		String key = request.getParameter("key");
 		String value = request.getParameter("val");
 		System.out.println("key=" + key + "value=" + value);
-		if (key!= null) {
-			
+		if (key != null) {
+
 			if (key.equals("service")) {
 				System.out.println("业务类型-------------");
 				switch (value) {
@@ -232,18 +233,23 @@ public class BusinessFeedback {
 				return "/WEB-INF/views/serviceDock/businessFadeback";
 			} else {
 				System.out.println("qita=------------------");
-				techsupportList = techSupportService.findUnFinishedTSByMultiInfo(key, value);
+				techsupportList = techSupportService
+						.findUnFinishedTSByMultiInfo(key, value);
 				getTSLists(request, techsupportList);
-				repairList = repairService.findUnfinishedRPByMultiInfo(key, value);
+				repairList = repairService.findUnfinishedRPByMultiInfo(key,
+						value);
 				getRPLists(request, repairList);
-				mainTenList = mainTenanceService.selectUnFinishedByMuliInfo(key, value);
+				mainTenList = mainTenanceService.selectUnFinishedByMuliInfo(
+						key, value);
 				getMTLists(request, mainTenList);
-				
-				/*departList = departmentService.findAllInfo();
-				getDPNameList(request, departList);*/
+
+				/*
+				 * departList = departmentService.findAllInfo();
+				 * getDPNameList(request, departList);
+				 */
 				return "/WEB-INF/views/serviceDock/businessFadeback";
 			}
-			
+
 		} else {
 			System.out.println("空值的情况-----------");
 			return loadAllUnfinished(request, response);
@@ -320,18 +326,6 @@ public class BusinessFeedback {
 	}
 
 	/**
-	 * 跳转到发布新消息页面
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/toshownews")
-	public String toshow(HttpServletRequest request,
-			HttpServletResponse response) {
-
-		return "/WEB-INF/views/work/shownews";
-	}
-
-	/**
 	 * 查找今天已完成的任务列表
 	 * 
 	 * @return
@@ -370,16 +364,14 @@ public class BusinessFeedback {
 		for (int i = 0; i < techSupportList.size(); i++) {
 			tsStatusList.add(statusService.findById(
 					techSupportList.get(i).getStatusId()).getStatusName());
-			tsManagerList.add(managerService.findById(
-					techSupportList.get(i).getManagerId()).getManagerName());
+
 			tsUserList.add(userService.findById(
 					techSupportList.get(i).getUserId()).getUserName());
 		}
 		request.setAttribute("tsStatus", tsStatusList);
-		request.setAttribute("tsManager", tsManagerList);
 		request.setAttribute("tsList", techSupportList);
 		request.setAttribute("tsLen", techSupportList.size());
-		System.out.println(techSupportList.size()+"++++++++++++++++++");
+		System.out.println(techSupportList.size() + "++++++++++++++++++");
 		request.setAttribute("tsUser", tsUserList);
 	}
 
@@ -387,15 +379,12 @@ public class BusinessFeedback {
 		for (int i = 0; i < repairList.size(); i++) {
 			rpStatusList.add(statusService.findById(
 					repairList.get(i).getStatusId()).getStatusName());
-			rpManagerList.add(managerService.findById(
-					repairList.get(i).getManagerId()).getManagerName());
 			rpUserList.add(userService.findById(repairList.get(i).getUserId())
 					.getUserName());
 		}
 		System.out.println("rpList=" + repairList);
 		request.setAttribute("rpList", repairList);
 		request.setAttribute("rpStatus", rpStatusList);
-		request.setAttribute("rpManager", rpManagerList);
 		request.setAttribute("rpUser", rpUserList);
 		request.setAttribute("rpLen", repairList.size());
 	}
@@ -403,8 +392,6 @@ public class BusinessFeedback {
 	public void getMTLists(HttpServletRequest request,
 			List<maintenance> mainTenList) {
 		for (int i = 0; i < mainTenList.size(); i++) {
-			mtManagerList.add(managerService.findById(
-					mainTenList.get(i).getManagerId()).getManagerName());
 			mtStatusList.add(statusService.findById(
 					mainTenList.get(i).getStatusId()).getStatusName());
 			mtUserList.add(userService.findById(mainTenList.get(i).getUserId())
@@ -412,9 +399,9 @@ public class BusinessFeedback {
 		}
 		request.setAttribute("mtList", mainTenList);
 		request.setAttribute("mtStatus", mtStatusList);
-		request.setAttribute("mtManager", mtManagerList);
 		request.setAttribute("mtUser", mtUserList);
 	}
+
 	public void getDPNameList(HttpServletRequest request) {
 		departNameList.clear();
 		departList = departmentService.findAllInfo();

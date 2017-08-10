@@ -6,14 +6,24 @@
     <result column="information_title" property="informationTitle" jdbcType="VARCHAR" />
     <result column="information_link" property="informationLink" jdbcType="VARCHAR" />
     <result column="information_time" property="informationTime" jdbcType="TIMESTAMP" />
-    <result column="information_content" property="informationContent" jdbcType="VARCHAR" />
+    <result column="information_pic" property="informationPic" jdbcType="VARCHAR" />
+    <result column="information_description" property="informationDescription" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.litt.nic.pojo.information" extends="BaseResultMap" >
+    <result column="information_content" property="informationContent" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    information_id, information_title, information_link, information_time, information_content
+    information_id, information_title, information_link, information_time, information_pic, 
+    information_description
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <sql id="Blob_Column_List" >
+    information_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from nic_information
     where information_id = #{informationId,jdbcType=INTEGER}
   </select>
@@ -23,10 +33,12 @@
   </delete>
   <insert id="insert" parameterType="com.litt.nic.pojo.information" >
     insert into nic_information (information_id, information_title, 
-      information_link, information_time, information_content
+      information_link, information_time, information_pic, 
+      information_description, information_content
       )
     values (#{informationId,jdbcType=INTEGER}, #{informationTitle,jdbcType=VARCHAR}, 
-      #{informationLink,jdbcType=VARCHAR}, #{informationTime,jdbcType=TIMESTAMP}, #{informationContent,jdbcType=VARCHAR}
+      #{informationLink,jdbcType=VARCHAR}, #{informationTime,jdbcType=TIMESTAMP}, #{informationPic,jdbcType=VARCHAR}, 
+      #{informationDescription,jdbcType=VARCHAR}, #{informationContent,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.litt.nic.pojo.information" >
@@ -43,6 +55,12 @@
       </if>
       <if test="informationTime != null" >
         information_time,
+      </if>
+      <if test="informationPic != null" >
+        information_pic,
+      </if>
+      <if test="informationDescription != null" >
+        information_description,
       </if>
       <if test="informationContent != null" >
         information_content,
@@ -61,8 +79,14 @@
       <if test="informationTime != null" >
         #{informationTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="informationPic != null" >
+        #{informationPic,jdbcType=VARCHAR},
+      </if>
+      <if test="informationDescription != null" >
+        #{informationDescription,jdbcType=VARCHAR},
+      </if>
       <if test="informationContent != null" >
-        #{informationContent,jdbcType=VARCHAR},
+        #{informationContent,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -78,10 +102,26 @@
       <if test="informationTime != null" >
         information_time = #{informationTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="informationPic != null" >
+        information_pic = #{informationPic,jdbcType=VARCHAR},
+      </if>
+      <if test="informationDescription != null" >
+        information_description = #{informationDescription,jdbcType=VARCHAR},
+      </if>
       <if test="informationContent != null" >
-        information_content = #{informationContent,jdbcType=VARCHAR},
+        information_content = #{informationContent,jdbcType=LONGVARCHAR},
       </if>
     </set>
+    where information_id = #{informationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.litt.nic.pojo.information" >
+    update nic_information
+    set information_title = #{informationTitle,jdbcType=VARCHAR},
+      information_link = #{informationLink,jdbcType=VARCHAR},
+      information_time = #{informationTime,jdbcType=TIMESTAMP},
+      information_pic = #{informationPic,jdbcType=VARCHAR},
+      information_description = #{informationDescription,jdbcType=VARCHAR},
+      information_content = #{informationContent,jdbcType=LONGVARCHAR}
     where information_id = #{informationId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.litt.nic.pojo.information" >
@@ -89,7 +129,8 @@
     set information_title = #{informationTitle,jdbcType=VARCHAR},
       information_link = #{informationLink,jdbcType=VARCHAR},
       information_time = #{informationTime,jdbcType=TIMESTAMP},
-      information_content = #{informationContent,jdbcType=VARCHAR}
+      information_pic = #{informationPic,jdbcType=VARCHAR},
+      information_description = #{informationDescription,jdbcType=VARCHAR}
     where information_id = #{informationId,jdbcType=INTEGER}
   </update>
 </mapper>

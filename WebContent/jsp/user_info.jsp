@@ -31,14 +31,14 @@ $(function() {
 });
 </script>
 </head>
-<body>
+<body  style="font-size: 50px;">
     <div class="register">
-        <div class="regTop" style="font-size: 40px;">
+        <div class="regTop">
             <span>完善用户信息</span>
         </div>
         <div class="content">
             <div class="point">
-                <span>用户必须完善信息之后才能提交相关业务信息。</span>
+                <span style="font-size: 45px;">用户须完善信息之后才能提交业务信息。</span>
             </div>
             <form action="${pageContext.request.contextPath }/user/adduser" method="post">
                 <div class="message">
@@ -63,9 +63,12 @@ $(function() {
 							</select></td> --%>
 						<td id="depart" colspan="6">
 							 <select name="department">
-		                        <option value="1">选择部门</option>
-		                        <option value="2">计算机系</option>
-		                        <option value="3">化工系</option>
+							 	 <option value="1">选择部门</option>
+								 <c:forEach items="${listDepartment}" var="item" varStatus="status">
+								 
+			                        
+			                        <option value="${item.departmentId }">${item.departmentName }</option>
+			                     </c:forEach>
 	                    	</select> 
                     	</td>
 					</tr>

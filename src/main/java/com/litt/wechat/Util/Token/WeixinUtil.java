@@ -29,8 +29,8 @@ import com.litt.wechat.Util.SignUtil;
  * 
  */
 public class WeixinUtil {
-	private static final String APPID = "wx6f7d35bce110c2e3";
-	private static final String APPSECRET = "162b3c93a3c265dbba32e5c9ddbff023";
+	private static final String APPID = "wxb90edb0753e2644e";
+	private static final String APPSECRET = "d4624c36b6795d1d99dcf0547af5443d";
 
 	private static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 
@@ -59,7 +59,8 @@ public class WeixinUtil {
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	public static JSONObject doGetStr(String url) throws ParseException, IOException {
+	public static JSONObject doGetStr(String url) throws ParseException,
+			IOException {
 		DefaultHttpClient client = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(url);
 		JSONObject jsonObject = null;
@@ -81,7 +82,8 @@ public class WeixinUtil {
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	public static JSONObject doPostStr(String url, String outStr) throws ParseException, IOException {
+	public static JSONObject doPostStr(String url, String outStr)
+			throws ParseException, IOException {
 		DefaultHttpClient client = new DefaultHttpClient();
 		HttpPost httpost = new HttpPost(url);
 		JSONObject jsonObject = null;
@@ -101,7 +103,8 @@ public class WeixinUtil {
 	 */
 	public static Token getAccessToken() throws ParseException, IOException {
 		Token token = new Token();
-		String url = ACCESS_TOKEN_URL.replace("APPID", APPID).replace("APPSECRET", APPSECRET);
+		String url = ACCESS_TOKEN_URL.replace("APPID", APPID).replace(
+				"APPSECRET", APPSECRET);
 		JSONObject jsonObject = doGetStr(url);
 		if (jsonObject != null) {
 			token.setAccessToken(jsonObject.getString("access_token"));
@@ -117,7 +120,8 @@ public class WeixinUtil {
 	 * @throws ParseException
 	 * 
 	 */
-	public static String getTickect(String access_token) throws ParseException, IOException {
+	public static String getTickect(String access_token) throws ParseException,
+			IOException {
 		String ticket = "";
 		String url = REQUEST_URL.replace("ACCESS_TOKEN", access_token);
 		// 获取网页授权凭证
@@ -129,15 +133,16 @@ public class WeixinUtil {
 
 				int errorCode = jsonObject.getInt("errcode");
 				String errorMsg = jsonObject.getString("errmsg");
-				System.out.println("获取jsapi_ticket失败 errcode:" + errorCode + "," + "errmsg:" + errorMsg);
+				System.out.println("获取jsapi_ticket失败 errcode:" + errorCode
+						+ "," + "errmsg:" + errorMsg);
 			}
 		}
 		return ticket;
 	}
 
 	// 获得签名js signature
-	public static String getSignature(String jsapi_ticket, String timestamp, String nonce, String jsurl)
-			throws IOException {
+	public static String getSignature(String jsapi_ticket, String timestamp,
+			String nonce, String jsurl) throws IOException {
 		/****
 		 * 对 jsapi_ticket、 timestamp 和 nonce 按字典排序 对所有待签名参数按照字段名的 ASCII
 		 * 码从小到大排序（字典序）后，使用 URL 键值对的格式（即key1=value1&key2=value2…）拼接成字符串
@@ -145,11 +150,12 @@ public class WeixinUtil {
 		 * URL 转义。即 signature=sha1(string1)。
 		 * **如果没有按照生成的key1=value&key2=value拼接的话会报错
 		 */
-		String[] paramArr = new String[] { "jsapi_ticket=" + jsapi_ticket, "timestamp=" + timestamp,
-				"noncestr=" + nonce, "url=" + jsurl };
+		String[] paramArr = new String[] { "jsapi_ticket=" + jsapi_ticket,
+				"timestamp=" + timestamp, "noncestr=" + nonce, "url=" + jsurl };
 		Arrays.sort(paramArr);
 		// 将排序后的结果拼接成一个字符串
-		String content = paramArr[0].concat("&" + paramArr[1]).concat("&" + paramArr[2]).concat("&" + paramArr[3]);
+		String content = paramArr[0].concat("&" + paramArr[1])
+				.concat("&" + paramArr[2]).concat("&" + paramArr[3]);
 		System.out.println("拼接之后的sign为:" + content);
 		String gensignature = null;
 		try {
@@ -169,35 +175,40 @@ public class WeixinUtil {
 	}
 
 	/**
-	 *  获取临时素材（微信服务器）
-	 * @param mediaId  媒体文件id，即微信服务器id
-	 * @throws IOException 
-	 * @throws ParseException 
+	 * 获取临时素材（微信服务器）
+	 * 
+	 * @param mediaId
+	 *            媒体文件id，即微信服务器id
+	 * @throws IOException
+	 * @throws ParseException
 	 */
-	public static InputStream downloadMedia(String mediaId) throws ParseException, IOException {
+	public static InputStream downloadMedia(String mediaId)
+			throws ParseException, IOException {
 		String accessToken = WeixinUtil.getAccessToken().getAccessToken();
 		// 拼接请求地址
-		String requestUrl = DOWNLOAD_URL.replace("ACCESS_TOKEN", accessToken).replace("MEDIA_ID", mediaId);
-		 InputStream is = null;
-	       try {
-	           URL urlGet = new URL(requestUrl);
-	           HttpURLConnection http = (HttpURLConnection) urlGet.openConnection();
-	           http.setRequestMethod("GET"); // 必须是get方式请求
-	           http.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
-	           http.setDoOutput(true);
-	           http.setDoInput(true);
-	           http.connect();
-	           // 获取文件转化为byte流
-	           is = http.getInputStream();
-	       } catch (Exception e) {
-	           e.printStackTrace();
-	       }
+		String requestUrl = DOWNLOAD_URL.replace("ACCESS_TOKEN", accessToken)
+				.replace("MEDIA_ID", mediaId);
+		InputStream is = null;
+		try {
+			URL urlGet = new URL(requestUrl);
+			HttpURLConnection http = (HttpURLConnection) urlGet
+					.openConnection();
+			http.setRequestMethod("GET"); // 必须是get方式请求
+			http.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded");
+			http.setDoOutput(true);
+			http.setDoInput(true);
+			http.connect();
+			// 获取文件转化为byte流
+			is = http.getInputStream();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return is;
 	}
-	
-	
-	
-	public static int createMenu(String token, String menu) throws ParseException, IOException {
+
+	public static int createMenu(String token, String menu)
+			throws ParseException, IOException {
 		int result = 0;
 		String url = CREATE_MENU_URL.replace("ACCESS_TOKEN", token);
 		JSONObject jsonObject = doPostStr(url, menu);
@@ -207,13 +218,15 @@ public class WeixinUtil {
 		return result;
 	}
 
-	public static JSONObject queryMenu(String token) throws ParseException, IOException {
+	public static JSONObject queryMenu(String token) throws ParseException,
+			IOException {
 		String url = QUERY_MENU_URL.replace("ACCESS_TOKEN", token);
 		JSONObject jsonObject = doGetStr(url);
 		return jsonObject;
 	}
 
-	public static int deleteMenu(String token) throws ParseException, IOException {
+	public static int deleteMenu(String token) throws ParseException,
+			IOException {
 		String url = DELETE_MENU_URL.replace("ACCESS_TOKEN", token);
 		JSONObject jsonObject = doGetStr(url);
 		int result = 0;

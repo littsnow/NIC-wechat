@@ -25,7 +25,7 @@
   <ul style="display:block">
     <li><a href="${pageContext.request.contextPath }/feedback/unfinishedlist" target="right"><span class="icon-caret-right"></span>待处理业务</a></li>
     <li><a href="${pageContext.request.contextPath }/feedback/finishedlist" target="right"><span class="icon-caret-right"></span>已完成业务</a></li>
-    <li><a href="${pageContext.request.contextPath }/feedback/toshownews" target="right"><span class="icon-caret-right"></span>发布消息</a></li>
+    <li><a href="${pageContext.request.contextPath }/shownews/toshownews" target="right"><span class="icon-caret-right"></span>发布消息</a></li>
   </ul>   
   <h2><span class="icon-user"></span>用户管理</h2>
   <ul style="display:block" id="show">

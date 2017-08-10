@@ -57,25 +57,29 @@ public class EventDispatcher {
 		if (map.get("Event").equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) { //
 			// 关注事件
 			System.out.println("==============这是关注事件！" + openid.toString());
+
 			try {
 				System.out.println("jinlaile-------------------");
 				user userinfo = GetUserInfo.getUserInfo(WeixinUtil
 						.getAccessToken().getAccessToken(), openid);
 
 				Article article = new Article();
-				article.setDescription("欢迎来到崔用志的个人博客：菜鸟程序员成长之路！"); // 图文消息的描述
+				article.setDescription("欢迎使用太原工业学院网络信息管理中心业务对接系统"); // 图文消息的描述
 				article.setPicUrl(userinfo.getUserHeadimgurl()); // 图文消息图片地址
-				article.setTitle("尊敬的：" + userinfo.getUserNickname() + ",你好！"); // 图文消息标题
-				article.setUrl("http://www.cuiyongzhi.com"); // 图文url链接
+				article.setTitle("尊敬的：" + userinfo.getUserNickname()
+						+ ",你好！请您先完善您的个人信息，方便提交业务信息。");
+				// 图文消息标题
+				article.setUrl("http://34a8d271.ngrok.io/NIC-wechat/user/loadInfo"); // 图文url链接
 				List<Article> list = new ArrayList<Article>();
 				list.add(article); // 这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
 				newmsg.setArticleCount(list.size());
 				newmsg.setArticles(list);
 				return MessageUtil.newsMessageToXml(newmsg);
 			} catch (Exception e) {
-				System.out.println("====代码有问题额☺！");
+				System.out.println("====代码有问题额☺☺☺☺☺！");
 				logger.error(e, e);
 			}
+
 		}
 
 		if (map.get("Event").equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) { // 取消关注事件
@@ -83,6 +87,18 @@ public class EventDispatcher {
 		}
 		if (map.get("Event").equals(MessageUtil.EVENT_TYPE_CLICK)) { // 自定义菜单点击事件
 			System.out.println("==============这是自定义菜单点击事件！");
+
+			Article article = new Article();
+			article.setDescription("版权所有：太原工业学院网络与信息中心"); // 图文消息的描述
+			article.setPicUrl("http://34a8d271.ngrok.io/NIC-wechat/images/tg.png"); // 图文消息图片地址
+			article.setTitle("【信息快讯】   点击查看学院官网发布的最新信息！"); // 图文消息标题
+			article.setUrl("http://34a8d271.ngrok.io/NIC-wechat/news/extract"); // 图文url链接
+			List<Article> list = new ArrayList<Article>();
+			list.add(article); // 这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
+			newmsg.setArticleCount(list.size());
+			newmsg.setArticles(list);
+			return MessageUtil.newsMessageToXml(newmsg);
+
 		}
 
 		return null;

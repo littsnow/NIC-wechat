@@ -46,6 +46,14 @@
 		<async-supported>true</async-supported>
 
 	</servlet>
+	<servlet>
+        <servlet-name>initServlet</servlet-name>
+        <servlet-class>
+            com.litt.wechat.Util.Menu.InitServlet
+        </servlet-class>
+       
+        <load-on-startup>0</load-on-startup>
+    </servlet>
 	
 	<servlet-mapping>
 		<servlet-name>SpringMVC</servlet-name>

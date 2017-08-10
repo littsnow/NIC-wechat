@@ -13,5 +13,7 @@ public interface informationMapper {
 
     int updateByPrimaryKeySelective(information record);
 
+    int updateByPrimaryKeyWithBLOBs(information record);
+
     int updateByPrimaryKey(information record);
 }

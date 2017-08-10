@@ -11,6 +11,10 @@ public class information {
 
     private Date informationTime;
 
+    private String informationPic;
+
+    private String informationDescription;
+
     private String informationContent;
 
     public Integer getInformationId() {
@@ -43,6 +47,22 @@ public class information {
 
     public void setInformationTime(Date informationTime) {
         this.informationTime = informationTime;
+    }
+
+    public String getInformationPic() {
+        return informationPic;
+    }
+
+    public void setInformationPic(String informationPic) {
+        this.informationPic = informationPic == null ? null : informationPic.trim();
+    }
+
+    public String getInformationDescription() {
+        return informationDescription;
+    }
+
+    public void setInformationDescription(String informationDescription) {
+        this.informationDescription = informationDescription == null ? null : informationDescription.trim();
     }
 
     public String getInformationContent() {

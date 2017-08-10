@@ -20,7 +20,7 @@
 function config() {
 	$.ajax({
 		type : 'post',
-		url : "http://85a2a1a7.ngrok.io/NIC-wechat/work/config",
+		url : "http://19a3bbe8.ngrok.io/NIC-wechat/work/config",
 		data : {'url' :location.href.split('#')[0]},
 		dataType : 'json',
 		contentType : "application/x-www-form-urlencoded; charset=utf-8",
@@ -114,7 +114,7 @@ function takePicture(){
 		</div>
 		<div class="content">
 			<div class="point">
-				<span>用户必须完善信息之后才能提交相关业务信息。</span>
+				<span style="font-size: 45px;">用户须完善信息之后才能提交业务信息。</span>
 			</div>
 			<form action="${pageContext.request.contextPath }/work/addwork"
 				method="post">

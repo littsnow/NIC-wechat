@@ -2,12 +2,12 @@ package com.litt.wechat.Util.Menu;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServlet;
+
 import net.sf.json.JSONObject;
 
 import org.apache.http.ParseException;
-import org.apache.log4j.Logger;
 
-import com.litt.wechat.Controller.WechatSecurity;
 import com.litt.wechat.Menu.Button;
 import com.litt.wechat.Menu.ClickButton;
 import com.litt.wechat.Menu.Menu;
@@ -15,11 +15,9 @@ import com.litt.wechat.Menu.ViewButton;
 import com.litt.wechat.Util.HttpUtils;
 import com.litt.wechat.Util.Token.WeixinUtil;
 
-public class MenuMain {
-
-	private static Logger logger = Logger.getLogger(WechatSecurity.class);
-
-	public static void main(String[] args) throws ParseException, IOException {
+public class InitServlet extends HttpServlet {
+	public void creatMenu() throws ParseException, IOException {
+		System.out.println("123=======================");
 		Menu menu = new Menu();
 		ClickButton button11 = new ClickButton();
 		button11.setName("最新消息");
@@ -29,17 +27,17 @@ public class MenuMain {
 		ViewButton button21 = new ViewButton();
 		button21.setName("完善个人 信息");
 		button21.setType("view");
-		button21.setUrl("http://34a8d271.ngrok.io/NIC-wechat/user/loadInfo");
+		button21.setUrl("http://19a3bbe8.ngrok.io/NIC-wechat/user/loadInfo");
 
 		ViewButton button22 = new ViewButton();
 		button22.setName("提交业务");
 		button22.setType("view");
-		button22.setUrl("http://34a8d271.ngrok.io/NIC-wechat/jsp/work_info.jsp");
+		button22.setUrl("http://19a3bbe8.ngrok.io/NIC-wechat/jsp/work_info.jsp");
 
 		ViewButton button31 = new ViewButton();
-		button31.setName("关于我们");
+		button31.setName("关于我们123");
 		button31.setType("view");
-		button31.setUrl("http://34a8d271.ngrok.io/NIC-wechat/aboutNIC/extract");
+		button31.setUrl("http://wlzx.tit.edu.cn/info/news/content/1083.htm");
 
 		Button button = new Button();
 		button.setName("业务对接");

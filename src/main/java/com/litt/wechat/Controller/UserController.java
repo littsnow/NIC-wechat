@@ -33,26 +33,28 @@ public class UserController {
 	@Autowired
 	private IUserService userService;
 	@Autowired
-	private IDepartmentService  departmentService;
-	
+	private IDepartmentService departmentService;
+
 	private user user;
+
 	/**
 	 * 加载完善用户信息
+	 * 
 	 * @param request
 	 * @param response
 	 * @return
 	 */
 	@RequestMapping(value = "/loadInfo")
 	public String loadInfo(HttpServletRequest request,
-			HttpServletResponse response){
-//		List<department> listDepartment=departmentService.findAllInfo();
-//		for (department department : listDepartment) {
-//			System.out.println(department.getDepartmentName());
-//		}
-//		request.setAttribute("listDepartment", listDepartment);
+			HttpServletResponse response) {
+		List<department> listDepartment = departmentService.findAllInfo();
+		for (department department : listDepartment) {
+			System.out.println(department.getDepartmentName());
+		}
+		request.setAttribute("listDepartment", listDepartment);
 		return "/jsp/user_info";
 	}
-	
+
 	/**
 	 * 搜索全部信息
 	 * 
@@ -67,38 +69,38 @@ public class UserController {
 			HttpServletResponse response) throws ParseException, IOException {
 		String name = request.getParameter("name");
 		String telephone = request.getParameter("telephone");
-		String depart=request.getParameter("department");
-		System.out.println("depart----"+depart);
-		if("1".equals(depart)||"".equals(name)||"".equals(telephone)){
-			System.out.println("depart----"+depart);
-			 response.setContentType("text/html; charset=UTF-8"); //转码
-			    PrintWriter out = response.getWriter();
-			    out.flush();
-			    out.println("<script>");
-			    out.println("alert('请把信息填写完整！');");
-			    out.println("history.back();");
-			    out.println("</script>");
-		}else{
+		String depart = request.getParameter("department");
+		System.out.println("depart----" + depart);
+		if ("1".equals(depart) || "".equals(name) || "".equals(telephone)) {
+			System.out.println("depart----" + depart);
+			response.setContentType("text/html; charset=UTF-8"); // 转码
+			PrintWriter out = response.getWriter();
+			out.flush();
+			out.println("<script>");
+			out.println("alert('请把信息填写完整！');");
+			out.println("history.back();");
+			out.println("</script>");
+		} else {
 			String openid = EventDispatcher.openid;
 			System.out.println("openid=" + openid);
-			user DataBaseUser=userService.findByOpenid(openid);
-			//数据库已存在此人
-			if(DataBaseUser!=null){
+			user DataBaseUser = userService.findByOpenid(openid);
+			// 数据库已存在此人
+			if (DataBaseUser != null) {
 				System.out.println(DataBaseUser.getUserName());
-				 response.setContentType("text/html; charset=UTF-8"); //转码
-				    PrintWriter out = response.getWriter();
-				    out.flush();
-				    out.println("<script>");
-				    out.println("alert('此用户名已存在,请不要重复绑定！');");
-				    out.println("history.back();");
-				    out.println("</script>");
-			}else{
+				response.setContentType("text/html; charset=UTF-8"); // 转码
+				PrintWriter out = response.getWriter();
+				out.flush();
+				out.println("<script>");
+				out.println("alert('此用户名已存在,请不要重复绑定！');");
+				out.println("history.back();");
+				out.println("</script>");
+			} else {
 				user = GetUserInfo.getUserInfo(WeixinUtil.getAccessToken()
 						.getAccessToken(), openid);
 				user.setUserName(request.getParameter("name"));
 				user.setUserTelephone(request.getParameter("telephone"));
 				user.setUserDepartment(request.getParameter("department"));
-		
+
 				System.out.println("OpenID：" + user.getUserOpenid());
 				System.out.println("关注状态：" + user.getUserSubscribe());
 				System.out.println("关注时间：" + user.getUserSubscribetime());
@@ -109,20 +111,20 @@ public class UserController {
 				System.out.println("城市：" + user.getUserCity());
 				System.out.println("语言：" + user.getUserLanguage());
 				System.out.println("头像：" + user.getUserHeadimgurl());
-		
+
 				// 添加微信用户到数据库
 				userService.addUser(user);
-				response.setContentType("text/html; charset=UTF-8"); //转码
-				    PrintWriter out = response.getWriter();
-				    out.flush();
-				    out.println("<script>");
-				    out.println("alert('操作成功！');");
-				    //out.println("history.back();");
-				    out.println("</script>");
+				response.setContentType("text/html; charset=UTF-8"); // 转码
+				PrintWriter out = response.getWriter();
+				out.flush();
+				out.println("<script>");
+				out.println("alert('操作成功！');");
+				// out.println("history.back();");
+				out.println("</script>");
 			}
-			return "/jsp/work_info" ;
+			return "/jsp/work_info";
 		}
-		System.out.println("name="+name+"tele"+telephone);
+		System.out.println("name=" + name + "tele" + telephone);
 		return null;
 	}
 

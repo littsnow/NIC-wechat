@@ -29,7 +29,7 @@ public class MsgDispatcher {
 		txtmsg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
 		System.out.println("来了哦");
 		if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) { // 文本消息
-			System.out.println("==============这是文本消息！");
+			System.out.println("==============这是文本消息！" + openid);
 			txtmsg.setContent("你好，这里是栗童童个人账号！");
 
 			return MessageUtil.textMessageToXml(txtmsg);

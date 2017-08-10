@@ -65,7 +65,11 @@ public class WechatSecurity {
 			Map<String, String> map = MessageUtil.parseXml(request);
 			String msgtype = map.get("MsgType");
 			if (MessageUtil.REQ_MESSAGE_TYPE_EVENT.equals(msgtype)) {
-				EventDispatcher.processEvent(map); // 进入事件处理
+				String msg = EventDispatcher.processEvent(map); // 进入事件处理
+				// 响应消息
+				PrintWriter out = response.getWriter();
+				out.print(msg);
+				out.close();
 			} else {
 				String msg = MsgDispatcher.processMessage(map); // 进入消息处理
 
