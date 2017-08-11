@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoadPicture {
 	
 	@RequestMapping("/picture")
-	public void loadpicture(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		String pictureNmae="150210970713612799761-1350-47fc-9988-b6d7e1ba9968.jpg";
+	public void loadpicture(HttpServletRequest request, HttpServletResponse response,String pName) throws IOException{
+		//String pictureNmae="150210970713612799761-1350-47fc-9988-b6d7e1ba9968.jpg";
+		String pictureNmae=pName;
 		String path = System.getProperty("catalina.home") + "/webapps" + "/download/";
 		//读取本地图片输入流  
         FileInputStream inputStream = new FileInputStream(path+pictureNmae);  
