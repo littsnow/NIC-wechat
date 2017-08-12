@@ -51,6 +51,9 @@ public class ShowNewsController {
 	public String addnews(HttpServletRequest request,
 			HttpServletResponse response, String FilePath)
 			throws ParseException, Exception {
+		String str=request.getParameter("file");
+	
+		
 		String media_id = "";
 		String msg = "";
 		information information = new information();
@@ -128,4 +131,5 @@ public class ShowNewsController {
 		return "/WEB-INF/views/work/shownews";
 
 	}
+
 }

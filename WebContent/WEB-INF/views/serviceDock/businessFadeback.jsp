@@ -187,9 +187,10 @@ $(function(){
 						</select></td>
 						<td>
 							<div class="button-group">
-									<a class="button border-main" style="padding: 2px 2px;" 
-									 href="" name="submit" onclick="document.getElementById('subform').submit();return false"> 
-									<span class="icon-edit"></span>提交</a>
+									<!-- <a class="button border-main" style="padding: 2px 2px;" 
+									 href="" name="submit" onclick="document.getElementById('subform').submit();return false">  -->
+									 <input type="submit" value="" class="button border-main" style="padding: 2px 2px;" />
+									<span class="icon-edit"></span>提交</a> 
 									<a class="button border-red" style="padding: 2px 2px;" 
 									href="${pageContext.request.contextPath }/feedback/toaddinfo?techsupportId=${s.techsupportId}"> <span class="icon-edit"></span>反馈
 									</a>
@@ -198,7 +199,7 @@ $(function(){
 					</tr>
 					</form>
 				</c:forEach>
-				<c:forEach items="${rpList }" var="s" varStatus="b">
+				<%-- <c:forEach items="${rpList }" var="s" varStatus="b">
 					<form method="post"
 						action="${pageContext.request.contextPath }/feedback/toUpdateStatus"
 						id="subform">
@@ -259,7 +260,7 @@ $(function(){
 							<td>${s.maintenanceDevicename}</td>
 							<td>${s.maintenanceDepartment}</td>
 							<td>${s.maintenanceLocation}</td>
-							<%--   <td>${s.maintenanceDescribe}</td> --%>
+							  <td>${s.maintenanceDescribe}</td>
 							<td>${s.maintenanceUptime}</td>
 
 							<td colspan="1"
@@ -290,7 +291,7 @@ $(function(){
 							</td>
 						</tr>
 					</form>
-				</c:forEach>
+				</c:forEach> --%>
 			</table>
 		</div>
 	

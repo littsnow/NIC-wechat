@@ -29,17 +29,17 @@ public class MenuMain {
 		ViewButton button21 = new ViewButton();
 		button21.setName("完善个人 信息");
 		button21.setType("view");
-		button21.setUrl("http://34a8d271.ngrok.io/NIC-wechat/user/loadInfo");
+		button21.setUrl("http://b39c6e11.ngrok.io/NIC-wechat/user/loadInfo");
 
 		ViewButton button22 = new ViewButton();
 		button22.setName("提交业务");
 		button22.setType("view");
-		button22.setUrl("http://34a8d271.ngrok.io/NIC-wechat/jsp/work_info.jsp");
+		button22.setUrl("http://b39c6e11.ngrok.io/NIC-wechat/jsp/work_info.jsp");
 
 		ViewButton button31 = new ViewButton();
 		button31.setName("关于我们");
 		button31.setType("view");
-		button31.setUrl("http://34a8d271.ngrok.io/NIC-wechat/aboutNIC/extract");
+		button31.setUrl("http://b39c6e11.ngrok.io/NIC-wechat/aboutNIC/extract");
 
 		Button button = new Button();
 		button.setName("业务对接");

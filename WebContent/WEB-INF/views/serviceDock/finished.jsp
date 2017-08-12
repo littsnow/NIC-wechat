@@ -85,7 +85,7 @@
 						<td>${s.techsupportLocation}</td>
 						<%--  <td> ${s.techsupportDescribe}</td> --%>
 						<td>${s.techsupportUptime}</td>
-						<td>${tsStatus[a.index]}</td>
+						<td>已完成</td>
 						<td>${tsManager[a.index]}</td>
 					</tr>
 				</c:forEach>
@@ -102,7 +102,7 @@
 							<td>${s.repairDepartment}</td>
 							<td>${s.repairLocation}</td>
 							<td>${s.repairUptime}</td>
-							<td>${rpStatus[b.index]}</td>
+							<td>已完成</td>
 							<td>${rpManager[b.index]}</td>
 						</tr>
 				</c:forEach>
@@ -118,7 +118,7 @@
 							<td>${s.maintenanceLocation}</td>
 							<%--   <td>${s.maintenanceDescribe}</td> --%>
 							<td>${s.maintenanceUptime}</td>
-							<td>${mtStatus[c.index]}</td>
+							<td>已完成</td>
 							<td>${mtManager[c.index]}</td>
 						</tr>
 				</c:forEach>
