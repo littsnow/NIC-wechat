@@ -341,7 +341,9 @@ public class BusinessFeedback {
 		String dateString = formatter.format(date);
 		System.out.println(dateString.toString());
 		techsupportList = techSupportService.findByEnd(dateString);
+		System.out.println("----"+techsupportList.get(0).getStatusId());
 		repairList = repairService.findByEnd(dateString);
+		
 		mainTenList = mainTenanceService.findByEnd(dateString);
 		if (techsupportList.isEmpty() && repairList.isEmpty()
 				&& mainTenList.isEmpty()) {
