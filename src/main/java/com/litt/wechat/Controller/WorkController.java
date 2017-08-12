@@ -53,6 +53,43 @@ public class WorkController {
 
 	private user user;
 
+	@SuppressWarnings({ "finally", "null" })
+	@RequestMapping(value="/load")
+	public String load(HttpServletResponse response,HttpServletRequest request) throws IOException
+	{
+		String openid = EventDispatcher.openid;
+		user DataBaseUser = null;
+		System.out.println("openid=" + openid);
+		try{
+		 DataBaseUser = userService.findByOpenid(openid);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally {
+			// 数据库不存在此人
+			if (DataBaseUser== null) {
+				//System.out.println(DataBaseUser.getUserName());
+				response.setContentType("text/html; charset=UTF-8"); // 转码
+				PrintWriter out = response.getWriter();
+				out.flush();
+				out.println("<script>");
+				out.println("alert('请完善个人信息！');");
+				out.println("history.back();");
+				out.println("</script>");
+				/*request.setAttribute("openid", openid);*/
+				/*return "redirect:/user/loadInfo";*/
+				
+			/*}else
+				
+			{*/
+			return null;
+			
+		}
+			return "/jsp/work_info";
+		}
+	}
 	@RequestMapping(value = "/addwork")
 	public String addWork(HttpServletRequest request, HttpServletResponse response) throws ParseException, IOException {
 		String pictureName=request.getParameter("filename");

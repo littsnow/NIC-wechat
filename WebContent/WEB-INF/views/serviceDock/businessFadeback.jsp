@@ -149,6 +149,7 @@ $(function(){
 					<th>设备名称</th>
 					<th>部门</th>
 					<th>具体地点</th>
+					<th>查看图片</th>
 					<th>提交时间</th>
 					<th>进度</th>
 					<th>处理人</th>
@@ -167,7 +168,12 @@ $(function(){
 						<td>${s.techsupportDevicename}</td>
 						<td>${s.techsupportDepartment}</td>
 						<td>${s.techsupportLocation}</td>
-						<%--  <td> ${s.techsupportDescribe}</td> --%>
+						<c:if test="${!empty s.techsupportPicture }">
+						<td><a href="${pageContext.request.contextPath }/load/picture?pName=${s.techsupportPicture}">点击查看</a></td>
+						</c:if>
+						<c:if test="${empty s.techsupportPicture }">
+						<td>无图片</td>
+						</c:if>
 						<td>${s.techsupportUptime}</td>
 						<td colspan="1"
 							style="text-align-last: center; text-align: center;"><select
@@ -214,6 +220,12 @@ $(function(){
 							<td>${s.repairDevicename}</td>
 							<td>${s.repairDepartment}</td>
 							<td>${s.repairLocation}</td>
+							<c:if test="${!empty s.repairPicture }">
+						<td><a href="${pageContext.request.contextPath }/load/picture?pName=${s.repairPicture}">点击查看</a></td>
+						</c:if>
+						<c:if test="${empty s.repairPicture }">
+						<td>无图片</td>
+						</c:if>
 							<td>${s.repairUptime}</td>
 							<td colspan="1"
 								style="text-align-last: center; text-align: center;"><select
@@ -260,7 +272,12 @@ $(function(){
 							<td>${s.maintenanceDevicename}</td>
 							<td>${s.maintenanceDepartment}</td>
 							<td>${s.maintenanceLocation}</td>
-							  <td>${s.maintenanceDescribe}</td>
+							   <c:if test="${!empty s.maintenancePicture }">
+						<td><a href="${pageContext.request.contextPath }/load/picture?pName=${s.maintenancePicture}">点击查看</a></td>
+						</c:if>
+						<c:if test="${empty s.maintenancePicture }">
+						<td>无图片</td>
+						</c:if>
 							<td>${s.maintenanceUptime}</td>
 
 							<td colspan="1"
