@@ -20,7 +20,7 @@
 function config() {
 	$.ajax({
 		type : 'post',
-		url : "http://19a3bbe8.ngrok.io/NIC-wechat/work/config",
+		url : " http://lijx.tunnel.qydev.com/NIC-wechat/work/config",
 		data : {'url' :location.href.split('#')[0]},
 		dataType : 'json',
 		contentType : "application/x-www-form-urlencoded; charset=utf-8",
