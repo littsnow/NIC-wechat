@@ -64,12 +64,12 @@ public class EventDispatcher {
 						.getAccessToken().getAccessToken(), openid);
 
 				Article article = new Article();
-//				article.setDescription("欢迎使用太原工业学院网络信息管理中心业务对接系统"); // 图文消息的描述
-//				article.setPicUrl(userinfo.getUserHeadimgurl()); // 图文消息图片地址
-//				article.setTitle("尊敬的：" + userinfo.getUserNickname()
-//						+ ",你好！请您先完善您的个人信息，方便提交业务信息。");
-//				// 图文消息标题
-//				article.setUrl("http://34a8d271.ngrok.io/NIC-wechat/user/loadInfo"); // 图文url链接
+				article.setDigest("欢迎使用太原工业学院网络信息管理中心业务对接系统"); // 图文消息的描述
+				article.setPicUrl(userinfo.getUserHeadimgurl()); // 图文消息图片地址
+				article.setTitle("尊敬的：" + userinfo.getUserNickname()
+						+ ",你好！请您先完善您的个人信息，方便提交业务信息。");
+				// 图文消息标题
+				article.setUrl("http://9dceb4a0.ngrok.io/NIC-wechat/user/loadInfo"); // 图文url链接
 				List<Article> list = new ArrayList<Article>();
 				list.add(article); // 这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
 				newmsg.setArticleCount(list.size());
@@ -89,10 +89,12 @@ public class EventDispatcher {
 			System.out.println("==============这是自定义菜单点击事件！");
 
 			Article article = new Article();
-//			article.setDescription("版权所有：太原工业学院网络与信息中心"); // 图文消息的描述
-//			article.setPicUrl("http://34a8d271.ngrok.io/NIC-wechat/images/tg.png"); // 图文消息图片地址
-//			article.setTitle("【信息快讯】   点击查看学院官网发布的最新信息！"); // 图文消息标题
-//			article.setUrl("http://34a8d271.ngrok.io/NIC-wechat/news/extract"); // 图文url链接
+			article.setDigest("版权所有：太原工业学院网络与信息中心"); // 图文消息的描述
+			article.setPicUrl("http://34a8d271.ngrok.io/NIC-wechat/images/tg.png");
+			// 图文消息图片地址
+			article.setTitle("【信息快讯】   点击查看学院官网发布的最新信息！"); // 图文消息标题
+			article.setUrl("http://9dceb4a0.ngrok.io/NIC-wechat/news/extract");
+			// 图文url链接
 			List<Article> list = new ArrayList<Article>();
 			list.add(article); // 这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
 			newmsg.setArticleCount(list.size());

@@ -8,7 +8,7 @@
 <html>
 <head>
 <base href="<%=basePath%>">
-<title>work</title>
+<title>提交业务信息</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/css/common.css" />
 <link rel="stylesheet"
@@ -20,14 +20,14 @@
 function config() {
 	$.ajax({
 		type : 'post',
-		url : " http://lijx.tunnel.qydev.com/NIC-wechat/work/config",
+		url : " http://9dceb4a0.ngrok.io/NIC-wechat/work/config",
 		data : {'url' :location.href.split('#')[0]},
 		dataType : 'json',
 		contentType : "application/x-www-form-urlencoded; charset=utf-8",
 		success : function(data) {
 			var obj = eval(data[0]);
 			wx.config({
-				debug : true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+				debug : false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 				appId : obj.appId, // 必填，公众号的唯一标识
 				timestamp : obj.timestamp, // 必填，生成签名的时间戳
 				nonceStr : obj.nonceStr, // 必填，生成签名的随机串
@@ -73,18 +73,14 @@ function takePicture(){
 						   url: "<%=request.getContextPath()%>/work/savePicture",//请求的后台地址
 						   data: {"mediaId":mediaId},//前台传给后台的参数
 						   success: function(filename){//filename:返回值
-							  	 alert(filename);
 							  	$("#fileName").val(filename);
-							  	alert("1");
 							  	var name=$("[id='fileName']").val(); 
-							  	alert("2");
-							  	alert(name);
-							  	alert("3");
 						   },
 						   error:function(XMLHttpRequest, textStatus, errorThrown) {  
-		                       alert(XMLHttpRequest.status);  
+		                       /* alert(XMLHttpRequest.status);  
 		                       alert(XMLHttpRequest.readyState);  
-		                       alert(textStatus);  
+		                       alert(textStatus);   */
+		                       alert("未上传成功");
 		                   }  
 						});
                    // alert(ll);
@@ -99,10 +95,10 @@ function takePicture(){
                     }) --%>
                 },
                 fail: function (res) {
-                    alertModal('上传图片失败，请重试')
-                }
+                    alertModal('上传图片失败，请重试');
+                };
             }); 
-        }
+        };
     });
 }
 </script>

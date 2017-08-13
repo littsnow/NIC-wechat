@@ -1,31 +1,33 @@
 package com.litt.nic.controller;
 
-import java.util.Date;
-import java.util.Map;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONObject;
 
 import org.apache.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.litt.nic.pojo.information;
-import com.litt.nic.service.IInformationService;
-import com.litt.wechat.Util.HttpUtils;
+import com.litt.nic.pojo.article;
+import com.litt.nic.service.IArticleService;
 import com.litt.wechat.Util.Token.WeixinUtil;
 
 @Controller
 @RequestMapping(value = "/shownews")
 public class ShowNewsController {
 	// private static Logger logger = Logger.getLogger(SendToAll.class);
+	
 	@Autowired
-	private IInformationService informationService;
-
+	private IArticleService articleService;
 	/**
 	 * 跳转到发布新消息页面
 	 * 
@@ -47,89 +49,53 @@ public class ShowNewsController {
 	 * @throws Exception
 	 * @throws ParseException
 	 */
-	@RequestMapping(value = "/addnews", method = RequestMethod.GET)
-	public String addnews(HttpServletRequest request,
-			HttpServletResponse response, String FilePath)
-			throws ParseException, Exception {
-		String str=request.getParameter("file");
-	
+	@RequestMapping(value = "/addnews")
+	public String addnews(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("file") MultipartFile file) throws ParseException, Exception {
 		
-		String media_id = "";
-		String msg = "";
-		information information = new information();
-		String access_token = WeixinUtil.getAccessToken().getAccessToken();
-		information.setInformationTitle(request.getParameter("title"));
-		information.setInformationContent(request.getParameter("content"));
-		information.setInformationDescription(request
-				.getParameter("description"));
-		information.setInformationTime(new Date());
+		InputStream is = file.getInputStream();
+		//保存图片路径
+		String targetFile = System.getProperty("catalina.home") + "/webapps" + "/download"+"/ManageUpload/"+UUID.randomUUID().toString() + ".jpg";
+		System.out.println(is);
+		System.out.println(targetFile);
+		try {
+			OutputStream out = new FileOutputStream(targetFile);
+			byte[] bytes = new byte[1024];
+			int len = -1;
+			while ((len = is.read(bytes)) != -1) {
+				out.write(bytes, 0, len);
+			}
+			is.close();
+			out.close();
+		} catch (Exception e) {
+			System.out.println("保存图片失败");
+		}
+		System.out.println("保存图片成功"); 
+		//上传图片到微信服务器
+		// 图文消息缩略图的media_id
+		String media_id=WeixinUtil.upload(new File(targetFile));
+		//由media_id下载到服务器(tomcat)
+		String picName=WeixinUtil.saveImageToDisk(media_id);
 
-		informationService.addnews(information);
-
-		// // 对图文消息
-		// NewsMessage newmsg = new NewsMessage();
-		// newmsg.setToUserName("oR1Tmwd4hAWdiSZU3R8zQkS4mYTk");
-		// // newmsg.setFromUserName(mpid);
-		// newmsg.setCreateTime(new Date().getTime());
-		// newmsg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
-		// Article article = new Article();
-		// article.setDescription("版权所有：太原工业学院网络与信息中心"); // 图文消息的描述
-		// article.setPicUrl("http://34a8d271.ngrok.io/NIC-wechat/images/tg.png");
-		// // 图文消息图片地址
-		// article.setTitle("【信息快讯】   点击查看学院官网发布的最新信息！"); // 图文消息标题
-		// article.setUrl("http://34a8d271.ngrok.io/NIC-wechat/news/extract");
-		// // 图文url链接
-		// List<Article> list = new ArrayList<Article>();
-		// list.add(article); // 这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
-		// newmsg.setArticleCount(list.size());
-		// newmsg.setArticles(list);
-		// msg = MessageUtil.newsMessageToXml(newmsg);
-		// String sendPreUrl =
-		// "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token="
-		// + access_token;
-		// HttpUtils.sendXmlPost(sendPreUrl, msg.toString());
-		// // 响应消息
-		// PrintWriter out = response.getWriter();
-		// out.print(msg);
-		// out.close();
-		// 2、上传消息的缩略图==========================================
-		// String post0 = SendToAll.send("image",
-		// "E://NIC-wechat//WebContent//images//11.jpg", access_token);
-		// Map map0 = JSONObject.fromObject(post0);
-		// 3、得到缩略图的media_id==========================================
-		// media_id = (String) map0.get("media_id");
-		// 4、收集文章所需参数，并转码==========================================
-		String title = new String("qqqqqqqqqq".getBytes("utf-8"), "ISO-8859-1");
-		String author = new String("litt".getBytes("utf-8"), "ISO-8859-1");
-		String digest = new String("qqqqqqqqq".getBytes("utf-8"), "ISO-8859-1");
-		String content = new String("qqqqqqqqqq".getBytes("utf-8"),
-				"ISO-8859-1");
-
-		// 5、上传图文消息==========================================
-		String url = "https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token="
-				+ access_token;
-		msg = "{\"articles\": {\"thumb_media_id\":\"" + media_id
-				+ "\", \"author\":\"" + author + "\",\"title\":\"" + title
-				+ "\",\"content_source_url\":\""
-				+ "http://34a8d271.ngrok.io/NIC-wechat/news/extract"
-				+ "\", \"content\":\"" + content + "\",\"digest\":\"" + digest
-				+ "\"}}";
-		System.out.println(msg);
-		String post = HttpUtils.sendPostBuffer(url, msg);
-		Map json2Map1 = JSONObject.fromObject(post);
-		// 6、得到图文消息media_id==========================================
-		media_id = (String) json2Map1.get("media_id");
-
-		// 7、 单独发给该用户进行预览==========================================
-
-		String sendPreUrl = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token="
-				+ access_token;
-		String sendPreMsg = "{\"touser\":\"" + "oR1Tmwd4hAWdiSZU3R8zQkS4mYTk"
-				+ "\",\"mpnews\":{\"media_id\":\"" + media_id
-				+ "\"},\"msgtype\":\"mpnews\"}";
-		String sendPreRes = HttpUtils.sendPostBuffer(sendPreUrl, sendPreMsg);
-		return "/WEB-INF/views/work/shownews";
-
+		String title = request.getParameter("title");
+		//
+		String content = request.getParameter("content");
+		// digest 图文消息的描述，如本字段为空，则默认抓取正文前64个字
+		String desc = request.getParameter("description");
+		System.out.println(title + ",   " + content + " ," + desc);
+		article articlePojo=new article();
+		articlePojo.setThumbMediaId(picName);
+		articlePojo.setAuthor("太原工业网络与信息中心处");
+		articlePojo.setTitle(title);
+		articlePojo.setContentSourceUrl("http://wlzx.tit.edu.cn/");
+		articlePojo.setContent(content);
+		articlePojo.setDigest(desc);
+		articlePojo.setShowCoverPic(1);
+		articleService.save(articlePojo);
+		
+		
+		//进入微信群发图文消息controller
+		return "redirect:/send/message";
 	}
 
 }

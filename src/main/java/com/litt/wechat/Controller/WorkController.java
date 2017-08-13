@@ -1,8 +1,6 @@
-package com.litt.wechat.Controller;
+   package com.litt.wechat.Controller;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -53,43 +51,6 @@ public class WorkController {
 
 	private user user;
 
-	@SuppressWarnings({ "finally", "null" })
-	@RequestMapping(value="/load")
-	public String load(HttpServletResponse response,HttpServletRequest request) throws IOException
-	{
-		String openid = EventDispatcher.openid;
-		user DataBaseUser = null;
-		System.out.println("openid=" + openid);
-		try{
-		 DataBaseUser = userService.findByOpenid(openid);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		finally {
-			// 数据库不存在此人
-			if (DataBaseUser== null) {
-				//System.out.println(DataBaseUser.getUserName());
-				response.setContentType("text/html; charset=UTF-8"); // 转码
-				PrintWriter out = response.getWriter();
-				out.flush();
-				out.println("<script>");
-				out.println("alert('请完善个人信息！');");
-				out.println("history.back();");
-				out.println("</script>");
-				/*request.setAttribute("openid", openid);*/
-				/*return "redirect:/user/loadInfo";*/
-				
-			/*}else
-				
-			{*/
-			return null;
-			
-		}
-			return "/jsp/work_info";
-		}
-	}
 	@RequestMapping(value = "/addwork")
 	public String addWork(HttpServletRequest request, HttpServletResponse response) throws ParseException, IOException {
 		String pictureName=request.getParameter("filename");
@@ -238,54 +199,11 @@ public class WorkController {
 		String mediaId = request.getParameter("mediaId");
 		System.out.println("mediaId=" + mediaId);
 		// 保存图片 路径 PathKit.getWebRootPath() + "/vehicleupload/" + filename;
-		String filename = saveImageToDisk(mediaId);
+		String filename = WeixinUtil.saveImageToDisk(mediaId);
 		//打印文件名
 		System.out.println(filename);
 		//返回jquery 参数
 		response.getWriter().print(filename);
 	}
 
-	/**
-	 * 保存图片至服务器
-	 * 
-	 * @param mediaId
-	 * @return 文件名
-	 * @throws IOException
-	 * @throws ParseException
-	 */
-	public String saveImageToDisk(String mediaId) throws ParseException, IOException {
-		String filename = "";
-		InputStream inputStream = WeixinUtil.downloadMedia(mediaId);
-		byte[] data = new byte[1024];
-		int len = 0;
-		FileOutputStream fileOutputStream = null;
-		try {
-			// 服务器存图路径
-			// String path = PathKit.getWebRootPath() + "/vehicleupload/";
-			String path = System.getProperty("catalina.home") + "/webapps" + "/download";
-			filename = System.currentTimeMillis() + UUID.randomUUID().toString() + ".jpg";
-			fileOutputStream = new FileOutputStream(path + "/" + filename);
-			while ((len = inputStream.read(data)) != -1) {
-				fileOutputStream.write(data, 0, len);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (inputStream != null) {
-				try {
-					inputStream.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			if (fileOutputStream != null) {
-				try {
-					fileOutputStream.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return filename;
-	}
 }

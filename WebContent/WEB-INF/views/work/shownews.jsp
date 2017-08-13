@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<strong><span class="icon-pencil-square-o"></span>发布新消息</strong>
 		</div>
 		<div class="body-content">
-			<form method="post" class="form-x"
+			<form method="post" class="form-x" enctype="multipart/form-data"
 				action="${pageContext.request.contextPath }/shownews/addnews">
 				<div class="form-group">
 					<div class="label">
@@ -72,9 +72,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div> -->
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4"
 						style="margin-top: 20px;">
-						<img id="img_1" src="" style="border: 1px solid #ccc" /> <a
-							href="javascript:;" class="file">浏览上传 <input id="file_1"
-							type="file" name="file" data onchange="fileshow1()">
+						<img id="img_1" src="" style="border: 1px solid #ccc" />
+						 <a href="javascript:;" class="file">浏览上传
+						  <input id="file_1" type="file" name="file" value="123" data onchange="fileshow1()">
 						</a>
 					</div>
 				</div>

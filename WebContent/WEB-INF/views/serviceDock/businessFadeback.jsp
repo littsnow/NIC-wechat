@@ -158,7 +158,7 @@ $(function(){
 				<c:forEach items="${tsList }" var="s" varStatus="a">
 					<form method="post"
 						action="${pageContext.request.contextPath }/feedback/toUpdateStatus"
-						id="update">
+						id="subform">
 					<tr>
 						<td>${a.index+1}</td>
 						<td><input type="hidden" name="techsupportId"
@@ -192,20 +192,18 @@ $(function(){
 								</c:forEach>
 						</select></td>
 						<td>
-							<div class="button-group">
-									<!-- <a class="button border-main" style="padding: 2px 2px;" 
-									 href="" name="submit" onclick="document.getElementById('subform').submit();return false">  -->
-									 <input type="submit" value="" class="button border-main" style="padding: 2px 2px;" />
-									<span class="icon-edit"></span>提交</a> 
-									<a class="button border-red" style="padding: 2px 2px;" 
+						<div class="button-group">
+									<a class="button border-main" style="padding: 2px 2px;"  href="" name="submit" onclick="document.getElementById('subform').submit();return false"> 
+									<span class="icon-edit"></span>提交</a>
+									<a class="button border-red" style="padding: 2px 2px;"
 									href="${pageContext.request.contextPath }/feedback/toaddinfo?techsupportId=${s.techsupportId}"> <span class="icon-edit"></span>反馈
 									</a>
 								</div>
-							</td>
+						</td>
 					</tr>
 					</form>
 				</c:forEach>
-				<%-- <c:forEach items="${rpList }" var="s" varStatus="b">
+				<c:forEach items="${rpList }" var="s" varStatus="b">
 					<form method="post"
 						action="${pageContext.request.contextPath }/feedback/toUpdateStatus"
 						id="subform">
@@ -255,6 +253,7 @@ $(function(){
 									href="${pageContext.request.contextPath }/feedback/toaddinfo?repairId=${s.repairId}"> <span class="icon-edit"></span>反馈
 									</a>
 								</div>
+								
 							</td>
 						</tr>
 					</form>
@@ -262,7 +261,7 @@ $(function(){
 				<c:forEach items="${mtList }" var="s" varStatus="c">
 					<form method="post"
 						action="${pageContext.request.contextPath }/feedback/toUpdateStatus"
-						id="update">
+						id="subform">
 						<tr>
 							<td id="mt">${(c.index+1)+(tsLen)+(rpLen)}</td>
 							<td><input type="hidden" name="maintenanceId"
@@ -298,7 +297,7 @@ $(function(){
 									</c:forEach>
 							</select></td>
 							<td>
-							<div class="button-group">
+								<div class="button-group">
 									<a class="button border-main" style="padding: 2px 2px;"  href="" name="submit" onclick="document.getElementById('subform').submit();return false"> 
 									<span class="icon-edit"></span>提交</a>
 									<a class="button border-red" style="padding: 2px 2px;"
@@ -308,7 +307,7 @@ $(function(){
 							</td>
 						</tr>
 					</form>
-				</c:forEach> --%>
+				</c:forEach>
 			</table>
 		</div>
 	

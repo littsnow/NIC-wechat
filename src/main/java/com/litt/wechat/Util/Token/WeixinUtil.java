@@ -2,6 +2,7 @@ package com.litt.wechat.Util.Token;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -9,6 +10,7 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.UUID;
 
 import net.sf.json.JSONObject;
 
@@ -219,6 +221,50 @@ public class WeixinUtil {
 	}
 	
 	/**
+	 * 保存图片至服务器
+	 * 
+	 * @param mediaId
+	 * @return 文件名
+	 * @throws IOException
+	 * @throws ParseException
+	 */
+	public static String saveImageToDisk(String mediaId) throws ParseException, IOException {
+		String filename = "";
+		InputStream inputStream = WeixinUtil.downloadMedia(mediaId);
+		byte[] data = new byte[1024];
+		int len = 0;
+		FileOutputStream fileOutputStream = null;
+		try {
+			// 服务器存图路径
+			// String path = PathKit.getWebRootPath() + "/vehicleupload/";
+			String path = System.getProperty("catalina.home") + "/webapps" + "/download"+"/downloadFromWeixin";
+			filename = System.currentTimeMillis() + UUID.randomUUID().toString() + ".jpg";
+			fileOutputStream = new FileOutputStream(path + "/" + filename);
+			while ((len = inputStream.read(data)) != -1) {
+				fileOutputStream.write(data, 0, len);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (inputStream != null) {
+				try {
+					inputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (fileOutputStream != null) {
+				try {
+					fileOutputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return filename;
+	}
+	
+	/**
 	 * 微信服务器素材上传（图片）
 	 * @param filePath 图片路径
 	 * @return media_id 图文所需要的图片id
@@ -249,7 +295,6 @@ public class WeixinUtil {
             System.out.println("上传文件不存在,请检查!");
             return null;
         }
-
         String url = UPLOAD_URL;
         JSONObject jsonObject = null;
         PostMethod post = new PostMethod(url);
@@ -287,6 +332,7 @@ public class WeixinUtil {
         return jsonObject;
     }
 	
+    
 	public static int createMenu(String token, String menu)
 			throws ParseException, IOException {
 		int result = 0;

@@ -33,7 +33,7 @@
 	<div class="panel admin-panel">
 		<div class="panel-head">
 		 </div>
-   <form role="search" id="searchArticleForm">
+   <!-- <form role="search" id="searchArticleForm">
     <div class="padding border-bottom ">
       <ul class="search" style="padding-left:10px;">
       
@@ -44,7 +44,7 @@
               <option value="department">部门</option>
               <option value="address">地点</option>
               <option value="uptime">提交时间</option>
-             <!--  <option value="keyword">关键字筛选</option> -->
+              <option value="keyword">关键字筛选</option>
             </select>
           </li>
         <li>
@@ -56,7 +56,7 @@
           </li>
       </ul>
     </div>
-</form>
+</form> -->
 
 		<div id="divtable">
 			<table class="table table-hover text-center"
@@ -86,7 +86,7 @@
 						<%--  <td> ${s.techsupportDescribe}</td> --%>
 						<td>${s.techsupportUptime}</td>
 						<td>已完成</td>
-						<td>${tsManager[a.index]}</td>
+						<td>${tsmanager[a.index]}</td>
 					</tr>
 				</c:forEach>
 				<c:forEach items="${rpList }" var="s" varStatus="b">
@@ -103,7 +103,7 @@
 							<td>${s.repairLocation}</td>
 							<td>${s.repairUptime}</td>
 							<td>已完成</td>
-							<td>${rpManager[b.index]}</td>
+							<td>${rpmanager[b.index]}</td>
 						</tr>
 				</c:forEach>
 				<c:forEach items="${mtList }" var="s" varStatus="c">
@@ -119,7 +119,7 @@
 							<%--   <td>${s.maintenanceDescribe}</td> --%>
 							<td>${s.maintenanceUptime}</td>
 							<td>已完成</td>
-							<td>${mtManager[c.index]}</td>
+							<td>${mtmanager[c.index]}</td>
 						</tr>
 				</c:forEach>
 			</table>

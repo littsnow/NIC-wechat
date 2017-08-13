@@ -341,10 +341,26 @@ public class BusinessFeedback {
 		String dateString = formatter.format(date);
 		System.out.println(dateString.toString());
 		techsupportList = techSupportService.findByEnd(dateString);
-		System.out.println("----"+techsupportList.get(0).getStatusId());
+		for (int i = 0; i < techsupportList.size(); i++) {
+			tsManagerList.add(managerService.findById(
+					techsupportList.get(i).getManagerId()).getManagerName());
+
+		}
+		request.setAttribute("tsmanager", tsManagerList);
 		repairList = repairService.findByEnd(dateString);
-		
+		for (int i = 0; i < repairList.size(); i++) {
+			rpManagerList.add(managerService.findById(
+					repairList.get(i).getManagerId()).getManagerName());
+
+		}
+		request.setAttribute("rpmanager", rpManagerList);
 		mainTenList = mainTenanceService.findByEnd(dateString);
+		for (int i = 0; i < mainTenList.size(); i++) {
+			mtManagerList.add(managerService.findById(
+					mainTenList.get(i).getManagerId()).getManagerName());
+
+		}
+		request.setAttribute("mtmanager", mtManagerList);
 		if (techsupportList.isEmpty() && repairList.isEmpty()
 				&& mainTenList.isEmpty()) {
 			return "/jsp/error/null";
