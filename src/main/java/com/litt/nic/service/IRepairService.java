@@ -36,6 +36,9 @@ public interface IRepairService {
 
 	void updateManager_id(int repairId, int manager_id);
 
+	void updateEndTimeById(int repairId, String endtime);
+
+	
 	void updateFeedback(int id, String info);
 
 	List<repair> findByEnd(String dateString);

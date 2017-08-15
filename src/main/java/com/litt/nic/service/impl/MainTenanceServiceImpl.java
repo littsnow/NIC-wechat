@@ -67,4 +67,10 @@ public class MainTenanceServiceImpl implements IMainTenanceService {
 		mainTenanceMapper.insert(maintenance);
 	}
 
+	@Override
+	public void updateEndTimeById(int maintenanceId, String endtime) {
+		mainTenanceMapper.updateEndTime(maintenanceId, endtime);
+		
+	}
+
 }

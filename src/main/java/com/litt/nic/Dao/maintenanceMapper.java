@@ -47,6 +47,8 @@ public interface maintenanceMapper {
 	 */
 	public void updateManager_id(int maintenanceId, int manager_id);
 	
+	void updateEndTime(int maintenanceId, String endtime);
+	
 	List<maintenance> selectUnFinishedByMuliInfo(@Param("key") String key,
 			@Param("val") String val);
 

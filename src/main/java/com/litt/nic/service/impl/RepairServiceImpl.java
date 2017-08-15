@@ -68,4 +68,9 @@ public class RepairServiceImpl implements IRepairService {
 		repairMap.insert(repair);
 	}
 
+	@Override
+	public void updateEndTimeById(int repairId, String endtime) {
+		repairMap.updateEndTime(repairId, endtime);
+	}
+
 }

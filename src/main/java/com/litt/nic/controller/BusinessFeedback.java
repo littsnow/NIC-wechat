@@ -147,7 +147,7 @@ public class BusinessFeedback {
 		try {// 报修
 			int repairId = Integer.parseInt(request.getParameter("repairId"));
 			System.out.println("此时的设备保修id为：" + repairId);
-			String techsupportEndtime = new SimpleDateFormat(
+			String repair_endtime = new SimpleDateFormat(
 					"yyyy-MM-dd HH:mm:ss").format(new Date());
 			request.setAttribute("repairId", repairId);
 			List<status> listStatus = statusService.findAllStatus();
@@ -165,6 +165,7 @@ public class BusinessFeedback {
 			System.out.println("manager id" + manager.getManagerId());
 			repairService.updateStatus_id(repairId, status.getStatusId());
 			repairService.updateManager_id(repairId, manager.getManagerId());
+			repairService.updateEndTimeById(repairId, repair_endtime);
 			return "redirect:unfinishedlist";
 		} catch (Exception e) {
 			System.out.println("传递参数不是repairId");
@@ -172,6 +173,8 @@ public class BusinessFeedback {
 		try {// 日常维护
 			int maintenanceId = Integer.parseInt(request
 					.getParameter("maintenanceId"));
+			String maintenance_endtime = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss").format(new Date());
 			System.out.println("maintenanceId" + maintenanceId);
 			request.setAttribute("maintenanceId", maintenanceId);
 			List<status> listStatus = statusService.findAllStatus();
@@ -188,6 +191,7 @@ public class BusinessFeedback {
 					status.getStatusId());
 			mainTenanceService.updateManager_id(maintenanceId,
 					manager.getManagerId());
+			mainTenanceService.updateEndTimeById(maintenanceId, maintenance_endtime);
 			System.out.println("========");
 			return "redirect:unfinishedlist";
 		} catch (Exception e) {
@@ -341,26 +345,10 @@ public class BusinessFeedback {
 		String dateString = formatter.format(date);
 		System.out.println(dateString.toString());
 		techsupportList = techSupportService.findByEnd(dateString);
-		for (int i = 0; i < techsupportList.size(); i++) {
-			tsManagerList.add(managerService.findById(
-					techsupportList.get(i).getManagerId()).getManagerName());
-
-		}
-		request.setAttribute("tsmanager", tsManagerList);
+	//	System.out.println("----"+techsupportList.get(0).getStatusId());
 		repairList = repairService.findByEnd(dateString);
-		for (int i = 0; i < repairList.size(); i++) {
-			rpManagerList.add(managerService.findById(
-					repairList.get(i).getManagerId()).getManagerName());
-
-		}
-		request.setAttribute("rpmanager", rpManagerList);
+		
 		mainTenList = mainTenanceService.findByEnd(dateString);
-		for (int i = 0; i < mainTenList.size(); i++) {
-			mtManagerList.add(managerService.findById(
-					mainTenList.get(i).getManagerId()).getManagerName());
-
-		}
-		request.setAttribute("mtmanager", mtManagerList);
 		if (techsupportList.isEmpty() && repairList.isEmpty()
 				&& mainTenList.isEmpty()) {
 			return "/jsp/error/null";

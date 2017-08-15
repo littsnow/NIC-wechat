@@ -47,6 +47,7 @@ public interface repairMapper {
 	 */
 	public void updateManager_id(int repairId, int manager_id);
 	
+	void updateEndTime(int repairId, String endtime);
 	List<repair> selectUnfinishedRPByMultiInfo(@Param("key") String key,
 			@Param("val") String val);
 

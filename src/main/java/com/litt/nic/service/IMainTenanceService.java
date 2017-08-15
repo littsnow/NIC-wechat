@@ -39,4 +39,6 @@ public interface IMainTenanceService {
 	List<maintenance> findByEnd(String dateString);
 
 	void addmaintenance(com.litt.nic.pojo.maintenance maintenance);
+
+	void updateEndTimeById(int maintenanceId, String maintenance_endtime);
 }
