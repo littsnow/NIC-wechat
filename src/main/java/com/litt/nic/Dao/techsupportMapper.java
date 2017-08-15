@@ -53,4 +53,6 @@ public interface techsupportMapper {
 
 	List<techsupport> selectUnFinishedTSByMultiInfo(@Param("key") String key,
 			@Param("val") String val);
+
+	List<techsupport> findFeedback(Integer userId, int i);
 }

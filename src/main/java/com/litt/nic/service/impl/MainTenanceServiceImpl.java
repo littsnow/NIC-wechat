@@ -70,7 +70,13 @@ public class MainTenanceServiceImpl implements IMainTenanceService {
 	@Override
 	public void updateEndTimeById(int maintenanceId, String endtime) {
 		mainTenanceMapper.updateEndTime(maintenanceId, endtime);
-		
+
+	}
+
+	@Override
+	public List<maintenance> findFeedback(Integer userId, int i) {
+
+		return mainTenanceMapper.findFeedback(userId, i);
 	}
 
 }

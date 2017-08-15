@@ -4,6 +4,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+import com.litt.wechat.Util.Properties.PropertiesReadUtils;
+
 /**
  * ClassName: SignUtil
  * 
@@ -13,7 +15,7 @@ import java.util.Arrays;
  */
 public class SignUtil {
 	// 与接口配置信息中的Token要一致
-	private static String token = "123litt";
+	private static String token = PropertiesReadUtils.getWechatString("token");
 
 	/**
 	 * 验证签名

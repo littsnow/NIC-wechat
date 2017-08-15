@@ -25,7 +25,7 @@
   </select>
    <select id="findAllUnfinished" resultMap="BaseResultMap">
     select * from nic_techsupport 
-    where status_id!=3
+    where status_id!=4
     
   </select>
   <select id="selectTSMultiInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -48,20 +48,20 @@
       <select id="selectfinish" resultMap="BaseResultMap" parameterType="java.lang.String">
   select * from nic_techsupport  
   <where>
-      techsupport_endtime like CONCAT('%',#{val},'%') and status_id=3
+      techsupport_endtime like CONCAT('%',#{val},'%') and status_id=4
      </where>
      </select>
       <select id="selectUnFinishedTSByMultiInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
   select * from nic_techsupport  
   <where>
      <if test="key=='department'">
-     techsupport_department like CONCAT('%',#{val},'%') and status_id!=3
+     techsupport_department like CONCAT('%',#{val},'%') and status_id!=4
      </if>
      <if test="key=='address'">
-     techsupport_location like CONCAT('%',#{val},'%') and status_id!=3
+     techsupport_location like CONCAT('%',#{val},'%') and status_id!=4
      </if>
      <if test="key=='uptime'">
-      techsupport_uptime like CONCAT('%',#{val},'%') and status_id!=3
+      techsupport_uptime like CONCAT('%',#{val},'%') and status_id!=4
      </if>
      </where>
      </select>
@@ -71,6 +71,14 @@
     from nic_techsupport
     where techsupport_id = #{techsupportId,jdbcType=INTEGER}
   </select>
+  
+  <select id="findFeedback" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from nic_techsupport
+    where user_id = #{0} and status_id != #{1}
+  </select>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from nic_techsupport
     where techsupport_id = #{techsupportId,jdbcType=INTEGER}

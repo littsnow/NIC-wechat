@@ -31,7 +31,7 @@ $(function() {
 });
 </script>
 </head>
-<body  style="font-size: 50px;">
+<body  style="font-size: 60px;">
     <div class="register">
         <div class="regTop">
             <span>完善用户信息</span>
@@ -63,7 +63,7 @@ $(function() {
 							</select></td> --%>
 						<td id="depart" colspan="6">
 							 <select name="department">
-							 	 <option value="1">选择部门</option>
+							 	 <option value="0">选择部门</option>
 								 <c:forEach items="${listDepartment}" var="item" varStatus="status">
 								 
 			                        

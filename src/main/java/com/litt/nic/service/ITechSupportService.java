@@ -38,4 +38,6 @@ public interface ITechSupportService {
 	List<com.litt.nic.pojo.techsupport> findByEnd(String dateString);
 
 	void addtech(techsupport techsupport);
+
+	List<techsupport> findFeedback(Integer userId, int i);
 }

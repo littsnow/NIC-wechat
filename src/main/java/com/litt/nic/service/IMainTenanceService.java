@@ -41,4 +41,6 @@ public interface IMainTenanceService {
 	void addmaintenance(com.litt.nic.pojo.maintenance maintenance);
 
 	void updateEndTimeById(int maintenanceId, String maintenance_endtime);
+
+	List<maintenance> findFeedback(Integer userId, int i);
 }

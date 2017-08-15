@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.litt.wechat.Util.Properties.PropertiesReadUtils;
 import com.litt.wechat.Util.Splider.ExtractUtil;
 import com.litt.wechat.Util.Splider.RuleUtil;
 
@@ -16,8 +17,9 @@ public class AboutNICController {
 	public String extractInformation(HttpServletRequest request,
 			HttpServletResponse response) {
 		RuleUtil rule = new RuleUtil(
-				"http://wlzx.tit.edu.cn/info/news/content/1011.htm",
-				new String[] {}, new String[] {}, "winstyle930566043_18580",
+				PropertiesReadUtils.getWechatString("aboutNIC"),
+				new String[] {}, new String[] {},
+				PropertiesReadUtils.getWechatString("aboutNICclass"),
 				RuleUtil.CLASS, RuleUtil.GET);
 		try {
 			String extracts = ExtractUtil.extract(rule);

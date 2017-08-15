@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.litt.nic.pojo.information;
+import com.litt.wechat.Util.Properties.PropertiesReadUtils;
 import com.litt.wechat.Util.Splider.ExtractNewInfomationUtil;
 import com.litt.wechat.Util.Splider.ExtractUtil;
 import com.litt.wechat.Util.Splider.RuleUtil;
@@ -23,9 +24,9 @@ public class NewsController {
 		List<information> extracts = null;
 
 		RuleUtil rule = new RuleUtil(
-				"http://wlzx.tit.edu.cn/list.jsp?urltype=tree.TreeTempUrl&wbtreeid=1013",
-				new String[] {}, new String[] {}, "winstyle930566043_18579",
-				RuleUtil.CLASS, RuleUtil.GET);
+				PropertiesReadUtils.getWechatString("news"), new String[] {},
+				new String[] {}, "winstyle930566043_18579", RuleUtil.CLASS,
+				RuleUtil.GET);
 		try {
 			extracts = ExtractNewInfomationUtil.extract(rule);
 			// rule.print(extracts);//后台打印测试
