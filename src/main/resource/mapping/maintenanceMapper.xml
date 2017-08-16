@@ -25,7 +25,7 @@
   </select>
   <select id="findAllUnfinished" resultMap="BaseResultMap">
     select * from nic_maintenance 
-    where status_id!=4
+    where status_id!=5
   </select>
   <!-- 多条件查询所有的记录 -->
   <select id="selectMTMultiInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -250,5 +250,9 @@
 	update nic_maintenance
 	set maintenance_feedback = #{1}
 	where maintenance_id = #{0}
+  </update>
+  <update id="updateEndTime">
+  update nic_maintenance set maintenance_endtime=#{1}
+  where maintenance_id=#{0}
   </update>
 </mapper>

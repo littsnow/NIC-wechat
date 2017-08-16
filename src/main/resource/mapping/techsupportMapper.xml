@@ -25,8 +25,7 @@
   </select>
    <select id="findAllUnfinished" resultMap="BaseResultMap">
     select * from nic_techsupport 
-    where status_id!=4
-    
+    where status_id!=5
   </select>
   <select id="selectTSMultiInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
   select * from nic_techsupport  
@@ -48,7 +47,7 @@
       <select id="selectfinish" resultMap="BaseResultMap" parameterType="java.lang.String">
   select * from nic_techsupport  
   <where>
-      techsupport_endtime like CONCAT('%',#{val},'%') and status_id=4
+      techsupport_endtime like CONCAT('%',#{val},'%') and status_id=5
      </where>
      </select>
       <select id="selectUnFinishedTSByMultiInfo" resultMap="BaseResultMap" parameterType="java.lang.String">

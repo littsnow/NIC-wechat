@@ -29,11 +29,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   <div class="panel admin-panel">
 		<div class="panel-head"></div>
-  <c:if test="${!empty techsupportId }">
+  
   <form method="post" class="form-x" action="${pageContext.request.contextPath }/feedback/addinfo"> 
+  
   <div class="form-group">
-  <input type="hidden" name="techsupportId"
-								value="${techsupportId}">
+  <c:if test="${!empty teachIdList }"> 
+  <c:forEach items="${teachIdList }" var="s">
+  <input type="hidden" name="techsupportId" value="${s}">
+  </c:forEach>
+   </c:if> 
+	<c:if test="${!empty rpIdList }">
+	<c:forEach items="${rpIdList }" var="s"> 
+  <input type="hidden" name="repairId" value="${s}">
+  </c:forEach>
+	</c:if>	
+			 <c:if test="${!empty mtIdList }">
+	<c:forEach items="${mtIdList }" var="s">
+  <input type="hidden" name="maintenanceId" value="${s}">
+  </c:forEach>
+	</c:if>	
         <div class="label">
           <label>描述：</label>
         </div>
@@ -46,8 +60,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
         </div>
         </form>
-      </c:if>
-      <c:if test="${!empty repairId }">
+   
+<%--       <c:if test="${!empty repairId }">
       <form method="post" class="form-x" action="${pageContext.request.contextPath }/feedback/addinfo">
   <div class="form-group">
   <input type="hidden" name="repairId"
@@ -82,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
       </div>
       </form>
-      </c:if>
+      </c:if> --%>
       </div>
   </body>
 </html>
