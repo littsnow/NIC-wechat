@@ -43,18 +43,18 @@ public class UserController {
 	 * @param request
 	 * @param response
 	 * @return
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	@RequestMapping(value = "/loadInfo")
 	public String loadInfo(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		//加载页面
+		// 加载页面
 		List<department> listDepartment = departmentService.findAllInfo();
 		for (department department : listDepartment) {
 			System.out.println(department.getDepartmentName());
 		}
 		request.setAttribute("listDepartment", listDepartment);
-		//判断
+		// 判断
 		String openid = EventDispatcher.openid;
 		System.out.println("openid=" + openid);
 		user DataBaseUser = userService.findByOpenid(openid);
@@ -68,9 +68,9 @@ public class UserController {
 			out.println("alert('此用户名已存在,请不要重复绑定！');");
 			out.println("history.back();");
 			out.println("</script>");
-			
+
 		}
-		
+
 		return "/jsp/user_info";
 	}
 
@@ -79,7 +79,7 @@ public class UserController {
 	 * 
 	 * @param request
 	 * @param response
-	 * @return 
+	 * @return
 	 * @return
 	 * @throws ParseException
 	 * @throws IOException
@@ -87,12 +87,12 @@ public class UserController {
 	@RequestMapping(value = "/adduser")
 	public String addUser(HttpServletRequest request,
 			HttpServletResponse response) throws ParseException, IOException {
-		
+
 		String name = request.getParameter("name");
 		String telephone = request.getParameter("telephone");
 		String depart = request.getParameter("department");
 		System.out.println("depart----" + depart);
-		if ("1".equals(depart) || "".equals(name) || "".equals(telephone)) {
+		if ("0".equals(depart) || "".equals(name) || "".equals(telephone)) {
 			System.out.println("depart----" + depart);
 			response.setContentType("text/html; charset=UTF-8"); // 转码
 			PrintWriter out = response.getWriter();
@@ -145,7 +145,7 @@ public class UserController {
 				return "/jsp/work_info";
 			}
 			return "/jsp/work_info";
-			
+
 		}
 		System.out.println("name=" + name + "tele" + telephone);
 		return null;

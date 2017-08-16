@@ -26,6 +26,12 @@
      select * from nic_repair
      where status_id!=5
   </select>
+  <select id="findFeedback" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from nic_repair
+    where user_id = #{0} and status_id != #{1}
+  </select>
+  
    <select id="selectRPMultiInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
   select * from nic_repair  
   <where>

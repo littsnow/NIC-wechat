@@ -15,6 +15,7 @@ import com.litt.wechat.Message.resp.ImageMessage;
 import com.litt.wechat.Message.resp.NewsMessage;
 import com.litt.wechat.Message.resp.TextMessage;
 import com.litt.wechat.Util.MessageUtil;
+import com.litt.wechat.Util.Properties.PropertiesReadUtils;
 import com.litt.wechat.Util.Token.WeixinUtil;
 import com.litt.wechat.Util.User.GetUserInfo;
 
@@ -69,7 +70,8 @@ public class EventDispatcher {
 				article.setTitle("尊敬的：" + userinfo.getUserNickname()
 						+ ",你好！请您先完善您的个人信息，方便提交业务信息。");
 				// 图文消息标题
-				article.setUrl("http://9dceb4a0.ngrok.io/NIC-wechat/user/loadInfo"); // 图文url链接
+				article.setUrl(PropertiesReadUtils
+						.getWechatString("rootdirectory") + "/user/loadInfo"); // 图文url链接
 				List<Article> list = new ArrayList<Article>();
 				list.add(article); // 这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
 				newmsg.setArticleCount(list.size());
@@ -90,10 +92,13 @@ public class EventDispatcher {
 
 			Article article = new Article();
 			article.setDigest("版权所有：太原工业学院网络与信息中心"); // 图文消息的描述
-			article.setPicUrl("http://34a8d271.ngrok.io/NIC-wechat/images/tg.png");
+			article.setPicUrl(PropertiesReadUtils
+					.getWechatString("rootdirectory")
+					+ PropertiesReadUtils.getWechatString("picurl"));
 			// 图文消息图片地址
 			article.setTitle("【信息快讯】   点击查看学院官网发布的最新信息！"); // 图文消息标题
-			article.setUrl("http://9dceb4a0.ngrok.io/NIC-wechat/news/extract");
+			article.setUrl(PropertiesReadUtils.getWechatString("rootdirectory")
+					+ "/news/extract");
 			// 图文url链接
 			List<Article> list = new ArrayList<Article>();
 			list.add(article); // 这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！

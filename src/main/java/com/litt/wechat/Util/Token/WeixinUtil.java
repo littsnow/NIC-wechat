@@ -34,6 +34,7 @@ import org.apache.http.util.EntityUtils;
 
 import com.litt.wechat.Message.Token;
 import com.litt.wechat.Util.SignUtil;
+import com.litt.wechat.Util.Properties.PropertiesReadUtils;
 
 /**
  * ΢�Ź�����
@@ -42,11 +43,13 @@ import com.litt.wechat.Util.SignUtil;
  * 
  */
 public class WeixinUtil {
-	private static final String APPID = "wxb90edb0753e2644e";
-	private static final String APPSECRET = "d4624c36b6795d1d99dcf0547af5443d";
+	private static final String APPID = PropertiesReadUtils
+			.getWechatString("appid");
+	private static final String APPSECRET = PropertiesReadUtils
+			.getWechatString("AppSecret");
 
 	private static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
-	//新增临时素材,媒体文件在微信后台保存时间为3天，即3天后media_id失效。
+	// 新增临时素材,媒体文件在微信后台保存时间为3天，即3天后media_id失效。
 	private static final String UPLOAD_URL = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
 
 	private static final String CREATE_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
@@ -219,7 +222,7 @@ public class WeixinUtil {
 		}
 		return is;
 	}
-	
+
 	/**
 	 * 保存图片至服务器
 	 * 
@@ -228,7 +231,8 @@ public class WeixinUtil {
 	 * @throws IOException
 	 * @throws ParseException
 	 */
-	public static String saveImageToDisk(String mediaId) throws ParseException, IOException {
+	public static String saveImageToDisk(String mediaId) throws ParseException,
+			IOException {
 		String filename = "";
 		InputStream inputStream = WeixinUtil.downloadMedia(mediaId);
 		byte[] data = new byte[1024];
@@ -237,8 +241,10 @@ public class WeixinUtil {
 		try {
 			// 服务器存图路径
 			// String path = PathKit.getWebRootPath() + "/vehicleupload/";
-			String path = System.getProperty("catalina.home") + "/webapps" + "/download"+"/downloadFromWeixin";
-			filename = System.currentTimeMillis() + UUID.randomUUID().toString() + ".jpg";
+			String path = System.getProperty("catalina.home") + "/webapps"
+					+ "/download" + "/downloadFromWeixin";
+			filename = System.currentTimeMillis()
+					+ UUID.randomUUID().toString() + ".jpg";
 			fileOutputStream = new FileOutputStream(path + "/" + filename);
 			while ((len = inputStream.read(data)) != -1) {
 				fileOutputStream.write(data, 0, len);
@@ -263,76 +269,87 @@ public class WeixinUtil {
 		}
 		return filename;
 	}
-	
+
 	/**
 	 * 微信服务器素材上传（图片）
-	 * @param filePath 图片路径
+	 * 
+	 * @param filePath
+	 *            图片路径
 	 * @return media_id 图文所需要的图片id
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	public static String upload(File filePath) throws ParseException, IOException{
-//		String pictureNmae="150210970713612799761-1350-47fc-9988-b6d7e1ba9968.jpg";
-//		String path = System.getProperty("catalina.home") + "/webapps" + "/download/";
-//		File file=(filePath);
+	public static String upload(File filePath) throws ParseException,
+			IOException {
+		// String
+		// pictureNmae="150210970713612799761-1350-47fc-9988-b6d7e1ba9968.jpg";
+		// String path = System.getProperty("catalina.home") + "/webapps" +
+		// "/download/";
+		// File file=(filePath);
 		System.out.println(filePath);
-		JSONObject jsonObject=uploadMedia(filePath,WeixinUtil.getAccessToken().getAccessToken(),"image");
-		String mid=jsonObject.getString("media_id");
-		System.out.println("mid="+mid);
+		JSONObject jsonObject = uploadMedia(filePath, WeixinUtil
+				.getAccessToken().getAccessToken(), "image");
+		String mid = jsonObject.getString("media_id");
+		System.out.println("mid=" + mid);
 		return mid;
 	}
-	/**
-     * 微信服务器素材上传
-     * @param file  表单名称media
-     * @param token access_token
-     * @param type  type只支持四种类型素材(video/image/voice/thumb)
-     */
-    public static JSONObject uploadMedia(File file, String token, String type) {
-        if(file==null||token==null||type==null){
-            return null;
-        }
-        if(!file.exists()){
-            System.out.println("上传文件不存在,请检查!");
-            return null;
-        }
-        String url = UPLOAD_URL;
-        JSONObject jsonObject = null;
-        PostMethod post = new PostMethod(url);
-        post.setRequestHeader("Connection", "Keep-Alive");
-        post.setRequestHeader("Cache-Control", "no-cache");
-        FilePart media = null;
-        HttpClient httpClient = new HttpClient();
-        //信任任何类型的证书
-        Protocol myhttps = new Protocol("https", new MySSLProtocolSocketFactory(), 443); 
-        Protocol.registerProtocol("https", myhttps);
 
-        try {
-            media = new FilePart("media", file);
-            Part[] parts = new Part[] { new StringPart("access_token", token),
-                    new StringPart("type", type), media };
-            MultipartRequestEntity entity = new MultipartRequestEntity(parts,
-                    post.getParams());
-            post.setRequestEntity(entity);
-            int status = httpClient.executeMethod(post);
-            if (status == HttpStatus.SC_OK) {
-                String text = post.getResponseBodyAsString();
-                jsonObject = JSONObject.fromObject(text);
-              //  System.out.println("url="+jsonObject.getString("url"));
-                System.out.println("jsob="+jsonObject.toString());
-            } else {
-            	System.out.println("upload Media failure status is:" + status);
-            }
-        } catch (FileNotFoundException execption) {
-        	System.out.println(execption);
-        } catch (HttpException execption) {
-        	System.out.println(execption);
-        } catch (IOException execption) {
-        	System.out.println(execption);
-        }
-        return jsonObject;
-    }
-	
-    
+	/**
+	 * 微信服务器素材上传
+	 * 
+	 * @param file
+	 *            表单名称media
+	 * @param token
+	 *            access_token
+	 * @param type
+	 *            type只支持四种类型素材(video/image/voice/thumb)
+	 */
+	public static JSONObject uploadMedia(File file, String token, String type) {
+		if (file == null || token == null || type == null) {
+			return null;
+		}
+		if (!file.exists()) {
+			System.out.println("上传文件不存在,请检查!");
+			return null;
+		}
+		String url = UPLOAD_URL;
+		JSONObject jsonObject = null;
+		PostMethod post = new PostMethod(url);
+		post.setRequestHeader("Connection", "Keep-Alive");
+		post.setRequestHeader("Cache-Control", "no-cache");
+		FilePart media = null;
+		HttpClient httpClient = new HttpClient();
+		// 信任任何类型的证书
+		Protocol myhttps = new Protocol("https",
+				new MySSLProtocolSocketFactory(), 443);
+		Protocol.registerProtocol("https", myhttps);
+
+		try {
+			media = new FilePart("media", file);
+			Part[] parts = new Part[] { new StringPart("access_token", token),
+					new StringPart("type", type), media };
+			MultipartRequestEntity entity = new MultipartRequestEntity(parts,
+					post.getParams());
+			post.setRequestEntity(entity);
+			int status = httpClient.executeMethod(post);
+			if (status == HttpStatus.SC_OK) {
+				String text = post.getResponseBodyAsString();
+				jsonObject = JSONObject.fromObject(text);
+				// System.out.println("url="+jsonObject.getString("url"));
+				System.out.println("jsob=" + jsonObject.toString());
+			} else {
+				System.out.println("upload Media failure status is:" + status);
+			}
+		} catch (FileNotFoundException execption) {
+			System.out.println(execption);
+		} catch (HttpException execption) {
+			System.out.println(execption);
+		} catch (IOException execption) {
+			System.out.println(execption);
+		}
+		return jsonObject;
+	}
+
 	public static int createMenu(String token, String menu)
 			throws ParseException, IOException {
 		int result = 0;

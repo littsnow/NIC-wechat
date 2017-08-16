@@ -84,4 +84,10 @@ public class TechSupporServicetImpl implements ITechSupportService {
 		techSupportMapper.insert(techsupport);
 	}
 
+	@Override
+	public List<techsupport> findFeedback(Integer userId, int i) {
+
+		return techSupportMapper.findFeedback(userId, i);
+	}
+
 }

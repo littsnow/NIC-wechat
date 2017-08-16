@@ -42,18 +42,25 @@
      </if>
     </where>
   </select>
+  
+  <select id="findFeedback" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from nic_maintenance
+    where user_id = #{0} and status_id != #{1}
+  </select>
+  
   <!-- 多条件查询未完成的记录 -->
   <select id="selectUnFinishedByMuliInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
   select * from nic_maintenance  
   <where>
      <if test="key=='department'">
-     maintenance_department like CONCAT('%',#{val},'%') and status_id!=3
+     maintenance_department like CONCAT('%',#{val},'%') and status_id!=4
      </if>
      <if test="key=='address'">
-     maintenance_location like CONCAT('%',#{val},'%') and status_id!=3
+     maintenance_location like CONCAT('%',#{val},'%') and status_id!=4
      </if>
      <if test="key=='uptime'">
-      maintenance_uptime like CONCAT('%',#{val},'%') and status_id!=3
+      maintenance_uptime like CONCAT('%',#{val},'%') and status_id!=4
      </if>
      <if test="key=='endtime'">
       maintenance_endtime like CONCAT('%',#{val},'%')
@@ -69,7 +76,7 @@
   <select id="selectfinish" resultMap="BaseResultMap" parameterType="java.lang.String">
   select * from nic_maintenance  
   <where>
-      maintenance_endtime like CONCAT('%',#{val},'%') and status_id=3
+      maintenance_endtime like CONCAT('%',#{val},'%') and status_id=4
      </where>
      </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

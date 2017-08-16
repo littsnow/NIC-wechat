@@ -46,12 +46,15 @@ public interface repairMapper {
 	 * @param manager_id
 	 */
 	public void updateManager_id(int repairId, int manager_id);
-	
+
 	void updateEndTime(int repairId, String endtime);
+
 	List<repair> selectUnfinishedRPByMultiInfo(@Param("key") String key,
 			@Param("val") String val);
 
 	void updateFeedback(int id, String info);
 
 	List<repair> selectfinish(String dateString);
+
+	List<repair> findFeedback(Integer userId, int i);
 }

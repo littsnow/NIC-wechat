@@ -73,4 +73,10 @@ public class RepairServiceImpl implements IRepairService {
 		repairMap.updateEndTime(repairId, endtime);
 	}
 
+	@Override
+	public List<repair> findFeedback(Integer userId, int i) {
+
+		return repairMap.findFeedback(userId, i);
+	}
+
 }

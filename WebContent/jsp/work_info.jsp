@@ -20,7 +20,7 @@
 function config() {
 	$.ajax({
 		type : 'post',
-		url : " http://9dceb4a0.ngrok.io/NIC-wechat/work/config",
+		url : " http://6ac3f879.ngrok.io/NIC-wechat/work/config",
 		data : {'url' :location.href.split('#')[0]},
 		dataType : 'json',
 		contentType : "application/x-www-form-urlencoded; charset=utf-8",
@@ -103,7 +103,7 @@ function takePicture(){
 }
 </script>
 </head>
-<body style="font-size: 50px;">
+<body style="font-size: 60px;">
 	 <div class="register">
 		<div class="regTop">
 			<span>提交报修信息</span>
@@ -116,7 +116,7 @@ function takePicture(){
 				method="post">
 				<div class="message">
 					<select name="worktype">
-						<option value="choose">选择业务类型</option>
+						<option value="0">选择业务类型</option>
 						<option value="1">技术支持</option>
 						<option value="2">设备报修</option>
 						<option value="3">日常运维</option>
@@ -136,8 +136,8 @@ function takePicture(){
 							<td><label>具体地点：</label></td>
 							<td><input type=text placeholder="请输入具体地点" name="location" /></td>
 						</tr>
-						<tr align="center">
-							<td colspan="6" align="center" ><input type="button" value="上传图片"
+						<tr align="center" style="margin-top: 4%;">
+							<td colspan="3" align="center" ><input type="button" value="上传图片"
 								onclick="takePicture()" /></td>
 						</tr>
 						<td><input type="hidden" id="fileName"  name="filename" /></td>

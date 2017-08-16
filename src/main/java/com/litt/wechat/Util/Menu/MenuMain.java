@@ -13,6 +13,7 @@ import com.litt.wechat.Menu.ClickButton;
 import com.litt.wechat.Menu.Menu;
 import com.litt.wechat.Menu.ViewButton;
 import com.litt.wechat.Util.HttpUtils;
+import com.litt.wechat.Util.Properties.PropertiesReadUtils;
 import com.litt.wechat.Util.Token.WeixinUtil;
 
 public class MenuMain {
@@ -26,26 +27,35 @@ public class MenuMain {
 		button11.setType("click");
 		button11.setKey("11");
 
-		ViewButton button21 = new ViewButton();
-		button21.setName("完善个人信息");
-		button21.setType("view");
-		button21.setUrl("http://9dceb4a0.ngrok.io/NIC-wechat/user/loadInfo");
+		ViewButton button23 = new ViewButton();
+		button23.setName("完善个人信息");
+		button23.setType("view");
+		button23.setUrl(PropertiesReadUtils.getWechatString("rootdirectory")
+				+ "/user/loadInfo");
+
+		ViewButton button24 = new ViewButton();
+		button24.setName("查看反馈信息");
+		button24.setType("view");
+		button24.setUrl(PropertiesReadUtils.getWechatString("rootdirectory")
+				+ "/work/showmsg");
 
 		ViewButton button22 = new ViewButton();
 		button22.setName("提交业务");
 		button22.setType("view");
-		button22.setUrl("http://9dceb4a0.ngrok.io/NIC-wechat/jsp/work_info.jsp");
+		button22.setUrl(PropertiesReadUtils.getWechatString("rootdirectory")
+				+ "/jsp/work_info.jsp");
 
 		ViewButton button31 = new ViewButton();
 		button31.setName("关于我们");
 		button31.setType("view");
-		button31.setUrl("http://9dceb4a0.ngrok.io/NIC-wechat/aboutNIC/extract");
+		button31.setUrl(PropertiesReadUtils.getWechatString("rootdirectory")
+				+ "/aboutNIC/extract");
 
-		Button button = new Button();
-		button.setName("业务对接");
-		button.setSub_button(new Button[] { button21, button22 });
+		Button button21 = new Button();
+		button21.setName("业务对接");
+		button21.setSub_button(new Button[] { button23, button24, button22 });
 
-		menu.setButton(new Button[] { button11, button, button31 });
+		menu.setButton(new Button[] { button11, button21, button31 });
 
 		String jsonMenu = JSONObject.fromObject(menu).toString();
 		System.out.println(jsonMenu);
