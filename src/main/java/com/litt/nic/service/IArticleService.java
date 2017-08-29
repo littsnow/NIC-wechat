@@ -4,6 +4,8 @@ import com.litt.nic.pojo.article;
 
 public interface IArticleService {
 	int findMaxId();
-	article  findById(int id);
+
+	article findById(int id);
+
 	int save(article article);
 }

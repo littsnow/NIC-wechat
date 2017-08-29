@@ -54,13 +54,13 @@
   select * from nic_techsupport  
   <where>
      <if test="key=='department'">
-     techsupport_department like CONCAT('%',#{val},'%') and status_id!=4
+     techsupport_department like CONCAT('%',#{val},'%') and status_id!=5
      </if>
      <if test="key=='address'">
-     techsupport_location like CONCAT('%',#{val},'%') and status_id!=4
+     techsupport_location like CONCAT('%',#{val},'%') and status_id!=5
      </if>
      <if test="key=='uptime'">
-      techsupport_uptime like CONCAT('%',#{val},'%') and status_id!=4
+      techsupport_uptime like CONCAT('%',#{val},'%') and status_id!=5
      </if>
      </where>
      </select>

@@ -7,34 +7,44 @@
     <result column="author" property="author" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="content_source_url" property="contentSourceUrl" jdbcType="VARCHAR" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="digest" property="digest" jdbcType="VARCHAR" />
     <result column="show_cover_pic" property="showCoverPic" jdbcType="INTEGER" />
+    <result column="picurl" property="picurl" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.litt.nic.pojo.article" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, thumb_media_id, author, title, content_source_url, content, digest, show_cover_pic
+    id, thumb_media_id, author, title, content_source_url, digest, show_cover_pic, picurl
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from nic_article
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="findMaxId" resultType="java.lang.Integer" >
     select max(id)
     from nic_article
-  </select>
+</select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from nic_article
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.litt.nic.pojo.article" >
     insert into nic_article (id, thumb_media_id, author, 
-      title, content_source_url, content, 
-      digest, show_cover_pic)
+      title, content_source_url, digest, 
+      show_cover_pic, picurl, content
+      )
     values (#{id,jdbcType=INTEGER}, #{thumbMediaId,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
-      #{title,jdbcType=VARCHAR}, #{contentSourceUrl,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
-      #{digest,jdbcType=VARCHAR}, #{showCoverPic,jdbcType=INTEGER})
+      #{title,jdbcType=VARCHAR}, #{contentSourceUrl,jdbcType=VARCHAR}, #{digest,jdbcType=VARCHAR}, 
+      #{showCoverPic,jdbcType=INTEGER}, #{picurl,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.litt.nic.pojo.article" >
     insert into nic_article
@@ -54,14 +64,17 @@
       <if test="contentSourceUrl != null" >
         content_source_url,
       </if>
-      <if test="content != null" >
-        content,
-      </if>
       <if test="digest != null" >
         digest,
       </if>
       <if test="showCoverPic != null" >
         show_cover_pic,
+      </if>
+      <if test="picurl != null" >
+        picurl,
+      </if>
+      <if test="content != null" >
+        content,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -80,14 +93,17 @@
       <if test="contentSourceUrl != null" >
         #{contentSourceUrl,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
-        #{content,jdbcType=VARCHAR},
-      </if>
       <if test="digest != null" >
         #{digest,jdbcType=VARCHAR},
       </if>
       <if test="showCoverPic != null" >
         #{showCoverPic,jdbcType=INTEGER},
+      </if>
+      <if test="picurl != null" >
+        #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -106,16 +122,31 @@
       <if test="contentSourceUrl != null" >
         content_source_url = #{contentSourceUrl,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=VARCHAR},
-      </if>
       <if test="digest != null" >
         digest = #{digest,jdbcType=VARCHAR},
       </if>
       <if test="showCoverPic != null" >
         show_cover_pic = #{showCoverPic,jdbcType=INTEGER},
       </if>
+      <if test="picurl != null" >
+        picurl = #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.litt.nic.pojo.article" >
+    update nic_article
+    set thumb_media_id = #{thumbMediaId,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      content_source_url = #{contentSourceUrl,jdbcType=VARCHAR},
+      digest = #{digest,jdbcType=VARCHAR},
+      show_cover_pic = #{showCoverPic,jdbcType=INTEGER},
+      picurl = #{picurl,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.litt.nic.pojo.article" >
@@ -124,9 +155,9 @@
       author = #{author,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       content_source_url = #{contentSourceUrl,jdbcType=VARCHAR},
-      content = #{content,jdbcType=VARCHAR},
       digest = #{digest,jdbcType=VARCHAR},
-      show_cover_pic = #{showCoverPic,jdbcType=INTEGER}
+      show_cover_pic = #{showCoverPic,jdbcType=INTEGER},
+      picurl = #{picurl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

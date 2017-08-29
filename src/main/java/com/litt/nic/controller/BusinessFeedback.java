@@ -117,19 +117,21 @@ public class BusinessFeedback {
 	@RequestMapping(value = "/toUpdateStatus")
 	public String updateStatus(HttpServletRequest request,
 			HttpServletResponse response) {
-		int techsupportId=0;
-		int repairId=0;
-		int maintenanceId=0;
+		int techsupportId = 0;
+		int repairId = 0;
+		int maintenanceId = 0;
 		try {// 技术支持
-			String[] techsupportIdArray=request.getParameterValues("techsupportId");
-			String[] techStatusArray=request.getParameterValues("teastatus_name");
-			String[] techManagerArray=request.getParameterValues("teamanager_name");
-			
-		
-			for(int i=0;i<techsupportIdArray.length;i++)
-			{
-				techsupportId=Integer.parseInt(techsupportIdArray[i]);
-				System.out.println("后台获取需要修改的技术支持id数组："+techsupportIdArray[i]);
+			String[] techsupportIdArray = request
+					.getParameterValues("techsupportId");
+			String[] techStatusArray = request
+					.getParameterValues("teastatus_name");
+			String[] techManagerArray = request
+					.getParameterValues("teamanager_name");
+
+			for (int i = 0; i < techsupportIdArray.length; i++) {
+				techsupportId = Integer.parseInt(techsupportIdArray[i]);
+				System.out
+						.println("后台获取需要修改的技术支持id数组：" + techsupportIdArray[i]);
 				System.out.println("此时的技术支持id为：" + techsupportId);
 				techsupport techsupport = techSupportService
 						.findById(techsupportId);
@@ -142,32 +144,34 @@ public class BusinessFeedback {
 				String status_name = techStatusArray[i];
 				System.out.println(techsupportEndtime + "--" + status_name);
 				String manage_name = techManagerArray[i];
-				System.out.println(techsupportEndtime + "--" + status_name + "===="
-						+ manage_name + "---");
+				System.out.println(techsupportEndtime + "--" + status_name
+						+ "====" + manage_name + "---");
 				status status = statusService.findByName(status_name);
 				System.out.println(status.getStatusName());
 				manager manager = managerService.findByName(manage_name);
-				techSupportService.updateEndTime(techsupportId, techsupportEndtime);
+				techSupportService.updateEndTime(techsupportId,
+						techsupportEndtime);
 				techSupportService.updateStatus_id(techsupportId,
 						status.getStatusId());
 				techSupportService.updateManager_id(techsupportId,
 						manager.getManagerId());
 			}
-			//return "redirect:unfinishedlist";
+			// return "redirect:unfinishedlist";
 		} catch (Exception e) {
 			System.out.println("传递参数不是techsupportId");
 		}
 		try {// 报修
-			String[] repairIdArray=request.getParameterValues("repairId");
-			String[] repairStatusArray=request.getParameterValues("rpstatus_name");
-			//System.out.println("repairStatusArray="+repairStatusArray[0]);
-			String[] repairManagerArray=request.getParameterValues("rpmanager_name");
-			//System.out.println("repairManagerArray="+repairManagerArray[0]);
-			for(int i=0;i<repairIdArray.length;i++)
-			{
-				repairId=Integer.parseInt(repairIdArray[i]);
-				System.out.println("后台获取需要修改的设备报修id数组："+repairIdArray[i]);
-				
+			String[] repairIdArray = request.getParameterValues("repairId");
+			String[] repairStatusArray = request
+					.getParameterValues("rpstatus_name");
+			// System.out.println("repairStatusArray="+repairStatusArray[0]);
+			String[] repairManagerArray = request
+					.getParameterValues("rpmanager_name");
+			// System.out.println("repairManagerArray="+repairManagerArray[0]);
+			for (int i = 0; i < repairIdArray.length; i++) {
+				repairId = Integer.parseInt(repairIdArray[i]);
+				System.out.println("后台获取需要修改的设备报修id数组：" + repairIdArray[i]);
+
 				String repair_endtime = new SimpleDateFormat(
 						"yyyy-MM-dd HH:mm:ss").format(new Date());
 				request.setAttribute("repairId", repairId);
@@ -175,11 +179,11 @@ public class BusinessFeedback {
 				request.setAttribute("listStatus", listStatus);
 				List<manager> listManager = managerService.selectAllManager();
 				request.setAttribute("listManager", listManager);
-				//System.out.println("========");
+				// System.out.println("========");
 				String status_name = repairStatusArray[i];
-				//System.out.println("status_name="+status_name);
+				// System.out.println("status_name="+status_name);
 				String manage_name = repairManagerArray[i];
-				//System.out.println("manager_name="+manage_name);
+				// System.out.println("manager_name="+manage_name);
 				System.out.println("--" + status_name + "====" + manage_name
 						+ "---");
 				status status = statusService.findByName(status_name);
@@ -187,22 +191,26 @@ public class BusinessFeedback {
 				manager manager = managerService.findByName(manage_name);
 				System.out.println("manager id" + manager.getManagerId());
 				repairService.updateStatus_id(repairId, status.getStatusId());
-				repairService.updateManager_id(repairId, manager.getManagerId());
+				repairService
+						.updateManager_id(repairId, manager.getManagerId());
 				repairService.updateEndTimeById(repairId, repair_endtime);
 			}
-			
-			//return "redirect:unfinishedlist";
+
+			// return "redirect:unfinishedlist";
 		} catch (Exception e) {
 			System.out.println("传递参数不是repairId");
 		}
 		try {// 日常维护
-			String[] maintenanceIdArray=request.getParameterValues("maintenanceId");
-			String[] mainStatusArray=request.getParameterValues("mtstatus_name");
-			String[] mainManagerArray=request.getParameterValues("mtmanager_name");
-			for(int i=0;i<maintenanceIdArray.length;i++)
-			{
-				maintenanceId=Integer.parseInt(maintenanceIdArray[i]);
-				System.out.println("后台获取需要修改的日常维修id数组："+maintenanceIdArray[i]);
+			String[] maintenanceIdArray = request
+					.getParameterValues("maintenanceId");
+			String[] mainStatusArray = request
+					.getParameterValues("mtstatus_name");
+			String[] mainManagerArray = request
+					.getParameterValues("mtmanager_name");
+			for (int i = 0; i < maintenanceIdArray.length; i++) {
+				maintenanceId = Integer.parseInt(maintenanceIdArray[i]);
+				System.out
+						.println("后台获取需要修改的日常维修id数组：" + maintenanceIdArray[i]);
 				String maintenance_endtime = new SimpleDateFormat(
 						"yyyy-MM-dd HH:mm:ss").format(new Date());
 				System.out.println("maintenanceId" + maintenanceId);
@@ -211,7 +219,7 @@ public class BusinessFeedback {
 				request.setAttribute("listStatus", listStatus);
 				List<manager> listManager = managerService.selectAllManager();
 				request.setAttribute("listManager", listManager);
-				String status_name =mainStatusArray[i];
+				String status_name = mainStatusArray[i];
 				String manage_name = mainManagerArray[i];
 				System.out.println("--" + status_name + "====" + manage_name
 						+ "---");
@@ -221,20 +229,17 @@ public class BusinessFeedback {
 						status.getStatusId());
 				mainTenanceService.updateManager_id(maintenanceId,
 						manager.getManagerId());
-				mainTenanceService.updateEndTimeById(maintenanceId, maintenance_endtime);
+				mainTenanceService.updateEndTimeById(maintenanceId,
+						maintenance_endtime);
 				System.out.println("========");
 			}
-			//return "redirect:unfinishedlist";
+			// return "redirect:unfinishedlist";
 		} catch (Exception e) {
 			System.out.println("传递参数不是maintenanceId");
 		}
-		
-		return "redirect:unfinishedlist";
-		}
-	
 
-		
-	
+		return "redirect:unfinishedlist";
+	}
 
 	/**
 	 * 搜索表单，多条件搜索
@@ -246,6 +251,12 @@ public class BusinessFeedback {
 	@RequestMapping(value = "/searchLists")
 	public String searchByInfo(HttpServletRequest request,
 			HttpServletResponse response) {
+		List<status> listStatus = statusService.findAllStatus();
+		request.setAttribute("listStatus", listStatus);
+
+		List<manager> listManager = managerService.selectAllManager();
+		request.setAttribute("listManager", listManager);
+
 		String key = request.getParameter("key");
 		String value = request.getParameter("val");
 		System.out.println("key=" + key + "value=" + value);
@@ -282,10 +293,8 @@ public class BusinessFeedback {
 						key, value);
 				getMTLists(request, mainTenList);
 
-				/*
-				 * departList = departmentService.findAllInfo();
-				 * getDPNameList(request, departList);
-				 */
+				getDPNameList(request);
+
 				return "/WEB-INF/views/serviceDock/businessFadeback";
 			}
 
@@ -299,82 +308,80 @@ public class BusinessFeedback {
 	 * 跳转到反馈信息页面
 	 * 
 	 * @return
-	 * @throws IOException 
+	 * @throws IOException
 	 */
-	
+
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "/toaddinfo")
 	public String toaddinfo(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-//		try {
-			/*int techsupportId = Integer.parseInt(request
-					.getParameter("techsupportId"));*/
-			
-			String[] techIdArray=request.getParameterValues("techsupportId");
-			
-			List<Integer> teachIdList=new ArrayList<Integer>(); 
-			if(techIdArray!=null)
-			{
-			for(int i=0;i<techIdArray.length;i++)
-			{
-				
+		// try {
+		/*
+		 * int techsupportId = Integer.parseInt(request
+		 * .getParameter("techsupportId"));
+		 */
+
+		String[] techIdArray = request.getParameterValues("techsupportId");
+
+		List<Integer> teachIdList = new ArrayList<Integer>();
+		if (techIdArray != null) {
+			for (int i = 0; i < techIdArray.length; i++) {
+
 				teachIdList.add(Integer.parseInt(techIdArray[i]));
-			     System.out.println("teachId="+techIdArray[i]);
+				System.out.println("teachId=" + techIdArray[i]);
 			}
 			request.setAttribute("teachIdList", teachIdList);
-			}
-		/*} catch (Exception e) {
 		}
-		try {*/
-			/*int repairId = Integer.parseInt(request.getParameter("repairId"));*/
-		
-			String[] rpIdArray=request.getParameterValues("repairId");
-			
-			List<Integer> rpIdList=new ArrayList<Integer>();
-			if(rpIdArray!=null)
-			{
-			for(int i=0;i<rpIdArray.length;i++)
-			{
+		/*
+		 * } catch (Exception e) { } try {
+		 */
+		/* int repairId = Integer.parseInt(request.getParameter("repairId")); */
+
+		String[] rpIdArray = request.getParameterValues("repairId");
+
+		List<Integer> rpIdList = new ArrayList<Integer>();
+		if (rpIdArray != null) {
+			for (int i = 0; i < rpIdArray.length; i++) {
 				rpIdList.add(Integer.parseInt(rpIdArray[i]));
 				System.out.println(rpIdArray[i]);
 			}
-			
+
 			request.setAttribute("rpIdList", rpIdList);
-			}
-		/*} catch (Exception e) {
-		}*/
-		/*try {*/
-			/*int maintenanceId = Integer.parseInt(request
-					.getParameter("maintenanceId"));*/
-			String[] mtIdArray=request.getParameterValues("maintenanceId");
-			
-			List<Integer> mtIdList=new ArrayList<Integer>();
-			if(mtIdArray!=null)
-			{
-			for(int i=0;i<mtIdArray.length;i++)
-			{
+		}
+		/*
+		 * } catch (Exception e) { }
+		 */
+		/* try { */
+		/*
+		 * int maintenanceId = Integer.parseInt(request
+		 * .getParameter("maintenanceId"));
+		 */
+		String[] mtIdArray = request.getParameterValues("maintenanceId");
+
+		List<Integer> mtIdList = new ArrayList<Integer>();
+		if (mtIdArray != null) {
+			for (int i = 0; i < mtIdArray.length; i++) {
 				mtIdList.add(Integer.parseInt(mtIdArray[i]));
 				System.out.println(mtIdArray[i]);
 			}
-			
+
 			request.setAttribute("mtIdList", mtIdList);
-			}
-		/*} catch (Exception e) {
-		}*/
-    if((techIdArray==null)&&(rpIdArray==null)&&(mtIdArray==null))
-    {       
-    	response.setContentType("text/html; charset=UTF-8"); // 转码
-		PrintWriter out = response.getWriter();
-		out.flush();
-		out.println("<script>");
-		out.println("alert('请选择需要反馈的信息后，再点击反馈');");
-		out.println("history.back();");
-		out.println("</script>");
-	   return "redirect:unfinishedlist";
-	 }else
-	 {
-		return "/WEB-INF/views/work/feedback_info";
-	 }
+		}
+		/*
+		 * } catch (Exception e) { }
+		 */
+		if ((techIdArray == null) && (rpIdArray == null) && (mtIdArray == null)) {
+			response.setContentType("text/html; charset=UTF-8"); // 转码
+			PrintWriter out = response.getWriter();
+			out.flush();
+			out.println("<script>");
+			out.println("alert('请选择需要反馈的信息后，再点击反馈');");
+			out.println("history.back();");
+			out.println("</script>");
+			return "redirect:unfinishedlist";
+		} else {
+			return "/WEB-INF/views/work/feedback_info";
+		}
 	}
 
 	/**
@@ -385,66 +392,63 @@ public class BusinessFeedback {
 	@RequestMapping(value = "/addinfo")
 	public String addinfo(HttpServletRequest request,
 			HttpServletResponse response) {
-		/*try {*/
+		/* try { */
 
-			String info = request.getParameter("note");
-         /* int  id = Integer.parseInt(request.getParameter("techsupportId"));*/
-			int techsupportId=0;
-			String[] techIdArray=request.getParameterValues("techsupportId");
-			if(techIdArray!=null)
-			{
-			for(int i=0;i<techIdArray.length;i++)
-			{
-				  System.out.println("techId="+techIdArray[i]);
-				techsupportId=Integer.parseInt(techIdArray[i]);
-			   
-			 	System.out.println("技术支持-------" + info + techsupportId);
+		String info = request.getParameter("note");
+		/* int id = Integer.parseInt(request.getParameter("techsupportId")); */
+		int techsupportId = 0;
+		String[] techIdArray = request.getParameterValues("techsupportId");
+		if (techIdArray != null) {
+			for (int i = 0; i < techIdArray.length; i++) {
+				System.out.println("techId=" + techIdArray[i]);
+				techsupportId = Integer.parseInt(techIdArray[i]);
+
+				System.out.println("技术支持-------" + info + techsupportId);
 				techSupportService.updateFeedback(techsupportId, info);
 			}
-				
-			}
-		/*} catch (Exception e) {
 
 		}
-		try {*/
-			//String info = request.getParameter("note");
-			//int repairId = Integer.parseInt(request.getParameter("repairId"));
-			int repairId=0;
-            String[] rpIdArray=request.getParameterValues("repairId");
-			if(rpIdArray!=null)
-			{
-			for(int i=0;i<rpIdArray.length;i++)
-			{
-				repairId=Integer.parseInt(rpIdArray[i]);
+		/*
+		 * } catch (Exception e) {
+		 * 
+		 * } try {
+		 */
+		// String info = request.getParameter("note");
+		// int repairId = Integer.parseInt(request.getParameter("repairId"));
+		int repairId = 0;
+		String[] rpIdArray = request.getParameterValues("repairId");
+		if (rpIdArray != null) {
+			for (int i = 0; i < rpIdArray.length; i++) {
+				repairId = Integer.parseInt(rpIdArray[i]);
 				System.out.println(rpIdArray[i]);
 				System.out.println("维修-------" + info + repairId);
 				repairService.updateFeedback(repairId, info);
 			}
-			}
-			
-			
-		/*} catch (Exception e) {
-
 		}
-		try {*/
-			//String info = request.getParameter("note");
-			//int id = Integer.parseInt(request.getParameter("maintenanceId"));
-           String[] mtIdArray=request.getParameterValues("maintenanceId");
-			int maintenanceId=0;
-			if(mtIdArray!=null)
-			{
-			for(int i=0;i<mtIdArray.length;i++)
-			{
-				maintenanceId=Integer.parseInt(mtIdArray[i]);
+
+		/*
+		 * } catch (Exception e) {
+		 * 
+		 * } try {
+		 */
+		// String info = request.getParameter("note");
+		// int id = Integer.parseInt(request.getParameter("maintenanceId"));
+		String[] mtIdArray = request.getParameterValues("maintenanceId");
+		int maintenanceId = 0;
+		if (mtIdArray != null) {
+			for (int i = 0; i < mtIdArray.length; i++) {
+				maintenanceId = Integer.parseInt(mtIdArray[i]);
 				System.out.println(mtIdArray[i]);
 				System.out.println("运维-------" + info + maintenanceId);
 				mainTenanceService.updateFeedback(maintenanceId, info);
 			}
-			}
-			
-		/*} catch (Exception e) {
+		}
 
-		}*/
+		/*
+		 * } catch (Exception e) {
+		 * 
+		 * }
+		 */
 		return "redirect:unfinishedlist";
 
 	}
@@ -465,9 +469,9 @@ public class BusinessFeedback {
 		String dateString = formatter.format(date);
 		System.out.println(dateString.toString());
 		techsupportList = techSupportService.findByEnd(dateString);
-	//	System.out.println("----"+techsupportList.get(0).getStatusId());
+		// System.out.println("----"+techsupportList.get(0).getStatusId());
 		repairList = repairService.findByEnd(dateString);
-		
+
 		mainTenList = mainTenanceService.findByEnd(dateString);
 		if (techsupportList.isEmpty() && repairList.isEmpty()
 				&& mainTenList.isEmpty()) {
@@ -487,17 +491,24 @@ public class BusinessFeedback {
 
 	public void getTSLists(HttpServletRequest request,
 			List<techsupport> techSupportList) {
-		try{
+		// try {
 		for (int i = 0; i < techSupportList.size(); i++) {
 			tsStatusList.add(statusService.findById(
 					techSupportList.get(i).getStatusId()).getStatusName());
 
 			tsUserList.add(userService.findById(
 					techSupportList.get(i).getUserId()).getUserName());
-			if(managerService.findById(techSupportList.get(i).getManagerId()).getManagerName()!=null)
-			{
-				System.out.println("处理人="+managerService.findById(techSupportList.get(i).getManagerId()).getManagerName());
-			tsManagerList.add(managerService.findById(techSupportList.get(i).getManagerId()).getManagerName());
+			if (techSupportList.get(i).getManagerId() != null) {
+				System.out.println("处理人="
+						+ managerService.findById(
+								techSupportList.get(i).getManagerId())
+								.getManagerName());
+				tsManagerList
+						.add(managerService.findById(
+								techSupportList.get(i).getManagerId())
+								.getManagerName());
+			} else {
+				tsManagerList.add("");
 			}
 		}
 		request.setAttribute("tsStatus", tsStatusList);
@@ -505,56 +516,57 @@ public class BusinessFeedback {
 		request.setAttribute("tsLen", techSupportList.size());
 		System.out.println(techSupportList.size() + "++++++++++++++++++");
 		request.setAttribute("tsUser", tsUserList);
+		System.out.println(tsUserList.size()
+				+ "00000000000000000000000000000000");
 		request.setAttribute("tsManagerList", tsManagerList);
-		}catch(Exception e){
-			System.out.println("该业务尚未分配处理人");
-		}
+		/*
+		 * } catch (Exception e) { System.out.println("该业务尚未分配处理人"); }
+		 */
 	}
 
 	public void getRPLists(HttpServletRequest request, List<repair> repairList) {
-		try{
-		for (int i = 0; i < repairList.size(); i++) {
-			rpStatusList.add(statusService.findById(
-					repairList.get(i).getStatusId()).getStatusName());
-			rpUserList.add(userService.findById(repairList.get(i).getUserId())
-					.getUserName());
-			if(managerService.findById(repairList.get(i).getManagerId()).getManagerName()!=null)
-			{
-			rpManagerList.add(managerService.findById(repairList.get(i).getManagerId()).getManagerName());
+		try {
+			for (int i = 0; i < repairList.size(); i++) {
+				rpStatusList.add(statusService.findById(
+						repairList.get(i).getStatusId()).getStatusName());
+				rpUserList.add(userService.findById(
+						repairList.get(i).getUserId()).getUserName());
+				if (repairList.get(i).getManagerId() != null) {
+					rpManagerList.add(managerService.findById(
+							repairList.get(i).getManagerId()).getManagerName());
+				} else {
+					rpManagerList.add("");
+				}
 			}
-		}
-		System.out.println("rpList=" + repairList);
-		request.setAttribute("rpList", repairList);
-		request.setAttribute("rpStatus", rpStatusList);
-		request.setAttribute("rpUser", rpUserList);
-		request.setAttribute("rpLen", repairList.size());
-		request.setAttribute("rpManagerList", rpManagerList);
-		}catch(Exception e)
-		{
+			System.out.println("rpList=" + repairList);
+			request.setAttribute("rpList", repairList);
+			request.setAttribute("rpStatus", rpStatusList);
+			request.setAttribute("rpUser", rpUserList);
+			request.setAttribute("rpLen", repairList.size());
+			request.setAttribute("rpManagerList", rpManagerList);
+		} catch (Exception e) {
 			System.out.println("该业务尚未分配处理人");
 		}
 	}
 
 	public void getMTLists(HttpServletRequest request,
 			List<maintenance> mainTenList) {
-		try{
 		for (int i = 0; i < mainTenList.size(); i++) {
 			mtStatusList.add(statusService.findById(
 					mainTenList.get(i).getStatusId()).getStatusName());
 			mtUserList.add(userService.findById(mainTenList.get(i).getUserId())
 					.getUserName());
-			if(managerService.findById(mainTenList.get(i).getManagerId()).getManagerName()!=null)
-			{
-			mtManagerList.add(managerService.findById(mainTenList.get(i).getManagerId()).getManagerName());
+			if (mainTenList.get(i).getManagerId() != null) {
+				mtManagerList.add(managerService.findById(
+						mainTenList.get(i).getManagerId()).getManagerName());
+			} else {
+				mtManagerList.add("");
 			}
 		}
 		request.setAttribute("mtList", mainTenList);
 		request.setAttribute("mtStatus", mtStatusList);
 		request.setAttribute("mtUser", mtUserList);
 		request.setAttribute("mtManagerList", mtManagerList);
-		}catch (Exception e) {
-			System.out.println("该业务尚未分配处理人");
-		}
 	}
 
 	public void getDPNameList(HttpServletRequest request) {

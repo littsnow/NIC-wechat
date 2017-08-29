@@ -15,6 +15,8 @@ public class article {
 
 	private String digest;
 
+	private String picurl;// 新增的图片存放的地址
+
 	private Integer showCoverPic;
 
 	public Integer getId() {
@@ -56,6 +58,14 @@ public class article {
 	public void setContentSourceUrl(String contentSourceUrl) {
 		this.contentSourceUrl = contentSourceUrl == null ? null
 				: contentSourceUrl.trim();
+	}
+
+	public String getPicurl() {
+		return picurl;
+	}
+
+	public void setPicurl(String picurl) {
+		this.picurl = picurl;
 	}
 
 	public String getContent() {

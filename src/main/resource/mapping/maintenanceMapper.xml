@@ -54,13 +54,13 @@
   select * from nic_maintenance  
   <where>
      <if test="key=='department'">
-     maintenance_department like CONCAT('%',#{val},'%') and status_id!=4
+     maintenance_department like CONCAT('%',#{val},'%') and status_id!=5
      </if>
      <if test="key=='address'">
-     maintenance_location like CONCAT('%',#{val},'%') and status_id!=4
+     maintenance_location like CONCAT('%',#{val},'%') and status_id!=5
      </if>
      <if test="key=='uptime'">
-      maintenance_uptime like CONCAT('%',#{val},'%') and status_id!=4
+      maintenance_uptime like CONCAT('%',#{val},'%') and status_id!=5
      </if>
      <if test="key=='endtime'">
       maintenance_endtime like CONCAT('%',#{val},'%')
@@ -76,7 +76,7 @@
   <select id="selectfinish" resultMap="BaseResultMap" parameterType="java.lang.String">
   select * from nic_maintenance  
   <where>
-      maintenance_endtime like CONCAT('%',#{val},'%') and status_id=4
+      maintenance_endtime like CONCAT('%',#{val},'%') and status_id=5
      </where>
      </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

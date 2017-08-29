@@ -65,7 +65,7 @@
 					<hr style=" height:2px;border:none;border-top:2px dotted #185598;">
 				</c:forEach>
 				<c:forEach items="${relist}" var="item" varStatus="c">
-					<table style="width: 100%; font-size: 40px;">
+					<table style="width: 100%; font-size: 60px;">
 						<tr>
 							<td style="width: 30%;"><label>设备名称：</label></td>
 							<td>${item.repairDevicename }</td>

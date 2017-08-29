@@ -27,6 +27,12 @@ public class MenuMain {
 		button11.setType("click");
 		button11.setKey("11");
 
+		ViewButton button12 = new ViewButton();
+		button12.setName("最新公告");
+		button12.setType("view");
+		button12.setUrl(PropertiesReadUtils.getWechatString("rootdirectory")
+				+ "/news/shownotice");
+
 		ViewButton button23 = new ViewButton();
 		button23.setName("完善个人信息");
 		button23.setType("view");
@@ -55,7 +61,11 @@ public class MenuMain {
 		button21.setName("业务对接");
 		button21.setSub_button(new Button[] { button23, button24, button22 });
 
-		menu.setButton(new Button[] { button11, button21, button31 });
+		Button button13 = new Button();
+		button13.setName("查看消息");
+		button13.setSub_button(new Button[] { button11, button12 });
+
+		menu.setButton(new Button[] { button13, button21, button31 });
 
 		String jsonMenu = JSONObject.fromObject(menu).toString();
 		System.out.println(jsonMenu);

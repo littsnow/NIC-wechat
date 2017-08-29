@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div> -->
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4"
 						style="margin-top: 20px;">
-						<img id="img_1" src="" style="border: 1px solid #ccc" />
+						<img id="img_1" src="" style="border: 1px solid #ccc; width: 500px;height: 300px;"/>
 						 <a href="javascript:;" class="file">浏览上传
 						  <input id="file_1" type="file" name="file" value="123" data onchange="fileshow1()">
 						</a>
@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<div class="field">
 						<textarea name="content" class="input"
-							style="height: 450px; border: 1px solid #ddd;"></textarea>
+							style="height: 200px; border: 1px solid #ddd;"></textarea>
 						<div class="tips"></div>
 					</div>
 				</div>

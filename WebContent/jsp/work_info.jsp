@@ -20,7 +20,7 @@
 function config() {
 	$.ajax({
 		type : 'post',
-		url : " http://6ac3f879.ngrok.io/NIC-wechat/work/config",
+		url : " http://94f00f71.ngrok.io/NIC-wechat/work/config",
 		data : {'url' :location.href.split('#')[0]},
 		dataType : 'json',
 		contentType : "application/x-www-form-urlencoded; charset=utf-8",

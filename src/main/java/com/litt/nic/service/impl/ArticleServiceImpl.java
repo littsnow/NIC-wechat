@@ -10,10 +10,9 @@ import com.litt.nic.service.IArticleService;
 @Service
 public class ArticleServiceImpl implements IArticleService {
 
-	
 	@Autowired
 	private articleMapper articleMapper;
-	
+
 	@Override
 	public int findMaxId() {
 		return articleMapper.findMaxId();

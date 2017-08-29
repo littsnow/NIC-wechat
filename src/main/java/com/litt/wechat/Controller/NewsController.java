@@ -5,10 +5,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.litt.nic.pojo.article;
 import com.litt.nic.pojo.information;
+import com.litt.nic.service.impl.ArticleServiceImpl;
 import com.litt.wechat.Util.Properties.PropertiesReadUtils;
 import com.litt.wechat.Util.Splider.ExtractNewInfomationUtil;
 import com.litt.wechat.Util.Splider.ExtractUtil;
@@ -17,6 +20,11 @@ import com.litt.wechat.Util.Splider.RuleUtil;
 @Controller
 @RequestMapping(value = "/news")
 public class NewsController {
+
+	@Autowired
+	private ArticleServiceImpl articleService;
+
+	private article article;
 
 	@RequestMapping(value = "/extract")
 	public String extractInformation(HttpServletRequest request,
@@ -51,5 +59,16 @@ public class NewsController {
 		}
 
 		return "/jsp/hotnews";
+	}
+
+	@RequestMapping(value = "/shownotice")
+	public String showNotice(HttpServletRequest request,
+			HttpServletResponse response) {
+		int maxid = articleService.findMaxId();
+		article = articleService.findById(maxid);
+		request.setAttribute("article", article);
+
+		return "/jsp/shownotice";
+
 	}
 }

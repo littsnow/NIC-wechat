@@ -3,17 +3,19 @@ package com.litt.nic.Dao;
 import com.litt.nic.pojo.article;
 
 public interface articleMapper {
-    int deleteByPrimaryKey(Integer id);
+	int deleteByPrimaryKey(Integer id);
 
-    int insert(article record);
+	int insert(article record);
 
-    int insertSelective(article record);
+	int insertSelective(article record);
 
-    article selectByPrimaryKey(Integer id);
+	article selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(article record);
+	int updateByPrimaryKeySelective(article record);
 
-    int updateByPrimaryKey(article record);
-    
-    int findMaxId();
+	int updateByPrimaryKeyWithBLOBs(article record);
+
+	int updateByPrimaryKey(article record);
+
+	int findMaxId();
 }

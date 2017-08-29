@@ -138,7 +138,7 @@ $(function(){
 				</ul>
 			</div>
 		</form>
-<form method="post"
+	<form method="post"
 						action="${pageContext.request.contextPath }/feedback/toUpdateStatus"
 						id="subform">
 		<div id="divtable">
@@ -171,7 +171,7 @@ $(function(){
 						<td>技术支持</td>
 						<td>${s.techsupportDevicename}</td>
 						<td>${s.techsupportDepartment}</td>
-						<td>${s.techsupportLocation}</td>
+						<td style="width:16%; word-wrap:break-word;word-break:break-all;">${s.techsupportLocation}</td>
 						<c:if test="${!empty s.techsupportPicture }">
 						<td><a
 								href="${pageContext.request.contextPath }/load/picture?pName=${s.techsupportPicture}">点击查看</a></td>
@@ -182,7 +182,7 @@ $(function(){
 						<td>${s.techsupportUptime}</td>
 						<td colspan="1"
 							style="text-align-last: center; text-align: center;">
-							<c:if test="${!empty tsStatus }" >
+							<c:if test="${!empty tsStatus[a.index] }" >
 							
 							<select  name="teastatus_name" id="status_name" style="margin-center: 87%;">
 								<option value="${tsStatus[a.index] }">${tsStatus[a.index] }</option>
@@ -191,7 +191,7 @@ $(function(){
 								</c:forEach>
 						</select>
 							</c:if>
-							<c:if test="${empty tsStatus }">
+							<c:if test="${empty tsStatus[a.index] }">
 							<select  name="teastatus_name" id="status_name" style="margin-center: 87%;">
 								<option value="0">-请选择-</option>
 								<c:forEach items="${listStatus}" var="item" varStatus="status">
@@ -202,7 +202,7 @@ $(function(){
 						</td>
 						<td colspan="1"
 							style="text-align-last: center; text-align: center;">
-							<c:if test="${!empty tsManagerList }">
+							<c:if test="${!empty tsManagerList[a.index] }">
 							<select name="teamanager_name" id="manager_name" style="">
 								<option value="${tsManagerList[a.index] }">${tsManagerList[a.index] }</option>
 								<c:forEach items="${listManager }" var="item" varStatus="status">
@@ -210,7 +210,7 @@ $(function(){
 								</c:forEach>
 						</select>
 							</c:if>
-							<c:if test="${empty tsManagerList }">
+							<c:if test="${empty tsManagerList[a.index] }">
 							<select name="teamanager_name" id="manager_name" style="">
 								<option value="0">-请选择-</option>
 								<c:forEach items="${listManager }" var="item" varStatus="status">
@@ -258,7 +258,7 @@ $(function(){
 							<td>${s.repairUptime}</td>
 							<td colspan="1"
 							style="text-align-last: center; text-align: center;">
-							<c:if test="${!empty rpStatus }">
+							<c:if test="${!empty rpStatus[b.index] }">
 							<select
 							name="rpstatus_name" id="status_name" style="margin-center: 87%;">
 									<option value="${rpStatus[b.index] }">${rpStatus[b.index] }</option>
@@ -268,7 +268,7 @@ $(function(){
 							</select>
 							</c:if>
 							
-							<c:if test="${empty rpStatus }">
+							<c:if test="${empty rpStatus[b.index] }">
 							<select
 							name="rpstatus_name" id="status_name" style="margin-center: 87%;">
 									<option value="0">-请选择-</option>
@@ -279,7 +279,7 @@ $(function(){
 							</c:if></td>
 							<td colspan="1"
 							style="text-align-last: center; text-align: center;">
-							<c:if test="${!empty rpManagerList }">
+							<c:if test="${!empty rpManagerList[b.index] }">
 							<select
 							name="rpmanager_name" id="manager_name" style="">
 									<option value="${rpManagerList[b.index] }">${rpManagerList[b.index] }</option>
@@ -290,7 +290,7 @@ $(function(){
 							</select>
 							
 							</c:if>
-							<c:if test="${empty rpManagerList }">
+							<c:if test="${empty rpManagerList[b.index] }">
 							<select
 							name="rpmanager_name" id="manager_name" style="">
 									<option value="0">-请选择-</option>
@@ -343,7 +343,7 @@ $(function(){
 							<td colspan="1"
 							style="text-align-last: center; text-align: center;">
 							
-							<c:if test="${!empty mtStatus }">
+							<c:if test="${!empty mtStatus[c.index] }">
 							<select
 							name="mtstatus_name" id="status_name" style="margin-center: 87%;">
 									<option value="${mtStatus[c.index] }">${mtStatus[c.index] }</option>
@@ -352,7 +352,7 @@ $(function(){
 									</c:forEach>
 							</select>
 							</c:if>
-							<c:if test="${empty mtStatus }">
+							<c:if test="${empty mtStatus[c.index] }">
 							<select
 							name="mtstatus_name" id="status_name" style="margin-center: 87%;">
 									<option value="0">-请选择-</option>
@@ -365,7 +365,7 @@ $(function(){
 							</td>
 							<td colspan="1"
 							style="text-align-last: center; text-align: center;">
-							<c:if test="${!empty mtManagerList }">
+							<c:if test="${!empty mtManagerList[c.index] }">
 							<select
 							name="mtmanager_name" id="manager_name" style="">
 									<option value="${mtManagerList[c.index] }">${mtManagerList[c.index] }</option>
@@ -376,7 +376,7 @@ $(function(){
 							</select>
 							</c:if>
 							
-							<c:if test="${empty mtManagerList }">
+							<c:if test="${empty mtManagerList[c.index] }">
 							<select
 							name="mtmanager_name" id="manager_name" style="">
 									<option value="0">-请选择-</option>
@@ -402,25 +402,14 @@ $(function(){
 			</table>
 		</div>
 	
-	<!-- <div>
-		<table class="table table-hover text-center">
-			<tr>
-				<td colspan="8"><div class="pagelist">
-						<a href="">上一页</a> <span class="current">1</span><a href="">2</a><a
-							href="">3</a><a href="">下一页</a><a href="">尾页</a>
-					</div></td>
-			</tr>
-		</table>
-	</div> -->
-	<!-- </form> -->
 
-	<div class="button-group">
-									 <input type="submit" style="width: 60px;margin-left: 540px;"
+	<div class="button-group" style="margin-bottom: 10%;margin-top: 4%;">
+			<input type="submit" style="width: 60px;margin-left: 450px;"
 				class="button border-main icon-search submit" value="提交" />
-									 <input type="button" style="width: 60px;margin-left: 20px;"
+			<input type="button" style="width: 60px;margin-left: 100px;"
 				class="button border-main icon-search feedback" value="反馈" />
-								</div>
-								</form>
+	</div>
+</form>
 	</div>
 	<script type="text/javascript">
 	$(".submit").click(function(){
