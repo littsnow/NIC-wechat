@@ -2,12 +2,13 @@ package com.litt.wechat.Util.Menu;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
 import net.sf.json.JSONObject;
 
 import org.apache.http.ParseException;
-import org.apache.log4j.Logger;
 
-import com.litt.wechat.Controller.WechatSecurity;
 import com.litt.wechat.Menu.Button;
 import com.litt.wechat.Menu.ClickButton;
 import com.litt.wechat.Menu.Menu;
@@ -16,11 +17,10 @@ import com.litt.wechat.Util.HttpUtils;
 import com.litt.wechat.Util.Properties.PropertiesReadUtils;
 import com.litt.wechat.Util.Token.WeixinUtil;
 
-public class MenuMain {
+public class WebContextListener implements ServletContextListener {
 
-	private static Logger logger = Logger.getLogger(WechatSecurity.class);
-
-	public static void main(String[] args) throws ParseException, IOException {
+	@Override
+	public void contextInitialized(ServletContextEvent arg0) {
 		Menu menu = new Menu();
 		ClickButton button11 = new ClickButton();
 		button11.setName("最新消息");
@@ -28,7 +28,7 @@ public class MenuMain {
 		button11.setKey("11");
 
 		ViewButton button12 = new ViewButton();
-		button12.setName("最");
+		button12.setName("最新公告");
 		button12.setType("view");
 		button12.setUrl(PropertiesReadUtils.getWechatString("rootdirectory")
 				+ "/news/shownotice");
@@ -69,17 +69,31 @@ public class MenuMain {
 
 		String jsonMenu = JSONObject.fromObject(menu).toString();
 		System.out.println(jsonMenu);
-		System.out.println(WeixinUtil.getAccessToken().getAccessToken()
-				.toString());
-		// 这里为请求接口的url +号后面的是token，这里就不做过多对token获取的方法解释
-		String url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token="
-				+ WeixinUtil.getAccessToken().getAccessToken();
-
 		try {
+			System.out.println(WeixinUtil.getAccessToken().getAccessToken()
+					.toString());
+		} catch (ParseException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		// 这里为请求接口的url +号后面的是token，这里就不做过多对token获取的方法解释
+		String url;
+		try {
+			url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token="
+					+ WeixinUtil.getAccessToken().getAccessToken();
 			String rs = HttpUtils.sendPostBuffer(url, jsonMenu.toString());
 			System.out.println(rs);
-		} catch (Exception e) {
-			System.out.println("请求错误！");
+		} catch (ParseException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+
 	}
+
+	@Override
+	public void contextDestroyed(ServletContextEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

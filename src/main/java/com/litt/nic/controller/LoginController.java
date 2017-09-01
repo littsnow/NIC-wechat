@@ -42,6 +42,7 @@ public class LoginController {
 		String psw = request.getParameter("password");
 		String msg = "用户名或密码有误！";
 		manager managers = managerService.findByNamePsw(name, psw);
+		request.getSession().setAttribute("loginmanager", managers);
 		if (managers != null) {
 			if (managers.getManagerTyp() == 0)
 				return "/WEB-INF/views/manager/managerindex";

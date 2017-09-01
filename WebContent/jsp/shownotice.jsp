@@ -29,9 +29,9 @@
 			<hr/>
 	<div id="content" class="news" style="margin:10px;font-size:58px;line-height:80px;padding-bottom:55px;">
 		<p style="text-indent:2em;">${article.digest}　</p>
-		<p align="center" style="margin: 7% auto;">
+		<p align="center" style="margin: 8% auto;">
 			<img alt="暂时没有图片" src="data:image/jpeg;base64,${article.picurl}" width="100%">
-		<p style="text-indent:2em;">${article.content}　</p>
+		<p style="text-indent:2em;word-wrap:break-word; word-break:break-all;">${article.content}　</p>
 		
 		</div>
 	</div> 

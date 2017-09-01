@@ -46,14 +46,19 @@
 		<async-supported>true</async-supported>
 
 	</servlet>
-	<servlet>
-        <servlet-name>initServlet</servlet-name>
-        <servlet-class>
-            com.litt.wechat.Util.Menu.InitServlet
-        </servlet-class>
-       
-        <load-on-startup>0</load-on-startup>
-    </servlet>
+	<listener>  
+  <listener-class> com.litt.wechat.Util.Menu.WebContextListener</listener-class>  
+</listener> 
+	
+	<!-- 配置登陆过滤器 -->
+ <filter>
+  <filter-name>login</filter-name>
+  <filter-class>com.litt.nic.Security.LoginFilter</filter-class>
+ </filter>
+ <filter-mapping>
+  <filter-name>login</filter-name>
+  <url-pattern>/WEB-INF/views/*</url-pattern>
+ </filter-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>SpringMVC</servlet-name>

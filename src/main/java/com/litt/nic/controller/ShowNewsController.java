@@ -1,6 +1,5 @@
 package com.litt.nic.controller;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,7 +21,6 @@ import sun.misc.BASE64Encoder;
 
 import com.litt.nic.pojo.article;
 import com.litt.nic.service.IArticleService;
-import com.litt.wechat.Util.Token.WeixinUtil;
 
 @Controller
 @RequestMapping(value = "/shownews")
@@ -80,12 +78,6 @@ public class ShowNewsController {
 		}
 		System.out.println("保存图片成功");
 
-		// 上传图片到微信服务器
-		// 图文消息缩略图的media_id
-		String media_id = WeixinUtil.upload(new File(targetFile));
-		// 由media_id下载到服务器(tomcat)
-		String picName = WeixinUtil.saveImageToDisk(media_id);
-
 		String title = request.getParameter("title");
 		//
 		String content = request.getParameter("content");
@@ -93,21 +85,54 @@ public class ShowNewsController {
 		String desc = request.getParameter("description");
 		System.out.println(title + ",   " + content + " ," + desc);
 		article articlePojo = new article();
-		articlePojo.setThumbMediaId(picName);
 		articlePojo.setAuthor("太原工业网络与信息中心处");
 		articlePojo.setTitle(title);
-		articlePojo.setContentSourceUrl("http://wlzx.tit.edu.cn/");
 		articlePojo.setContent(content);
 		articlePojo.setDigest(desc);
-		articlePojo.setShowCoverPic(1);
 		String pathpic = GetImageStr(targetFile);
 		System.out.println("========" + pathpic);
 		articlePojo.setPicurl(pathpic);
 		articleService.save(articlePojo);
 
 		// 进入微信群发图文消息controller
-		return "redirect:/send/message";
+		return "redirect:/shownews/toshownews";
 	}
+
+	/*
+	 * public String addnews(HttpServletRequest request, HttpServletResponse
+	 * response,
+	 * 
+	 * @RequestParam("file") MultipartFile file) throws ParseException,
+	 * Exception {
+	 * 
+	 * InputStream is = file.getInputStream(); // 保存图片路径 String targetFile =
+	 * System.getProperty("catalina.home") + "/webapps" + "/download" +
+	 * "/ManageUpload/" + UUID.randomUUID().toString() + ".jpg";
+	 * System.out.println("targetFile:" + targetFile);
+	 * 
+	 * try { OutputStream out = new FileOutputStream(targetFile); byte[] bytes =
+	 * new byte[1024]; int len = -1; while ((len = is.read(bytes)) != -1) {
+	 * out.write(bytes, 0, len); } is.close(); out.close(); } catch (Exception
+	 * e) { System.out.println("保存图片失败"); } System.out.println("保存图片成功");
+	 * 
+	 * // 上传图片到微信服务器 // 图文消息缩略图的media_id String media_id = WeixinUtil.upload(new
+	 * File(targetFile)); // 由media_id下载到服务器(tomcat) String picName =
+	 * WeixinUtil.saveImageToDisk(media_id);
+	 * 
+	 * String title = request.getParameter("title"); // String content =
+	 * request.getParameter("content"); // digest 图文消息的描述，如本字段为空，则默认抓取正文前64个字
+	 * String desc = request.getParameter("description");
+	 * System.out.println(title + ",   " + content + " ," + desc); article
+	 * articlePojo = new article(); articlePojo.setThumbMediaId(picName);
+	 * articlePojo.setAuthor("太原工业网络与信息中心处"); articlePojo.setTitle(title);
+	 * articlePojo.setContentSourceUrl("http://wlzx.tit.edu.cn/");
+	 * articlePojo.setContent(content); articlePojo.setDigest(desc);
+	 * articlePojo.setShowCoverPic(1); String pathpic = GetImageStr(targetFile);
+	 * System.out.println("========" + pathpic); articlePojo.setPicurl(pathpic);
+	 * articleService.save(articlePojo);
+	 * 
+	 * // 进入微信群发图文消息controller return "redirect:/send/message"; }
+	 */
 
 	// 图片转化成base64字符串
 	public static String GetImageStr(String imgFile) {// 将图片文件转化为字节数组字符串，并对其进行Base64编码处理

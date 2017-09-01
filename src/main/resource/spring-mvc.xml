@@ -51,4 +51,26 @@
     <!-- 解除servlet对静态资源文件访问的限制，使得静态资源先经过 -->  
 	<mvc:default-servlet-handler />  
 	<mvc:annotation-driven />  
+	
+	<mvc:interceptors>  
+        <mvc:interceptor>  
+            <!-- 需拦截的地址 -->  
+                        <!-- 一级目录 -->  
+            <mvc:mapping path="/*.do" />  
+            <mvc:mapping path="/*.jsp" />  
+            <mvc:mapping path="/*.htm" />  
+  
+                        <!-- 二级目录 -->  
+            <mvc:mapping path="/*/*.do" />  
+            <mvc:mapping path="/*/*.jsp" />  
+            <mvc:mapping path="/*/*.htm" /> 
+            
+            <mvc:mapping path="/*/*/*.do" />  
+            <mvc:mapping path="/*/*/*/*.jsp" />  
+            <mvc:mapping path="/*/*/*.htm" />  
+            <!-- 需排除拦截的地址 -->  
+            <mvc:exclude-mapping path="/login.htm"/>  
+            <bean class="com.litt.nic.Security.SecurityInterceptor" />  
+        </mvc:interceptor>  
+    </mvc:interceptors>  
 </beans>  
