@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <th>姓名</th>       
         <th>主题</th>
         <th width="25%">内容</th>
-         <th width="120">留言时间</th>
+         <th >留言时间</th>
         <th>操作</th>       
       </tr>      
       <c:forEach items="${suggests}" var="item" varStatus="a">

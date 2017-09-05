@@ -2,6 +2,7 @@ package com.litt.wechat.Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +41,8 @@ public class SuggestController {
 
 		suggest.setSuggestTitle(request.getParameter("title"));
 		suggest.setSuggestContent(request.getParameter("content"));
-		suggest.setSuggestTime(new Date());
+		String nowtime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		suggest.setSuggestTime(nowtime);
 		suggest.setUserId(user.getUserId());
 
 		suggestService.addsuggest(suggest);

@@ -2,6 +2,7 @@ package com.litt.nic.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +35,7 @@ public class ShowSuggestController {
 	public String toshow(HttpServletRequest request,
 			HttpServletResponse response) {
 		List<suggest> suggests = suggestService.searchAll();
-
+		Collections.reverse(suggests);
 		getUserNameList(request, suggests);
 		request.setAttribute("suggests", suggests);
 		return "/WEB-INF/views/work/showsuggest";
@@ -84,8 +85,9 @@ public class ShowSuggestController {
 			userList.add(userService.findById(suggesttList.get(i).getUserId())
 					.getUserName());
 
-			request.setAttribute("user", userList);
 		}
+		Collections.reverse(userList);
+		request.setAttribute("user", userList);
 	}
 
 }

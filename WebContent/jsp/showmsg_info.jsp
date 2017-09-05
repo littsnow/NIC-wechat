@@ -17,14 +17,24 @@
 <script type="text/javascript"
 	src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<style type="text/css">
 
+.regTop{
+    width: 100%;
+    padding:8% 0 6%;
+    background: #50b4f9;
+    text-align: center;
+    color: #ffffff;
+    position: relative;
+}
+</style>
 </head>
 <body style="font-size: 60px;">
 	 <div class="register">
 		<div class="regTop">
 			<span>查看反馈信息</span>
 		</div>
-		<div class="content">
+		<div class="content" style="margin: 35px;">
 			<form action="${pageContext.request.contextPath }/work/addwork"
 				method="post">
 				<div class="message">
@@ -65,7 +75,7 @@
 					<hr style=" height:2px;border:none;border-top:2px dotted #185598;">
 				</c:forEach>
 				<c:forEach items="${relist}" var="item" varStatus="c">
-					<table style="width: 100%; font-size: 60px;">
+					<table style="width: 100%; font-size: 40px;">
 						<tr>
 							<td style="width: 30%;"><label>设备名称：</label></td>
 							<td>${item.repairDevicename }</td>

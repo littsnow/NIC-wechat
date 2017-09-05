@@ -65,7 +65,8 @@ public class WebContextListener implements ServletContextListener {
 
 		Button button21 = new Button();
 		button21.setName("业务对接");
-		button21.setSub_button(new Button[] { button23, button24, button22 });
+		button21.setSub_button(new Button[] { button23, button24, button22,
+				button25 });
 
 		Button button13 = new Button();
 		button13.setName("查看消息");

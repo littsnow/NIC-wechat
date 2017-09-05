@@ -9,10 +9,7 @@
 <head>
 <base href="<%=basePath%>">
 <title>提交业务信息</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/css/common.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/css/register.css" />
+
 <script type="text/javascript"
 	src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
@@ -20,7 +17,7 @@
 function config() {
 	$.ajax({
 		type : 'post',
-		url : " http://01a5f5f0.ngrok.io/NIC-wechat/work/config",
+		url : " http://7ae6961e.ngrok.io/NIC-wechat/work/config",
 		data : {'url' :location.href.split('#')[0]},
 		dataType : 'json',
 		contentType : "application/x-www-form-urlencoded; charset=utf-8",
@@ -102,6 +99,121 @@ function takePicture(){
     });
 }
 </script>
+<style type="text/css">
+
+body{
+    font-size: 1em;
+    font-family: "Microsoft YaHei";
+    color: #535353;
+    box-sizing: border-box;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+    color:#374782;
+}
+input{
+    outline: none;
+}
+
+
+body{
+    background: #efeff4;
+    width: 100%;
+    height: 100%;
+}
+.regTop{
+    width: 100%;
+    padding:8% 0 6%;
+    background: #50b4f9;
+    text-align: center;
+    color: #ffffff;
+    position: relative;
+}
+.back{
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    color: #ffffff;
+}
+.point{
+    padding: 6% 5%;
+}
+.content form input:not(:nth-child(6)){
+    border: 0;
+    border-bottom: 1px solid #c3c3c5;
+}
+.content form{
+    width: 100%;
+    height: 35.21%;
+}
+.message{
+    background: #ffffff;
+    padding:2% 5% 0 5%;
+    position: relative;
+}
+.message input{
+    width: 90%;
+    padding: 4% 0 4% 10%;
+    font-size: 0.875em;
+    font-family: "Microsoft YaHei";
+}
+.message .icons b{
+    position: absolute;
+    width: 18%;
+    height: 4%;
+    top: 7%;
+    left: 7%;
+}
+.message .icons b img{
+    width: 100%;
+}
+.message .icons b:nth-child(2){
+    width: 5%;
+    top: 26%;
+    left: 6%;
+}
+.message .icons b:nth-child(3){
+    top: 43%;
+}
+.message .icons b:nth-child(4){
+    top: 61%;
+}
+.code{
+    position: absolute;
+    top: 60%;
+    right:10%;
+    color: #21a9f5;
+    font-size: 0.875em;
+    font-family: "Microsoft YaHei";
+}
+select{
+    width: 55%;
+    padding: 3% 2%;
+    margin: 8% 5%;
+    font-size: 1em;
+    color: #909093;
+    border: solid 1px #909093;
+    font-family: "Microsoft YaHei";
+}
+.submit{
+    width: 84%;
+    margin: 4% 8%;
+    background: #21a9f5;
+    color: #ffffff;
+    border: 0;
+    padding: 3.25% 0;
+    font-size: 1em;
+    font-family: "Microsoft YaHei";
+}
+form .agree input[type="checkbox"] :default{
+    outline: 5px solid #21a9f5;
+}
+
+</style>
 </head>
 <body style="font-size: 60px;">
 	 <div class="register">
