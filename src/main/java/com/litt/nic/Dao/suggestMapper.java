@@ -1,17 +1,21 @@
 package com.litt.nic.Dao;
 
+import java.util.List;
+
 import com.litt.nic.pojo.suggest;
 
 public interface suggestMapper {
-    int deleteByPrimaryKey(Integer suggestId);
+	int deleteByPrimaryKey(Integer suggestId);
 
-    int insert(suggest record);
+	int insert(suggest record);
 
-    int insertSelective(suggest record);
+	int insertSelective(suggest record);
 
-    suggest selectByPrimaryKey(Integer suggestId);
+	suggest selectByPrimaryKey(Integer suggestId);
 
-    int updateByPrimaryKeySelective(suggest record);
+	List<suggest> selectAllSuggest();
 
-    int updateByPrimaryKey(suggest record);
+	int updateByPrimaryKeySelective(suggest record);
+
+	int updateByPrimaryKey(suggest record);
 }

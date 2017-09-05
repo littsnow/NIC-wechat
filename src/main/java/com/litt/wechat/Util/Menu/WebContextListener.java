@@ -51,6 +51,12 @@ public class WebContextListener implements ServletContextListener {
 		button22.setUrl(PropertiesReadUtils.getWechatString("rootdirectory")
 				+ "/jsp/work_info.jsp");
 
+		ViewButton button25 = new ViewButton();
+		button25.setName("我要留言");
+		button25.setType("view");
+		button25.setUrl(PropertiesReadUtils.getWechatString("rootdirectory")
+				+ "/jsp/suggest_info.jsp");
+
 		ViewButton button31 = new ViewButton();
 		button31.setName("关于我们");
 		button31.setType("view");

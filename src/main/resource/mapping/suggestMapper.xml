@@ -17,6 +17,12 @@
     from nic_suggest
     where suggest_id = #{suggestId,jdbcType=INTEGER}
   </select>
+  <select id="selectAllSuggest" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from nic_suggest
+</select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from nic_suggest
     where suggest_id = #{suggestId,jdbcType=INTEGER}
