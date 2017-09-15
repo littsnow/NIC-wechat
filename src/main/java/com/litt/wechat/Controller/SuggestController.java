@@ -22,7 +22,6 @@ import com.litt.wechat.Dispatcher.EventDispatcher;
 @RequestMapping(value = "/suggest")
 public class SuggestController {
 
-	private suggest suggest;
 	private user user;
 
 	@Autowired
@@ -34,11 +33,11 @@ public class SuggestController {
 	public String addSuggest(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 
+		suggest suggest = new suggest();
 		String openid = EventDispatcher.openid;
 		user = userService.findByOpenid(openid);
 		System.out.println(user.getUserName() + "===================");
 		System.out.println("openid==========================" + openid);
-
 		suggest.setSuggestTitle(request.getParameter("title"));
 		suggest.setSuggestContent(request.getParameter("content"));
 		String nowtime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());

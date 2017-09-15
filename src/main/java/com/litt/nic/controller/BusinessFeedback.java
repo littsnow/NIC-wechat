@@ -499,7 +499,7 @@ public class BusinessFeedback {
 			tsUserList.add(userService.findById(
 					techSupportList.get(i).getUserId()).getUserName());
 			if (techSupportList.get(i).getManagerId() != null) {
-				System.out.println("处理人="
+				System.out.println("处理人==="
 						+ managerService.findById(
 								techSupportList.get(i).getManagerId())
 								.getManagerName());
@@ -516,8 +516,7 @@ public class BusinessFeedback {
 		request.setAttribute("tsLen", techSupportList.size());
 		System.out.println(techSupportList.size() + "++++++++++++++++++");
 		request.setAttribute("tsUser", tsUserList);
-		System.out.println(tsUserList.size()
-				+ "00000000000000000000000000000000");
+		System.out.println(tsUserList.size() + "000000-------000000000000");
 		request.setAttribute("tsManagerList", tsManagerList);
 		/*
 		 * } catch (Exception e) { System.out.println("该业务尚未分配处理人"); }

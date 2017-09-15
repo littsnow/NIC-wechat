@@ -49,9 +49,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <td><div class="button-group"> <a class="button border-red" href="javascript:if(confirm('确实要删除该内容吗?'))location='${pageContext.request.contextPath }/suggest/delete?suggestId=${item.suggestId}'"><span class="icon-trash-o"></span> 删除</a> </div></td>
         </tr>
         </c:forEach>
-      <tr>
+      <!-- <tr>
         <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
-      </tr>
+      </tr> -->
     </table>
   </div>
 </form>

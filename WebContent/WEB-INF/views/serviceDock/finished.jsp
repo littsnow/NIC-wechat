@@ -86,7 +86,7 @@
 						<%--  <td> ${s.techsupportDescribe}</td> --%>
 						<td>${s.techsupportUptime}</td>
 						<td>已完成</td>
-						<td>${tsmanager[a.index]}</td>
+						<td>${tsManagerList[a.index]}</td>
 					</tr>
 				</c:forEach>
 				<c:forEach items="${rpList }" var="s" varStatus="b">

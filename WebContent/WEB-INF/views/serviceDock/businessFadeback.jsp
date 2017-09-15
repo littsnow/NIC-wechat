@@ -184,7 +184,7 @@ $(function(){
 							style="text-align-last: center; text-align: center;">
 							<c:if test="${!empty tsStatus[a.index] }" >
 							
-							<select  name="teastatus_name" id="status_name" style="margin-center: 87%;">
+							<select  name="teastatus_name" id="status_name" style="margin-center: 87%; width: 100px;">
 								<option value="${tsStatus[a.index] }">${tsStatus[a.index] }</option>
 								<c:forEach items="${listStatus}" var="item" varStatus="status">
 									<option value="${item.statusName}">${item.statusName}</option>
@@ -192,7 +192,7 @@ $(function(){
 						</select>
 							</c:if>
 							<c:if test="${empty tsStatus[a.index] }">
-							<select  name="teastatus_name" id="status_name" style="margin-center: 87%;">
+							<select  name="teastatus_name" id="status_name" style="margin-center: 87%; width: 100px;">
 								<option value="0">-请选择-</option>
 								<c:forEach items="${listStatus}" var="item" varStatus="status">
 									<option value="${item.statusName}">${item.statusName}</option>
@@ -203,7 +203,7 @@ $(function(){
 						<td colspan="1"
 							style="text-align-last: center; text-align: center;">
 							<c:if test="${!empty tsManagerList[a.index] }">
-							<select name="teamanager_name" id="manager_name" style="">
+							<select name="teamanager_name" id="manager_name" style="margin-center: 87%; width: 100px;">
 								<option value="${tsManagerList[a.index] }">${tsManagerList[a.index] }</option>
 								<c:forEach items="${listManager }" var="item" varStatus="status">
 									<option value="${item.managerName}">${item.managerName}</option>
@@ -211,7 +211,7 @@ $(function(){
 						</select>
 							</c:if>
 							<c:if test="${empty tsManagerList[a.index] }">
-							<select name="teamanager_name" id="manager_name" style="">
+							<select name="teamanager_name" id="manager_name" style="margin-center: 87%; width: 100px;">
 								<option value="0">-请选择-</option>
 								<c:forEach items="${listManager }" var="item" varStatus="status">
 									<option value="${item.managerName}">${item.managerName}</option>
@@ -260,7 +260,7 @@ $(function(){
 							style="text-align-last: center; text-align: center;">
 							<c:if test="${!empty rpStatus[b.index] }">
 							<select
-							name="rpstatus_name" id="status_name" style="margin-center: 87%;">
+							name="rpstatus_name" id="status_name" style="margin-center: 87%; width: 100px;">
 									<option value="${rpStatus[b.index] }">${rpStatus[b.index] }</option>
 									<c:forEach items="${listStatus}" var="item" varStatus="status">
 										<option value="${item.statusName}">${item.statusName}</option>
@@ -270,7 +270,7 @@ $(function(){
 							
 							<c:if test="${empty rpStatus[b.index] }">
 							<select
-							name="rpstatus_name" id="status_name" style="margin-center: 87%;">
+							name="rpstatus_name" id="status_name" style="margin-center: 87%; width: 100px;">
 									<option value="0">-请选择-</option>
 									<c:forEach items="${listStatus}" var="item" varStatus="status">
 										<option value="${item.statusName}">${item.statusName}</option>
@@ -281,7 +281,7 @@ $(function(){
 							style="text-align-last: center; text-align: center;">
 							<c:if test="${!empty rpManagerList[b.index] }">
 							<select
-							name="rpmanager_name" id="manager_name" style="">
+							name="rpmanager_name" id="manager_name" style="margin-center: 87%; width: 100px;">
 									<option value="${rpManagerList[b.index] }">${rpManagerList[b.index] }</option>
 									<c:forEach items="${listManager }" var="item"
 									varStatus="status">
@@ -292,7 +292,7 @@ $(function(){
 							</c:if>
 							<c:if test="${empty rpManagerList[b.index] }">
 							<select
-							name="rpmanager_name" id="manager_name" style="">
+							name="rpmanager_name" id="manager_name" style="margin-center: 87%; width: 100px;">
 									<option value="0">-请选择-</option>
 									<c:forEach items="${listManager }" var="item"
 									varStatus="status">
@@ -345,7 +345,7 @@ $(function(){
 							
 							<c:if test="${!empty mtStatus[c.index] }">
 							<select
-							name="mtstatus_name" id="status_name" style="margin-center: 87%;">
+							name="mtstatus_name" id="status_name" style="margin-center: 87%; width: 100px;">
 									<option value="${mtStatus[c.index] }">${mtStatus[c.index] }</option>
 									<c:forEach items="${listStatus}" var="item" varStatus="status">
 										<option value="${item.statusName}">${item.statusName}</option>
@@ -354,7 +354,7 @@ $(function(){
 							</c:if>
 							<c:if test="${empty mtStatus[c.index] }">
 							<select
-							name="mtstatus_name" id="status_name" style="margin-center: 87%;">
+							name="mtstatus_name" id="status_name" style="margin-center: 87%; width: 100px;">
 									<option value="0">-请选择-</option>
 									<c:forEach items="${listStatus}" var="item" varStatus="status">
 										<option value="${item.statusName}">${item.statusName}</option>
@@ -367,7 +367,7 @@ $(function(){
 							style="text-align-last: center; text-align: center;">
 							<c:if test="${!empty mtManagerList[c.index] }">
 							<select
-							name="mtmanager_name" id="manager_name" style="">
+							name="mtmanager_name" id="manager_name" style="margin-center: 87%; width: 100px;">
 									<option value="${mtManagerList[c.index] }">${mtManagerList[c.index] }</option>
 									<c:forEach items="${listManager }" var="item"
 									varStatus="status">
@@ -378,7 +378,7 @@ $(function(){
 							
 							<c:if test="${empty mtManagerList[c.index] }">
 							<select
-							name="mtmanager_name" id="manager_name" style="">
+							name="mtmanager_name" id="manager_name" style="margin-center: 87%; width: 100px;">
 									<option value="0">-请选择-</option>
 									<c:forEach items="${listManager }" var="item"
 									varStatus="status">

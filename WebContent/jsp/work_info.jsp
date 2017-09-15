@@ -17,7 +17,7 @@
 function config() {
 	$.ajax({
 		type : 'post',
-		url : " http://7ae6961e.ngrok.io/NIC-wechat/work/config",
+		url : " http://6dbef4e9.ngrok.io/NIC-wechat/work/config",
 		data : {'url' :location.href.split('#')[0]},
 		dataType : 'json',
 		contentType : "application/x-www-form-urlencoded; charset=utf-8",
@@ -40,13 +40,15 @@ function isWeiXin5() {
     var reg = /MicroMessenger\/[5-9]/i;
     return reg.test(ua);
 }
-
+ 
 
 window.onload = function() {
+	alert("上ssss");
     //     if (isWeiXin5() == false) {
     //           alert("您的微信版本低于5.0，无法使用微信支付功能，请先升级！");
     //         }
     config();
+    alert("上s");
 };
 
 
@@ -70,14 +72,18 @@ function takePicture(){
 						   url: "<%=request.getContextPath()%>/work/savePicture",//请求的后台地址
 						   data: {"mediaId":mediaId},//前台传给后台的参数
 						   success: function(filename){//filename:返回值
+							  	 alert(filename);
 							  	$("#fileName").val(filename);
+							  	alert("1");
 							  	var name=$("[id='fileName']").val(); 
+							  	alert("2");
+							  	alert(name);
+							  	alert("3");
 						   },
 						   error:function(XMLHttpRequest, textStatus, errorThrown) {  
-		                       /* alert(XMLHttpRequest.status);  
+		                       alert(XMLHttpRequest.status);  
 		                       alert(XMLHttpRequest.readyState);  
-		                       alert(textStatus);   */
-		                       alert("未上传成功");
+		                       alert(textStatus);  
 		                   }  
 						});
                    // alert(ll);
@@ -92,10 +98,10 @@ function takePicture(){
                     }) --%>
                 },
                 fail: function (res) {
-                    alertModal('上传图片失败，请重试');
-                };
+                    alertModal('上传图片失败，请重试')
+                }
             }); 
-        };
+        }
     });
 }
 </script>
@@ -248,9 +254,14 @@ form .agree input[type="checkbox"] :default{
 							<td><label>具体地点：</label></td>
 							<td><input type=text placeholder="请输入具体地点" name="location" /></td>
 						</tr>
-						<tr align="center" style="margin-top: 4%;">
-							<td colspan="3" align="center" ><input type="button" value="上传图片"
-								onclick="takePicture()" /></td>
+						<tr align="center" style="margin-top: 14%;">
+						<td></td>
+						<td>
+							<div style="width: 80%; margin-top: 7%;margin-left:-25%; height: 120px; margin-bottom: 5%;">
+							<input type="button" value="点击上传图片"
+								onclick="takePicture()" />
+							</div>	
+							</td>
 						</tr>
 						<td><input type="hidden" id="fileName"  name="filename" /></td>
 					</table>
@@ -259,5 +270,6 @@ form .agree input[type="checkbox"] :default{
 			</form>
 		</div>
 	</div> 
+	
 </body>
 </html>
