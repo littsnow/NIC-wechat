@@ -70,7 +70,7 @@ public class WorkController {
 		System.out.println(user.getUserName() + "===================");
 		System.out.println("openid==========================" + openid);
 
-		String uptime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+		String uptime = new SimpleDateFormat("yyyy-MM-dd HH:mm")
 				.format(new Date());
 		System.out.println("当前时间是：" + uptime);
 

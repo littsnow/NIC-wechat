@@ -17,7 +17,7 @@
 function config() {
 	$.ajax({
 		type : 'post',
-		url : " http://6dbef4e9.ngrok.io/NIC-wechat/work/config",
+		url : " http://a493c22a.ngrok.io/NIC-wechat/work/config",
 		data : {'url' :location.href.split('#')[0]},
 		dataType : 'json',
 		contentType : "application/x-www-form-urlencoded; charset=utf-8",
@@ -43,12 +43,10 @@ function isWeiXin5() {
  
 
 window.onload = function() {
-	alert("上ssss");
     //     if (isWeiXin5() == false) {
     //           alert("您的微信版本低于5.0，无法使用微信支付功能，请先升级！");
     //         }
     config();
-    alert("上s");
 };
 
 
@@ -72,18 +70,13 @@ function takePicture(){
 						   url: "<%=request.getContextPath()%>/work/savePicture",//请求的后台地址
 						   data: {"mediaId":mediaId},//前台传给后台的参数
 						   success: function(filename){//filename:返回值
-							  	 alert(filename);
 							  	$("#fileName").val(filename);
-							  	alert("1");
 							  	var name=$("[id='fileName']").val(); 
-							  	alert("2");
-							  	alert(name);
-							  	alert("3");
 						   },
 						   error:function(XMLHttpRequest, textStatus, errorThrown) {  
-		                       alert(XMLHttpRequest.status);  
+		                       /* alert(XMLHttpRequest.status);  
 		                       alert(XMLHttpRequest.readyState);  
-		                       alert(textStatus);  
+		                       alert(textStatus);   */
 		                   }  
 						});
                    // alert(ll);
@@ -246,14 +239,16 @@ form .agree input[type="checkbox"] :default{
 								name="devicename" /></td>
 						</tr>
 						<tr>
-							<td><label>具体描述：</label></td>
-							<td><input type=text placeholder="请输入具体描述"
-								name="description" /></td>
-						</tr>
-						<tr>
 							<td><label>具体地点：</label></td>
 							<td><input type=text placeholder="请输入具体地点" name="location" /></td>
 						</tr>
+						<tr>
+							<td><label>具体描述：</label></td>
+							<td>
+								<textarea class="" type=text placeholder="请输入具体描述"
+								name="description" style="height: 200px;width: 100%;font-size: 40px;"></textarea></td>
+						</tr>
+						
 						<tr align="center" style="margin-top: 14%;">
 						<td></td>
 						<td>
