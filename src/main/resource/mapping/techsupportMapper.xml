@@ -53,10 +53,10 @@
       <select id="selectUnFinishedTSByMultiInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
   select * from nic_techsupport  
   <where>
-     <if test="key=='department'">
-     techsupport_department like CONCAT('%',#{val},'%') and status_id!=5
+     <if test="key=='部门'">
+     techsupport_department like CONCAT('%','电子系','%') and status_id!=5
      </if>
-     <if test="key=='address'">
+     <if test="key=='地点'">
      techsupport_location like CONCAT('%',#{val},'%') and status_id!=5
      </if>
      <if test="key=='uptime'">

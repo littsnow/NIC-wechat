@@ -127,9 +127,7 @@ form .agree input[type="checkbox"] :default{
 <script type="text/javascript">
 $(function() {
 	$("#btn-submit").click(function() {
-		alert('123');
 		var depart = $("#depart").val();
-		alert(depart);
 	/* var x = document.getElementById("band_ID").value; */
 	/* 	alert(x); */
 		if (depart == 0) {
@@ -179,7 +177,7 @@ $(function() {
 								 <c:forEach items="${listDepartment}" var="item" varStatus="status">
 								 
 			                        
-			                        <option value="${item.departmentId }">${item.departmentName }</option>
+			                        <option value="${item.departmentName }">${item.departmentName }</option>
 			                     </c:forEach>
 	                    	</select> 
                     	</td>

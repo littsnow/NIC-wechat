@@ -1,6 +1,5 @@
 package com.litt.nic.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +27,13 @@ public class TechSupporServicetImpl implements ITechSupportService {
 
 	@Override
 	public List<techsupport> findAllUnfinished() {
-		List<techsupport> List = new ArrayList<techsupport>();
+		List<techsupport> List = techSupportMapper.findAllUnfinished();
 		for (techsupport techsupport : List) {
 
-			System.out.println("------" + techsupport);
+			System.out.println("未完成的状态为：" + techsupport.getStatusId());
 		}
-		return techSupportMapper.findAllUnfinished();
+		System.out.println("执行了service的方法");
+		return List;
 	}
 
 	@Override

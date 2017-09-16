@@ -58,21 +58,16 @@ $(function(){
 	});
 	
 });
-/* alert("hhhhhhhhhhh"); */
- //二级联动
 		
 	function btnChange(){
 		var childs=new Array();
 		var departname=new Array();
 		
 		<c:forEach items="${dpNameList }" var="item">
-		/* alert("${item}"); */
 		departname.push("${item}");
-		/* alert("${item}"); */
 		</c:forEach>
 		var parentEle=document.getElementById("parent");	
    
-	 /*   alert("进入了change方法"); */
 	 var childEle=document.getElementById("child");
 	childEle.innerHTML="";//每次进来先清空子搜索列表
 	/* alert("进入了"+parentEle.innerHTML) */;
@@ -80,12 +75,12 @@ $(function(){
 	/* alert("进入了123"+parentValue); */
 	var ddl=document.getElementById("child");
 	switch(parentValue){
-	case "service":
+	case "业务类型":
 		ddl.style.display="inline-block";
 		$("#inputsearch").hide();
 	     childs=['技术支持','设备报修','日常运维'];
 		break;
-	case"department":
+	case"部门":
 		ddl.style.display="inline-block";
 		$("#inputsearch").hide();
 		childs=departname;
@@ -120,19 +115,42 @@ $(function(){
 
 					<li><select id="parent" onchange='btnChange();' name="key"
 						class="input" style="width: 200px; line-height: 17px;">
+						<c:if test="${empty typekey}">
 							<option value="">请选择分类</option>
-							<option value="service">业务类型</option>
-							<option value="department">部门</option>
-							<option value="address">地点</option>
-							<option value="uptime">提交时间</option>
+						</c:if>
+						<c:if test="${!empty typekey}">
+							<option value="${typekey}">${typekey} </option>
+						</c:if>
+							<option value="业务类型">业务类型</option>
+							<option value="部门">部门</option>
+							<option value="地点">地点</option>
+							<option value="提交时间">提交时间</option>
 							<!--  <option value="keyword">关键字筛选</option> -->
 					</select></li>
 					<li><select id="child" type="text" name="val" class="input"
 						style="width: 250px; line-height: 17px; display: inline-block;">
-							<option value="">请下拉选择</option>
-					</select> <input id="inputsearch" type="text" placeholder="请输入搜索关键字"
+							<c:if test="${empty typeval}">
+								<option value="">请下拉选择</option>
+							</c:if>
+							<c:if test="${!empty typeval}">
+								<option value="${typeval}">${typeval} </option>
+							</c:if>
+					</select> 
+						<c:if test="${empty typeval}">
+							<input id="inputsearch" type="text" placeholder="请输入搜索关键字"
 						name="val"
 						style="font-size: 14px; padding: 10px; border: solid 1px #ddd; border-radius: 3px; width: 250px; line-height: 17px; display: none;" />
+						
+						</c:if>
+						<c:if test="${!empty typeval}">
+							<input id="inputsearch" type="text" placeholder=${typeval}
+						name="val"
+						style="font-size: 14px; padding: 10px; border: solid 1px #ddd; border-radius: 3px; width: 250px; line-height: 17px; display: none;" />
+						
+						</c:if>
+						
+						
+						
 						<input type="submit" style="width: 60px;"
 						class="button border-main icon-search" value="查询" /></li>
 				</ul>
@@ -141,12 +159,38 @@ $(function(){
 	<form method="post"
 						action="${pageContext.request.contextPath }/feedback/toUpdateStatus"
 						id="subform">
+						
+		<select  name="status" id="status_name"
+		 style="text-align-last: center; text-align: center;margin-center: 87%;margin-top:-5.5%;float:left; width: 118px;height: 43px; position: relative;left: 60%;top: 5%;">
+			<option value="">--请选择状态--</option>
+			<c:forEach items="${listStatus}" var="item" varStatus="status">
+			<option value="${item.statusName}">${item.statusName}</option>
+			</c:forEach>
+		</select>				
+		<select name="manager" id="manager_name" style="text-align-last: center; text-align: center;margin-center: 87%;margin-top:-5.5%;float:left; width: 128px;height: 43px; position: relative;left: 72%;top: 5%;">
+			<c:if test="${!empty loginmanager }" >
+			<option value="">${loginmanager.managerName}</option>
+			</c:if>
+			<c:if test="${empty loginmanager }" >
+					<option value="">请选择处理人</option>
+			</c:if>
+			<c:forEach items="${listManager }" var="item" varStatus="status">
+				<option value="${item.managerName}">${item.managerName}</option>
+			</c:forEach>
+		</select>				
+		<div class="button-group" style="margin-top:-5.5%;float: left;margin-left: 85%;width: 200px;">
+			<input type="submit" style="width: 60px;"
+				class="button border-main icon-search submit" value="提交" />
+			<input type="button" style="width: 60px;"
+				class="button border-main icon-search feedback" value="反馈" />
+		</div>				
+						
 		<div id="divtable">
 			<table class="table table-hover text-center"
 				style="margin: 0 auto; align: center; margin-top: 10px;">
 				<tr>
 					<th style="text-align: left; padding-left: 20px;">序号</th>
-					<th><input type="hidden" 技术支持编号></th>
+					<th><input type="hidden"></th>
 
 					<th>联系人</th>
 					<th>业务类型</th>
@@ -183,61 +227,31 @@ $(function(){
 						<td colspan="1"
 							style="text-align-last: center; text-align: center;">
 							<c:if test="${!empty tsStatus[a.index] }" >
-							
-							<select  name="teastatus_name" id="status_name" style="margin-center: 87%; width: 100px;">
-								<option value="${tsStatus[a.index] }">${tsStatus[a.index] }</option>
-								<c:forEach items="${listStatus}" var="item" varStatus="status">
-									<option value="${item.statusName}">${item.statusName}</option>
-								</c:forEach>
-						</select>
+								<input type="text" style="width: 100px;"  readonly="readonly"	value="${tsStatus[a.index]}" name="teastatus_name">
 							</c:if>
 							<c:if test="${empty tsStatus[a.index] }">
-							<select  name="teastatus_name" id="status_name" style="margin-center: 87%; width: 100px;">
-								<option value="0">-请选择-</option>
-								<c:forEach items="${listStatus}" var="item" varStatus="status">
-									<option value="${item.statusName}">${item.statusName}</option>
-								</c:forEach>
-						</select>
-						</c:if>
+								<input type="text" style="width: 100px;"  readonly="readonly" placeholder="请选择" name="teastatus_name">
+							</c:if>
 						</td>
 						<td colspan="1"
 							style="text-align-last: center; text-align: center;">
 							<c:if test="${!empty tsManagerList[a.index] }">
-							<select name="teamanager_name" id="manager_name" style="margin-center: 87%; width: 100px;">
-								<option value="${tsManagerList[a.index] }">${tsManagerList[a.index] }</option>
-								<c:forEach items="${listManager }" var="item" varStatus="status">
-									<option value="${item.managerName}">${item.managerName}</option>
-								</c:forEach>
-						</select>
+							<input type="text" style="width: 100px;"  readonly="readonly" 
+									name="teamanager_name" value="${tsManagerList[a.index] }">
 							</c:if>
 							<c:if test="${empty tsManagerList[a.index] }">
-							<select name="teamanager_name" id="manager_name" style="margin-center: 87%; width: 100px;">
-								<option value="0">-请选择-</option>
-								<c:forEach items="${listManager }" var="item" varStatus="status">
-									<option value="${item.managerName}">${item.managerName}</option>
-								</c:forEach>
-						</select>
-						</c:if>
+							<input type="text" style="width: 100px;"  readonly="readonly" 
+									placeholder="暂无处理人" name="teamanager_name">
+							</c:if>
 						</td>
 						<td>
-					<%-- 	<div class="button-group">
-									<a class="button border-main" style="padding: 2px 2px;"  href="" name="submit" onclick="document.getElementById('subform').submit();return false"> 
-									<span class="icon-edit"></span>提交</a>
-									<a class="button border-red" style="padding: 2px 2px;"
-									href="${pageContext.request.contextPath }/feedback/toaddinfo?techsupportId=${s.techsupportId}"> <span class="icon-edit"></span>反馈
-									</a>
-								</div> --%>
+					
 						</td>
 					</tr>
 					<!-- </form> -->
 				</c:forEach>
 				<c:forEach items="${rpList }" var="s" varStatus="b">
-					<%-- <form method="post"
-						action="${pageContext.request.contextPath }/feedback/toUpdateStatus"
-						id="subform"> --%>
 						<tr>
-							<!--   <td style="text-align:left; padding-left:20px;"><input type="checkbox" name="id[]" value="" />
-           1</td> -->
 							<td id="rp">${(b.index+1)+(tsLen)}</td>
 							<td><input type="checkbox" 	value="${s.repairId}" name="repairId"
 						></td>
@@ -257,70 +271,32 @@ $(function(){
 						</c:if>
 							<td>${s.repairUptime}</td>
 							<td colspan="1"
-							style="text-align-last: center; text-align: center;">
-							<c:if test="${!empty rpStatus[b.index] }">
-							<select
-							name="rpstatus_name" id="status_name" style="margin-center: 87%; width: 100px;">
-									<option value="${rpStatus[b.index] }">${rpStatus[b.index] }</option>
-									<c:forEach items="${listStatus}" var="item" varStatus="status">
-										<option value="${item.statusName}">${item.statusName}</option>
-									</c:forEach>
-							</select>
-							</c:if>
-							
-							<c:if test="${empty rpStatus[b.index] }">
-							<select
-							name="rpstatus_name" id="status_name" style="margin-center: 87%; width: 100px;">
-									<option value="0">-请选择-</option>
-									<c:forEach items="${listStatus}" var="item" varStatus="status">
-										<option value="${item.statusName}">${item.statusName}</option>
-									</c:forEach>
-							</select>
-							</c:if></td>
+								style="text-align-last: center; text-align: center;">
+								<c:if test="${!empty rpStatus[b.index] }" >
+									<input type="text" style="width: 100px;"  readonly="readonly"	
+									value="${rpStatus[b.index] }" name="rpstatus_name">
+								</c:if>
+								<c:if test="${empty rpStatus[b.index] }">
+									<input type="text" style="width: 100px;"  readonly="readonly" 
+									placeholder="请选择" name="rpstatus_name">
+								</c:if>
+							</td>
 							<td colspan="1"
 							style="text-align-last: center; text-align: center;">
-							<c:if test="${!empty rpManagerList[b.index] }">
-							<select
-							name="rpmanager_name" id="manager_name" style="margin-center: 87%; width: 100px;">
-									<option value="${rpManagerList[b.index] }">${rpManagerList[b.index] }</option>
-									<c:forEach items="${listManager }" var="item"
-									varStatus="status">
-										<option value="${item.managerName}">${item.managerName}</option>
-									</c:forEach>
-							</select>
+								<c:if test="${!empty rpManagerList[b.index] }">
+								<input type="text" style="width: 100px;"  readonly="readonly" 
+										name="rpmanager_name" value="${rpManagerList[b.index] }">
+								</c:if>
+								<c:if test="${empty rpManagerList[b.index] }">
+								<input type="text" style="width: 100px;"  readonly="readonly" 
+										placeholder="暂无处理人" name="rpmanager_name">
+								</c:if>
 							
-							</c:if>
-							<c:if test="${empty rpManagerList[b.index] }">
-							<select
-							name="rpmanager_name" id="manager_name" style="margin-center: 87%; width: 100px;">
-									<option value="0">-请选择-</option>
-									<c:forEach items="${listManager }" var="item"
-									varStatus="status">
-										<option value="${item.managerName}">${item.managerName}</option>
-									</c:forEach>
-							</select>
-							</c:if>
 							</td>
-							<%-- <td>
-							 <input id="btnSave" class="btn btn-info" type="submit"
-								value="修改" class="submit" /> <a class="btn btn-info">反馈</a> -->
-								
-								 <div class="button-group">
-									<a class="button border-main" style="padding: 2px 2px;"  href="" name="submit" onclick="document.getElementById('subform').submit();return false"> 
-									<span class="icon-edit"></span>提交</a>
-									<a class="button border-red" style="padding: 2px 2px;"
-									href="${pageContext.request.contextPath }/feedback/toaddinfo?repairId=${s.repairId}"> <span class="icon-edit"></span>反馈
-									</a>
-								</div>
-								 
-							</td> --%>
 						</tr>
-					<!-- </form> -->
 				</c:forEach>
 				<c:forEach items="${mtList }" var="s" varStatus="c">
-					<%-- <form method="post"
-						action="${pageContext.request.contextPath }/feedback/toUpdateStatus"
-						id="subform"> --%>
+					
 						<tr>
 							<td id="mt">${(c.index+1)+(tsLen)+(rpLen)}</td>
 							<td><input type="checkbox" value="${s.maintenanceId}"
@@ -342,73 +318,34 @@ $(function(){
 
 							<td colspan="1"
 							style="text-align-last: center; text-align: center;">
-							
-							<c:if test="${!empty mtStatus[c.index] }">
-							<select
-							name="mtstatus_name" id="status_name" style="margin-center: 87%; width: 100px;">
-									<option value="${mtStatus[c.index] }">${mtStatus[c.index] }</option>
-									<c:forEach items="${listStatus}" var="item" varStatus="status">
-										<option value="${item.statusName}">${item.statusName}</option>
-									</c:forEach>
-							</select>
-							</c:if>
-							<c:if test="${empty mtStatus[c.index] }">
-							<select
-							name="mtstatus_name" id="status_name" style="margin-center: 87%; width: 100px;">
-									<option value="0">-请选择-</option>
-									<c:forEach items="${listStatus}" var="item" varStatus="status">
-										<option value="${item.statusName}">${item.statusName}</option>
-									</c:forEach>
-							</select>
-							</c:if>
+							<c:if test="${!empty mtStatus[c.index] }" >
+									<input type="text" style="width: 100px;"  readonly="readonly"	
+									value="${mtStatus[c.index] }" name="mtstatus_name">
+								</c:if>
+								<c:if test="${empty mtStatus[c.index] }">
+									<input type="text" style="width: 100px;"  readonly="readonly" 
+									placeholder="请选择" name="mtstatus_name">
+								</c:if>
 							
 							</td>
 							<td colspan="1"
 							style="text-align-last: center; text-align: center;">
-							<c:if test="${!empty mtManagerList[c.index] }">
-							<select
-							name="mtmanager_name" id="manager_name" style="margin-center: 87%; width: 100px;">
-									<option value="${mtManagerList[c.index] }">${mtManagerList[c.index] }</option>
-									<c:forEach items="${listManager }" var="item"
-									varStatus="status">
-										<option value="${item.managerName}">${item.managerName}</option>
-									</c:forEach>
-							</select>
-							</c:if>
-							
-							<c:if test="${empty mtManagerList[c.index] }">
-							<select
-							name="mtmanager_name" id="manager_name" style="margin-center: 87%; width: 100px;">
-									<option value="0">-请选择-</option>
-									<c:forEach items="${listManager }" var="item"
-									varStatus="status">
-										<option value="${item.managerName}">${item.managerName}</option>
-									</c:forEach>
-							</select>
-							</c:if>
+								<c:if test="${!empty mtManagerList[c.index] }">
+								<input type="text" style="width: 100px;"  readonly="readonly" 
+										name="mtmanager_name" value="${mtManagerList[c.index] }">
+								</c:if>
+								<c:if test="${empty mtManagerList[c.index] }">
+								<input type="text" style="width: 100px;"  readonly="readonly" 
+										placeholder="暂无处理人" name="mtmanager_name">
+								</c:if>
 							</td>
-							<%-- <td>
-								<div class="button-group">
-									<a class="button border-main" style="padding: 2px 2px;"  href="" name="submit" onclick="document.getElementById('subform').submit();return false"> 
-									<span class="icon-edit"></span>提交</a>
-									<a class="button border-red" style="padding: 2px 2px;"
-									href="${pageContext.request.contextPath }/feedback/toaddinfo?maintenanceId=${s.maintenanceId}"> <span class="icon-edit"></span>反馈
-									</a>
-								</div>
-							</td> --%>
 						</tr>
-					<!-- </form> -->
 				</c:forEach>
 			</table>
 		</div>
 	
 
-	<div class="button-group" style="margin-bottom: 10%;margin-top: 4%;">
-			<input type="submit" style="width: 60px;margin-left: 450px;"
-				class="button border-main icon-search submit" value="提交" />
-			<input type="button" style="width: 60px;margin-left: 100px;"
-				class="button border-main icon-search feedback" value="反馈" />
-	</div>
+	
 </form>
 	</div>
 	<script type="text/javascript">

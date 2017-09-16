@@ -38,6 +38,8 @@ public class LoginController {
 	@RequestMapping(value = "/login")
 	public String managerLogin(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
+		session = request.getSession();
+
 		String name = request.getParameter("username");
 		String psw = request.getParameter("password");
 		String msg = "用户名或密码有误！";
