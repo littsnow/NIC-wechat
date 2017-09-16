@@ -127,6 +127,16 @@ public class techsupport {
 		this.managerId = managerId;
 	}
 
+	@Override
+	public String toString() {
+		return "techsupport [techsupportId=" + techsupportId + ", userId=" + userId + ", techsupportDepartment="
+				+ techsupportDepartment + ", techsupportDevicename=" + techsupportDevicename + ", techsupportLocation="
+				+ techsupportLocation + ", techsupportDescribe=" + techsupportDescribe + ", techsupportPicture="
+				+ techsupportPicture + ", techsupportFeedback=" + techsupportFeedback + ", techsupportUptime="
+				+ techsupportUptime + ", techsupportEndtime=" + techsupportEndtime + ", statusId=" + statusId
+				+ ", managerId=" + managerId + "]";
+	}
+
 	// public techsupport(Integer techsupportId, Integer userId,
 	// String techsupportDepartment, String techsupportDevicename,
 	// String techsupportLocation, String techsupportDescribe,
@@ -147,5 +157,6 @@ public class techsupport {
 	// this.statusId = statusId;
 	// this.managerId = managerId;
 	// }
+	
 
 }

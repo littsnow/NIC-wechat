@@ -58,21 +58,16 @@ $(function(){
 	});
 	
 });
-/* alert("hhhhhhhhhhh"); */
- //二级联动
 		
 	function btnChange(){
 		var childs=new Array();
 		var departname=new Array();
 		
 		<c:forEach items="${dpNameList }" var="item">
-		/* alert("${item}"); */
 		departname.push("${item}");
-		/* alert("${item}"); */
 		</c:forEach>
 		var parentEle=document.getElementById("parent");	
    
-	 /*   alert("进入了change方法"); */
 	 var childEle=document.getElementById("child");
 	childEle.innerHTML="";//每次进来先清空子搜索列表
 	/* alert("进入了"+parentEle.innerHTML) */;
@@ -80,12 +75,12 @@ $(function(){
 	/* alert("进入了123"+parentValue); */
 	var ddl=document.getElementById("child");
 	switch(parentValue){
-	case "service":
+	case "业务类型":
 		ddl.style.display="inline-block";
 		$("#inputsearch").hide();
 	     childs=['技术支持','设备报修','日常运维'];
 		break;
-	case"department":
+	case"部门":
 		ddl.style.display="inline-block";
 		$("#inputsearch").hide();
 		childs=departname;
@@ -120,19 +115,42 @@ $(function(){
 
 					<li><select id="parent" onchange='btnChange();' name="key"
 						class="input" style="width: 200px; line-height: 17px;">
+						<c:if test="${empty typekey}">
 							<option value="">请选择分类</option>
-							<option value="service">业务类型</option>
-							<option value="department">部门</option>
-							<option value="address">地点</option>
-							<option value="uptime">提交时间</option>
+						</c:if>
+						<c:if test="${!empty typekey}">
+							<option value="${typekey}">${typekey} </option>
+						</c:if>
+							<option value="业务类型">业务类型</option>
+							<option value="部门">部门</option>
+							<option value="地点">地点</option>
+							<option value="提交时间">提交时间</option>
 							<!--  <option value="keyword">关键字筛选</option> -->
 					</select></li>
 					<li><select id="child" type="text" name="val" class="input"
 						style="width: 250px; line-height: 17px; display: inline-block;">
-							<option value="">请下拉选择</option>
-					</select> <input id="inputsearch" type="text" placeholder="请输入搜索关键字"
+							<c:if test="${empty typeval}">
+								<option value="">请下拉选择</option>
+							</c:if>
+							<c:if test="${!empty typeval}">
+								<option value="${typeval}">${typeval} </option>
+							</c:if>
+					</select> 
+						<c:if test="${empty typeval}">
+							<input id="inputsearch" type="text" placeholder="请输入搜索关键字"
 						name="val"
 						style="font-size: 14px; padding: 10px; border: solid 1px #ddd; border-radius: 3px; width: 250px; line-height: 17px; display: none;" />
+						
+						</c:if>
+						<c:if test="${!empty typeval}">
+							<input id="inputsearch" type="text" placeholder=${typeval}
+						name="val"
+						style="font-size: 14px; padding: 10px; border: solid 1px #ddd; border-radius: 3px; width: 250px; line-height: 17px; display: none;" />
+						
+						</c:if>
+						
+						
+						
 						<input type="submit" style="width: 60px;"
 						class="button border-main icon-search" value="查询" /></li>
 				</ul>

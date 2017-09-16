@@ -140,4 +140,14 @@ public class repair {
     public void setManagerId(Integer managerId) {
         this.managerId = managerId;
     }
+
+	@Override
+	public String toString() {
+		return "repair [repairId=" + repairId + ", userId=" + userId + ", repairDepartment=" + repairDepartment
+				+ ", repairDevicename=" + repairDevicename + ", repairLocation=" + repairLocation + ", repairDescribe="
+				+ repairDescribe + ", repairPicture=" + repairPicture + ", repairFeedback=" + repairFeedback
+				+ ", repairUptime=" + repairUptime + ", repairEndtime=" + repairEndtime + ", statusId=" + statusId
+				+ ", managerId=" + managerId + "]";
+	}
+    
 }

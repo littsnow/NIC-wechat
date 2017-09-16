@@ -110,7 +110,7 @@ public class BusinessFeedback {
 	}
 
 	/**
-	 * 根据techsupport_id修改
+	 * 根据techsupport_id修改状态和处理人
 	 * 
 	 * @return
 	 */
@@ -259,10 +259,12 @@ public class BusinessFeedback {
 
 		String key = request.getParameter("key");
 		String value = request.getParameter("val");
+		request.setAttribute("typekey", key);
+		request.setAttribute("typeval", value);
 		System.out.println("key=" + key + "value=" + value);
 		if (key != null) {
 
-			if (key.equals("service")) {
+			if (key.equals("业务类型")) {
 				System.out.println("业务类型-------------");
 				switch (value) {
 				case "技术支持":
@@ -282,15 +284,18 @@ public class BusinessFeedback {
 				}
 				return "/WEB-INF/views/serviceDock/businessFadeback";
 			} else {
-				System.out.println("qita=------------------");
+				//System.out.println("key="+key);
 				techsupportList = techSupportService
 						.findUnFinishedTSByMultiInfo(key, value);
+				System.out.println("techsupportList="+techsupportList);
 				getTSLists(request, techsupportList);
 				repairList = repairService.findUnfinishedRPByMultiInfo(key,
 						value);
+				System.out.println("repairList="+repairList);
 				getRPLists(request, repairList);
 				mainTenList = mainTenanceService.selectUnFinishedByMuliInfo(
 						key, value);
+				System.out.println("mainTenanceList="+mainTenList);
 				getMTLists(request, mainTenList);
 
 				getDPNameList(request);
@@ -328,7 +333,7 @@ public class BusinessFeedback {
 			for (int i = 0; i < techIdArray.length; i++) {
 
 				teachIdList.add(Integer.parseInt(techIdArray[i]));
-				System.out.println("teachId=" + techIdArray[i]);
+				//System.out.println("teachId=" + techIdArray[i]);
 			}
 			request.setAttribute("teachIdList", teachIdList);
 		}
@@ -514,9 +519,9 @@ public class BusinessFeedback {
 		request.setAttribute("tsStatus", tsStatusList);
 		request.setAttribute("tsList", techSupportList);
 		request.setAttribute("tsLen", techSupportList.size());
-		System.out.println(techSupportList.size() + "++++++++++++++++++");
+		//System.out.println(techSupportList.size() + "++++++++++++++++++");
 		request.setAttribute("tsUser", tsUserList);
-		System.out.println(tsUserList.size() + "000000-------000000000000");
+		//System.out.println(tsUserList.size() + "000000-------000000000000");
 		request.setAttribute("tsManagerList", tsManagerList);
 		/*
 		 * } catch (Exception e) { System.out.println("该业务尚未分配处理人"); }
@@ -537,7 +542,7 @@ public class BusinessFeedback {
 					rpManagerList.add("");
 				}
 			}
-			System.out.println("rpList=" + repairList);
+			//System.out.println("rpList=" + repairList);
 			request.setAttribute("rpList", repairList);
 			request.setAttribute("rpStatus", rpStatusList);
 			request.setAttribute("rpUser", rpUserList);
