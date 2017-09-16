@@ -148,9 +148,12 @@ $(function(){
 						style="font-size: 14px; padding: 10px; border: solid 1px #ddd; border-radius: 3px; width: 250px; line-height: 17px; display: none;" />
 						
 						</c:if>
+						<c:if test="${!empty typeval}">
+							<input id="inputsearch" type="text" placeholder=${typeval}
+						name="val"
+						style="font-size: 14px; padding: 10px; border: solid 1px #ddd; border-radius: 3px; width: 250px; line-height: 17px; display: none;" />
 						
-						
-						
+						</c:if>
 						<input type="submit" style="width: 60px;"
 						class="button border-main icon-search" value="查询" /></li>
 				</ul>
