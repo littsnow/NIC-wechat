@@ -61,42 +61,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
         </form>
    
-<%--       <c:if test="${!empty repairId }">
-      <form method="post" class="form-x" action="${pageContext.request.contextPath }/feedback/addinfo">
-  <div class="form-group">
-  <input type="hidden" name="repairId"
-								value="${repairId}">
-        <div class="label">
-          <label>描述：</label>
-        </div>
-        <div class="field">
-          <textarea class="input" name="note" style=" height:90px;"></textarea>
-          <div class="tips"></div>
-        </div>
-        <div class="field">
-          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
-        </div>
-      </div>
-      </form>
-      </c:if>
-      <c:if test="${!empty maintenanceId }">
-      <form method="post" class="form-x" action="${pageContext.request.contextPath }/feedback/addinfo">
-  <div class="form-group">
-  <input type="hidden" name="maintenanceId"
-								value="${maintenanceId}">
-        <div class="label">
-          <label>描述：</label>
-        </div>
-        <div class="field">
-          <textarea class="input" name="note" style=" height:90px;"></textarea>
-          <div class="tips"></div>
-          <div class="field">
-          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
-        </div>
-        </div>
-      </div>
-      </form>
-      </c:if> --%>
       </div>
   </body>
 </html>

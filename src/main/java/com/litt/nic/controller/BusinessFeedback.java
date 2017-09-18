@@ -108,9 +108,22 @@ public class BusinessFeedback {
 				.findByName(request.getParameter("status"));
 		manager manager = managerService.findByName(request
 				.getParameter("manager"));
+		String[] techsupportIdArray = request
+				.getParameterValues("techsupportId");
+		String[] repairIdArray = request.getParameterValues("repairId");
+		String[] maintenanceIdArray = request
+				.getParameterValues("maintenanceId");
+		String info = request.getParameter("content").trim();
+		System.out.println(info);
+		if (info.equals("")) {
+			System.out.println("全是空格");
+		} else {
+			System.out.println("不为空吧，要反馈了啊");
+			addinfo(request, techsupportIdArray, repairIdArray,
+					maintenanceIdArray, info);
+		}
 		try {// 技术支持
-			String[] techsupportIdArray = request
-					.getParameterValues("techsupportId");
+
 			System.out.println(techsupportIdArray.length + "到底是几个数组");
 			for (int i = 0; i < techsupportIdArray.length; i++) {
 				techsupportId = Integer.parseInt(techsupportIdArray[i]);
@@ -148,7 +161,7 @@ public class BusinessFeedback {
 			System.out.println("技术支持出现异常");
 		}
 		try {// 报修
-			String[] repairIdArray = request.getParameterValues("repairId");
+
 			// System.out.println("repairManagerArray="+repairManagerArray[0]);
 			for (int i = 0; i < repairIdArray.length; i++) {
 				repairId = Integer.parseInt(repairIdArray[i]);
@@ -179,8 +192,7 @@ public class BusinessFeedback {
 			System.out.println("设备报修出现异常");
 		}
 		try {// 日常维护
-			String[] maintenanceIdArray = request
-					.getParameterValues("maintenanceId");
+
 			for (int i = 0; i < maintenanceIdArray.length; i++) {
 				maintenanceId = Integer.parseInt(maintenanceIdArray[i]);
 				System.out
@@ -363,17 +375,17 @@ public class BusinessFeedback {
 	/**
 	 * 提交反馈信息
 	 * 
-	 * @return
 	 */
 	@RequestMapping(value = "/addinfo")
-	public String addinfo(HttpServletRequest request,
-			HttpServletResponse response) {
+	public String addinfo(HttpServletRequest request, String[] techIdArray,
+			String[] rpIdArray, String[] mtIdArray, String info) {
 		/* try { */
+		System.out.println("不为空，并且真该反馈");
 
-		String info = request.getParameter("note");
+		System.out.println(info);
 		/* int id = Integer.parseInt(request.getParameter("techsupportId")); */
 		int techsupportId = 0;
-		String[] techIdArray = request.getParameterValues("techsupportId");
+		techIdArray = request.getParameterValues("techsupportId");
 		if (techIdArray != null) {
 			for (int i = 0; i < techIdArray.length; i++) {
 				System.out.println("techId=" + techIdArray[i]);
@@ -392,7 +404,7 @@ public class BusinessFeedback {
 		// String info = request.getParameter("note");
 		// int repairId = Integer.parseInt(request.getParameter("repairId"));
 		int repairId = 0;
-		String[] rpIdArray = request.getParameterValues("repairId");
+		rpIdArray = request.getParameterValues("repairId");
 		if (rpIdArray != null) {
 			for (int i = 0; i < rpIdArray.length; i++) {
 				repairId = Integer.parseInt(rpIdArray[i]);
@@ -409,7 +421,7 @@ public class BusinessFeedback {
 		 */
 		// String info = request.getParameter("note");
 		// int id = Integer.parseInt(request.getParameter("maintenanceId"));
-		String[] mtIdArray = request.getParameterValues("maintenanceId");
+		mtIdArray = request.getParameterValues("maintenanceId");
 		int maintenanceId = 0;
 		if (mtIdArray != null) {
 			for (int i = 0; i < mtIdArray.length; i++) {

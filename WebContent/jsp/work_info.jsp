@@ -17,7 +17,7 @@
 function config() {
 	$.ajax({
 		type : 'post',
-		url : " http://a493c22a.ngrok.io/NIC-wechat/work/config",
+		url : " http://e8a27c10.ngrok.io/NIC-wechat/work/config",
 		data : {'url' :location.href.split('#')[0]},
 		dataType : 'json',
 		contentType : "application/x-www-form-urlencoded; charset=utf-8",
@@ -63,7 +63,7 @@ function takePicture(){
                 isShowProgressTips: 1, // 默认为1，显示进度提示
                 success: function (res) {
                     var mediaId = res.serverId; // 返回图片的服务器端ID，即mediaId
-                    alert("上传成功");
+                    
                     //将获取到的 mediaId 传入后台 方法savePicture
                     $.ajax({
 						   type: "POST",
@@ -73,12 +73,14 @@ function takePicture(){
 							  	$("#fileName").val(filename);
 							  	var name=$("[id='fileName']").val(); 
 						   },
-						   error:function(XMLHttpRequest, textStatus, errorThrown) {  
+						   error:function(XMLHttpRequest, textStatus, errorThrown) {
+						   alert("图片过大，超出限制");  
 		                       /* alert(XMLHttpRequest.status);  
 		                       alert(XMLHttpRequest.readyState);  
 		                       alert(textStatus);   */
 		                   }  
 						});
+						alert("上传成功");
                    // alert(ll);
                    <%--  $.post("<%=request.getContextPath()%>/work/savePicture",{mediaId:mediaId},
                     	function(filename){
@@ -255,6 +257,7 @@ form .agree input[type="checkbox"] :default{
 							<div style="width: 80%; margin-top: 7%;margin-left:-25%; height: 120px; margin-bottom: 5%;">
 							<input type="button" value="点击上传图片"
 								onclick="takePicture()" />
+								<span style="color:red;">(请选择小于2M的图片)</span>
 							</div>	
 							</td>
 						</tr>
