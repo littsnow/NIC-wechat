@@ -59,13 +59,13 @@
    <select id="selectUnfinishedRPByMultiInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
   select * from nic_repair  
   <where>
-     <if test="key=='department'">
+     <if test="key=='部门'">
      repair_department like CONCAT('%',#{val},'%') and status_id!=5
      </if>
-     <if test="key=='address'">
+     <if test="key=='地点'">
      repair_location like CONCAT('%',#{val},'%') and status_id!=5
      </if>
-     <if test="key=='uptime'">
+     <if test="key=='提交时间'">
       repair_uptime like CONCAT('%',#{val},'%') and status_id!=5
      </if>
      </where>

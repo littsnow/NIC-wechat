@@ -139,4 +139,15 @@ public class maintenance {
     public void setManagerId(Integer managerId) {
         this.managerId = managerId;
     }
+
+	@Override
+	public String toString() {
+		return "maintenance [maintenanceId=" + maintenanceId + ", userId=" + userId + ", maintenanceDepartment="
+				+ maintenanceDepartment + ", maintenanceDevicename=" + maintenanceDevicename + ", maintenanceLocation="
+				+ maintenanceLocation + ", maintenanceDescribe=" + maintenanceDescribe + ", maintenancePicture="
+				+ maintenancePicture + ", maintenanceFeedback=" + maintenanceFeedback + ", maintenanceUptime="
+				+ maintenanceUptime + ", maintenanceEndtime=" + maintenanceEndtime + ", statusId=" + statusId
+				+ ", managerId=" + managerId + "]";
+	}
+    
 }
