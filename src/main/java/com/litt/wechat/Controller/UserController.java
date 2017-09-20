@@ -55,7 +55,7 @@ public class UserController {
 		}
 		request.setAttribute("listDepartment", listDepartment);
 		// 判断
-		String openid = EventDispatcher.openid;
+		String openid = request.getParameter("openid");
 		System.out.println("openid=" + openid);
 		user DataBaseUser = userService.findByOpenid(openid);
 		// 数据库已存在此人
@@ -70,7 +70,7 @@ public class UserController {
 			out.println("</script>");
 
 		}
-
+		request.setAttribute("openid", openid);
 		return "/jsp/user_info";
 	}
 
@@ -102,7 +102,7 @@ public class UserController {
 			out.println("history.back();");
 			out.println("</script>");
 		} else {
-			String openid = EventDispatcher.openid;
+			String openid = request.getParameter("openid");
 			System.out.println("openid=" + openid);
 			user DataBaseUser = userService.findByOpenid(openid);
 			// 数据库已存在此人
@@ -139,12 +139,12 @@ public class UserController {
 				PrintWriter out = response.getWriter();
 				out.flush();
 				out.println("<script>");
-				out.println("alert('操作成功！');");
+				out.println("alert('添加成功！');");
 				// out.println("history.back();");
 				out.println("</script>");
+				request.setAttribute("openid", openid);
 				return "/jsp/work_info";
 			}
-			return "/jsp/work_info";
 
 		}
 		System.out.println("name=" + name + "tele" + telephone);

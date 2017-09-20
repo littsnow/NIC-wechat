@@ -29,12 +29,25 @@ public class SuggestController {
 	@Autowired
 	private ISuggestService suggestService;
 
+	
+	@RequestMapping(value = "/toadd")
+	public String toAdd(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String openid = request.getParameter("openid");
+		request.setAttribute("openid", openid);
+		
+		return "/jsp/suggest_info";
+	}
+	
+	
+	
+	
 	@RequestMapping(value = "/addsuggest")
 	public String addSuggest(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 
 		suggest suggest = new suggest();
-		String openid = EventDispatcher.openid;
+		String openid = request.getParameter("openid");
 		user = userService.findByOpenid(openid);
 		System.out.println(user.getUserName() + "===================");
 		System.out.println("openid==========================" + openid);
@@ -52,6 +65,6 @@ public class SuggestController {
 		out.println("alert('提交成功！');");
 		out.println("</script>");
 
-		return "/jsp/suggest_info";
+		return null;
 	}
 }

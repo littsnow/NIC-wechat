@@ -40,6 +40,11 @@
 				<div class="message">
 				<c:forEach items="${techlist}" var="item" varStatus="a">
 					<table style="width: 100%; font-size: 40px;">
+					<tr>
+							<td style="width: 30%; "><input type="text" value="${openid}"
+								name="openid" /></td>
+							<td></td>
+						</tr>
 						<tr>
 							<td style="width: 30%;"><label>设备名称：</label></td>
 							<td>${item.techsupportDevicename }</td>
