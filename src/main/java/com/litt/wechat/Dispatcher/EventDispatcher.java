@@ -10,14 +10,22 @@ import org.apache.http.ParseException;
 import org.apache.log4j.Logger;
 
 import com.litt.nic.pojo.user;
+import com.litt.wechat.Menu.Button;
+import com.litt.wechat.Menu.ClickButton;
+import com.litt.wechat.Menu.Menu;
+import com.litt.wechat.Menu.ViewButton;
 import com.litt.wechat.Message.resp.Article;
 import com.litt.wechat.Message.resp.ImageMessage;
 import com.litt.wechat.Message.resp.NewsMessage;
 import com.litt.wechat.Message.resp.TextMessage;
+import com.litt.wechat.Util.HttpUtils;
 import com.litt.wechat.Util.MessageUtil;
+import com.litt.wechat.Util.Menu.WebContextListener;
 import com.litt.wechat.Util.Properties.PropertiesReadUtils;
 import com.litt.wechat.Util.Token.WeixinUtil;
 import com.litt.wechat.Util.User.GetUserInfo;
+
+import net.sf.json.JSONObject;
 
 /**
  * ClassName: EventDispatcher
@@ -71,7 +79,7 @@ public class EventDispatcher {
 						+ ",你好！请您先完善您的个人信息，方便提交业务信息。");
 				// 图文消息标题
 				article.setUrl(PropertiesReadUtils
-						.getWechatString("rootdirectory") + "/user/loadInfo"); // 图文url链接
+						.getWechatString("rootdirectory") + "/user/loadInfo?openid="+openid); // 图文url链接
 				List<Article> list = new ArrayList<Article>();
 				list.add(article); // 这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
 				newmsg.setArticleCount(list.size());
@@ -83,6 +91,7 @@ public class EventDispatcher {
 			}
 
 		}
+		
 
 		if (map.get("Event").equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) { // 取消关注事件
 			System.out.println("==============这是取消关注事件！");

@@ -17,6 +17,7 @@ import net.sf.json.JSONArray;
 
 import org.apache.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -39,6 +40,7 @@ import com.litt.wechat.Util.Token.WeixinUtil;
  * 
  */
 @Controller
+@Scope("prototype")
 @RequestMapping(value = "/work")
 public class WorkController {
 
@@ -65,7 +67,10 @@ public class WorkController {
 		String pictureName = request.getParameter("filename");
 		System.out.println("文件名字=" + pictureName);
 		// 获取当前提交信息的联系人
-		String openid = EventDispatcher.openid;
+		// String openid = EventDispatcher.openid;
+		String openid=request.getParameter("openid");
+		System.out.println("openid==========================" + openid);
+		
 		user = userService.findByOpenid(openid);
 		System.out.println(user.getUserName() + "===================");
 		System.out.println("openid==========================" + openid);
@@ -238,6 +243,28 @@ public class WorkController {
 		response.getWriter().print(filename);
 	}
 
+	
+	@RequestMapping("/toadd")
+	public String toAdd(HttpServletRequest request,
+			HttpServletResponse response) throws IOException{
+		String openid=request.getParameter("openid");
+		user DataBaseUser = userService.findByOpenid(openid);
+		// 数据库不存在此人
+		if (DataBaseUser == null) {
+			response.setContentType("text/html; charset=UTF-8"); // 转码
+			PrintWriter out = response.getWriter();
+			out.flush();
+			out.println("<script>");
+			out.println("alert('请回复 ‘1’ ，完善个人信息后再提交相关业务信息！');");
+			// out.println("history.back();");
+			out.println("</script>");
+			return "/jsp/user_info";
+		}else{
+			request.setAttribute("openid", openid);
+			return "/jsp/work_info";
+		}
+	}
+	
 	/**
 	 * 查看反馈消息
 	 * 

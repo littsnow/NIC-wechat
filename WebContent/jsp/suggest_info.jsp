@@ -140,6 +140,11 @@ form .agree input[type="checkbox"] :default{
 				method="post">
 				<div class="message">
 					<table style="width: 100%; font-size: 40px;">
+					<tr>
+							<td style="width: 30%; "><input type="text" value="${openid}"
+								name="openid" /></td>
+							<td></td>
+						</tr>
 						<tr>
 							<td style="width: 30%;"><label>留言主题：</label></td>
 							<td><input type="text" placeholder="请输入留言主题"

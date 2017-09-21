@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -217,6 +218,7 @@ form .agree input[type="checkbox"] :default{
 </style>
 </head>
 <body style="font-size: 60px;">
+								
 	 <div class="register">
 		<div class="regTop">
 			<span>提交报修信息</span>
@@ -235,6 +237,11 @@ form .agree input[type="checkbox"] :default{
 						<option value="3">日常运维</option>
 					</select>
 					<table style="width: 100%; font-size: 40px;">
+					<tr>
+							<td style="width: 30%; "><input type="text" value="${openid}"
+								name="openid" /></td>
+							<td></td>
+						</tr>
 						<tr>
 							<td style="width: 30%;"><label>设备名称：</label></td>
 							<td><input type="text" placeholder="请输入设备名称"
