@@ -22,13 +22,36 @@
 	href="${pageContext.request.contextPath }/bootstrap-3.3.0/css/bootstrap-theme.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/bootstrap-3.3.0/css/bootstrap-theme.min.css">
-
+	<style type="text/css">
+        body,h2{margin:0 ; padding:0;}
+#BgDiv{width:100%; height:1000px;background-color:#e3e3e3; position:absolute; z-index:99; left:0; top:0; display:none; opacity:0.5;filter: alpha(opacity=50);-moz-opacity: 0.5;}
+#DialogDiv{position:absolute;width:400px; left:50%; top:50%; margin-left:-200px; height:auto; z-index:100;background-color:#fff; border:1px #8FA4F5 solid; padding:1px;}
+#DialogDiv h2{ height:25px; font-size:14px; background-color:#0ae; position:relative; padding-left:10px; line-height:25px;}
+#DialogDiv h2 a{position:absolute; right:5px; font-size:12px; color:#000000}
+#DialogDiv .form{padding:10px;}
+    </style>
 <script src="${pageContext.request.contextPath }/js/jquery.js"></script>
 <script src="${pageContext.request.contextPath }/js/pintuer.js"></script>
 <!-- 可输入下拉框 -->
 <script
 	src="${pageContext.request.contextPath }/js/jquery.editable-select.min.js"></script>
 <script type="text/javascript">
+$(function() {
+            $("#btnClose").click(function() {
+                $("#BgDiv").css("display", "none");
+                $("#DialogDiv").css("display", "none");
+            });
+            $("#btnCancel").click(function() {
+                $("#BgDiv").css("display", "none");
+                $("#DialogDiv").css("display", "none");
+            });
+            $("#btnTest").click(function() {
+                $("#BgDiv").css({ display: "block", height: $(document).height() });
+                var yscroll = document.documentElement.scrollTop;
+                $("#DialogDiv").css("top", "100px").css("display", "block");
+            });
+        })
+
 //搜索
 $(function(){
 	$("#searchArticleForm").off();
@@ -104,7 +127,7 @@ $(function(){
 } 
 </script>
 </head>
-<body>
+<body style="padding-bottom: 100px;">
 	<%-- <form method="post" action="${pageContext.request.contextPath }/serviceDock/searchLists" id="listform">  --%>
 	<div class="panel admin-panel">
 		<div class="panel-head"></div>
@@ -162,20 +185,21 @@ $(function(){
 	<form method="post"
 						action="${pageContext.request.contextPath }/feedback/toUpdateStatus"
 						id="subform">
-						
+		<span style="font-size:20px;margin-top:-5.5%;float:left;line-height: 43px; position: relative;left: 53%;top: 5%;">状态:</span>				
 		<select  name="status" id="status_name"
-		 style="text-align-last: center; text-align: center;margin-center: 87%;margin-top:-5.5%;float:left; width: 118px;height: 43px; position: relative;left: 60%;top: 5%;">
+		 style="text-align-last: center; text-align: center;margin-center: 87%;margin-top:-5.5%;float:left; width: 108px;height: 43px; position: relative;left: 57%;top: 5%;">
 			<option value="">--请选择状态--</option>
 			<c:forEach items="${listStatus}" var="item" varStatus="status">
 			<option value="${item.statusName}">${item.statusName}</option>
 			</c:forEach>
-		</select>				
-		<select name="manager" id="manager_name" style="text-align-last: center; text-align: center;margin-center: 87%;margin-top:-5.5%;float:left; width: 128px;height: 43px; position: relative;left: 72%;top: 5%;">
+		</select>	
+		<span style="font-size:20px;margin-top:-5.5%;float:left;line-height: 43px; position: relative;left: 69%;top: 5%;">处理人:</span>			
+		<select name="manager" id="manager_name" style="text-align-last: center; text-align: center;margin-center: 87%;margin-top:-5.5%;float:left; width: 100px;height: 43px; position: relative;left: 75%;top: 5%;">
 			<c:if test="${!empty loginmanager }" >
 			<option value="">${loginmanager.managerName}</option>
 			</c:if>
 			<c:if test="${empty loginmanager }" >
-					<option value="">请选择处理人</option>
+					<option value="">--处理人--</option>
 			</c:if>
 			<c:forEach items="${listManager }" var="item" varStatus="status">
 				<option value="${item.managerName}">${item.managerName}</option>
@@ -184,10 +208,21 @@ $(function(){
 		<div class="button-group" style="margin-top:-5.5%;float: left;margin-left: 85%;width: 200px;">
 			<input type="submit" style="width: 60px;"
 				class="button border-main icon-search submit" value="提交" />
-			<input type="button" style="width: 60px;"
-				class="button border-main icon-search feedback" value="反馈" />
+			<input type="button" id="btnTest" onclick="" style="width: 60px;"
+				class="button border-main icon-search " value="反馈" />
 		</div>				
-						
+		<div id="BgDiv"></div>
+			<div id="DialogDiv" style="display:none">
+			<h2>请输入反馈信息<a href="#" id="btnClose">关闭</a></h2>
+		    <div class="form">
+		        <textarea class="" type="text" value="" name="content" style="height: 200px;width: 380px;">
+		        </textarea>
+		        <input type="button" class="button border-main icon-search feedback" value="确认" id="btnyes" 
+		        style="width: 50px;height: 30px;padding: 3px 4px;margin-left: 38%; "/>
+		        <input type="button" class="button border-main icon-search " value="取消" id="btnCancel" 
+		        style="width: 50px;height: 30px;padding: 3px 4px;" />
+		    </div>
+		</div>			
 		<div id="divtable">
 			<table class="table table-hover text-center"
 				style="margin: 0 auto; align: center; margin-top: 10px;">
@@ -200,7 +235,7 @@ $(function(){
 					<th>设备名称</th>
 					<th>部门</th>
 					<th>具体地点</th>
-					<th>查看图片</th>
+					<th>查看详情</th>
 					<th>提交时间</th>
 					<th>进度</th>
 					<th>处理人</th>
@@ -211,40 +246,48 @@ $(function(){
 						action="${pageContext.request.contextPath }/feedback/toUpdateStatus"
 						id="subform"> --%>
 					<tr>
-						<td>${a.index+1}</td>
+						<td style="width: 70px; padding-left: 20px;text-align: left;">${a.index+1}
+						<c:if test="${!empty s.techsupportFeedback}">
+							<span style="color: #09c;margin-left: 5px;" title=${s.techsupportFeedback} class="icon-pencil-square-o" ></span>
+						</c:if>
+						</td>
 						<td><input type="checkbox" name="techsupportId"
 							value="${s.techsupportId}"></td>
 						<td>${tsUser[a.index]}</td>
 						<td>技术支持</td>
 						<td>${s.techsupportDevicename}</td>
+						
 						<td>${s.techsupportDepartment}</td>
+						
+						
 						<td style="width:16%; word-wrap:break-word;word-break:break-all;">${s.techsupportLocation}</td>
-						<c:if test="${!empty s.techsupportPicture }">
+						<%-- <c:if test="${!empty techsupportFeedback}">
+						<td><span class="icon-pencil-square-o"></span></td>
+						</c:if>
+						<c:if test="${empty techsupportFeedback}">
+						<td ></td>
+						</c:if> --%>
 						<td><a
-								href="${pageContext.request.contextPath }/load/picture?pName=${s.techsupportPicture}">点击查看</a></td>
-						</c:if>
-						<c:if test="${empty s.techsupportPicture }">
-						<td>无图片</td>
-						</c:if>
+								href="${pageContext.request.contextPath }/load/picture?pName=${s.techsupportPicture}&&note=${s.techsupportDescribe}">点击查看</a></td>
+						
+						
 						<td>${s.techsupportUptime}</td>
 						<td colspan="1"
 							style="text-align-last: center; text-align: center;">
 							<c:if test="${!empty tsStatus[a.index] }" >
-								<input type="text" style="width: 100px;"  readonly="readonly"	value="${tsStatus[a.index]}" name="teastatus_name">
+								${tsStatus[a.index]}
 							</c:if>
 							<c:if test="${empty tsStatus[a.index] }">
-								<input type="text" style="width: 100px;"  readonly="readonly" placeholder="请选择" name="teastatus_name">
+								请选择
 							</c:if>
 						</td>
 						<td colspan="1"
 							style="text-align-last: center; text-align: center;">
 							<c:if test="${!empty tsManagerList[a.index] }">
-							<input type="text" style="width: 100px;"  readonly="readonly" 
-									name="teamanager_name" value="${tsManagerList[a.index] }">
+							${tsManagerList[a.index] }
 							</c:if>
 							<c:if test="${empty tsManagerList[a.index] }">
-							<input type="text" style="width: 100px;"  readonly="readonly" 
-									placeholder="暂无处理人" name="teamanager_name">
+							暂无处理人
 							</c:if>
 						</td>
 						<td>
@@ -255,7 +298,13 @@ $(function(){
 				</c:forEach>
 				<c:forEach items="${rpList }" var="s" varStatus="b">
 						<tr>
-							<td id="rp">${(b.index+1)+(tsLen)}</td>
+							<td id="rp" style="width: 70px; padding-left: 20px;text-align: left;">${(b.index+1)+(tsLen)}
+							
+							<c:if test="${!empty s.repairFeedback}">
+							<span style="color: #09c;margin-left: 5px;" class="icon-pencil-square-o" ></span>
+							</c:if>
+							</td>
+							
 							<td><input type="checkbox" 	value="${s.repairId}" name="repairId"
 						></td>
 								
@@ -265,34 +314,25 @@ $(function(){
 							<td>${s.repairDevicename}</td>
 							<td>${s.repairDepartment}</td>
 							<td>${s.repairLocation}</td>
-							<c:if test="${!empty s.repairPicture }">
 						<td><a
 								href="${pageContext.request.contextPath }/load/picture?pName=${s.repairPicture}">点击查看</a></td>
-						</c:if>
-						<c:if test="${empty s.repairPicture }">
-						<td>无图片</td>
-						</c:if>
 							<td>${s.repairUptime}</td>
 							<td colspan="1"
 								style="text-align-last: center; text-align: center;">
 								<c:if test="${!empty rpStatus[b.index] }" >
-									<input type="text" style="width: 100px;"  readonly="readonly"	
-									value="${rpStatus[b.index] }" name="rpstatus_name">
+									${rpStatus[b.index] }
 								</c:if>
 								<c:if test="${empty rpStatus[b.index] }">
-									<input type="text" style="width: 100px;"  readonly="readonly" 
-									placeholder="请选择" name="rpstatus_name">
+									请选择
 								</c:if>
 							</td>
 							<td colspan="1"
 							style="text-align-last: center; text-align: center;">
 								<c:if test="${!empty rpManagerList[b.index] }">
-								<input type="text" style="width: 100px;"  readonly="readonly" 
-										name="rpmanager_name" value="${rpManagerList[b.index] }">
+								${rpManagerList[b.index] }
 								</c:if>
 								<c:if test="${empty rpManagerList[b.index] }">
-								<input type="text" style="width: 100px;"  readonly="readonly" 
-										placeholder="暂无处理人" name="rpmanager_name">
+								暂无处理人
 								</c:if>
 							
 							</td>
@@ -301,7 +341,12 @@ $(function(){
 				<c:forEach items="${mtList }" var="s" varStatus="c">
 					
 						<tr>
-							<td id="mt">${(c.index+1)+(tsLen)+(rpLen)}</td>
+							<td id="mt" style="width: 70px; padding-left: 20px;text-align: left;">${(c.index+1)+(tsLen)+(rpLen)}
+							
+							<c:if test="${!empty s.maintenanceFeedback}">
+							<span style="color: #09c;margin-left: 5px;" class="icon-pencil-square-o" ></span>
+						</c:if>
+							</td>
 							<td><input type="checkbox" value="${s.maintenanceId}"
 							name="maintenanceId"></td>
 							
@@ -310,36 +355,28 @@ $(function(){
 							<td>${s.maintenanceDevicename}</td>
 							<td>${s.maintenanceDepartment}</td>
 							<td>${s.maintenanceLocation}</td>
-							   <c:if test="${!empty s.maintenancePicture }">
 						<td><a
-								href="${pageContext.request.contextPath }/load/picture?pName=${s.maintenancePicture}">点击查看</a></td>
-						</c:if>
-						<c:if test="${empty s.maintenancePicture }">
-						<td>无图片</td>
-						</c:if>
+								href="${pageContext.request.contextPath }/load/picture?pName=${s.maintenancePicture}">点击查看</a>
+								</td>
 							<td>${s.maintenanceUptime}</td>
 
 							<td colspan="1"
 							style="text-align-last: center; text-align: center;">
 							<c:if test="${!empty mtStatus[c.index] }" >
-									<input type="text" style="width: 100px;"  readonly="readonly"	
-									value="${mtStatus[c.index] }" name="mtstatus_name">
+									${mtStatus[c.index] }
 								</c:if>
 								<c:if test="${empty mtStatus[c.index] }">
-									<input type="text" style="width: 100px;"  readonly="readonly" 
-									placeholder="请选择" name="mtstatus_name">
+									请选择
 								</c:if>
 							
 							</td>
 							<td colspan="1"
 							style="text-align-last: center; text-align: center;">
 								<c:if test="${!empty mtManagerList[c.index] }">
-								<input type="text" style="width: 100px;"  readonly="readonly" 
-										name="mtmanager_name" value="${mtManagerList[c.index] }">
+								${mtManagerList[c.index] }
 								</c:if>
 								<c:if test="${empty mtManagerList[c.index] }">
-								<input type="text" style="width: 100px;"  readonly="readonly" 
-										placeholder="暂无处理人" name="mtmanager_name">
+								暂无处理人
 								</c:if>
 							</td>
 						</tr>
@@ -359,10 +396,10 @@ $(function(){
 		subform.submit();
 	});
 	$(".feedback").click(function(){
-		
-		var subform=$('#subform');
+		/* var subform=$('#subform');
 		subform.attr('action','${pageContext.request.contextPath }/feedback/toaddinfo');
-		subform.submit();
+		subform.submit(); */
+		document.getElementById("subform").submit();   
 	});
 	</script>
 </body>
