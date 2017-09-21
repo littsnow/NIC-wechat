@@ -9,23 +9,12 @@ import java.util.Map;
 import org.apache.http.ParseException;
 import org.apache.log4j.Logger;
 
-import com.litt.nic.pojo.user;
-import com.litt.wechat.Menu.Button;
-import com.litt.wechat.Menu.ClickButton;
-import com.litt.wechat.Menu.Menu;
-import com.litt.wechat.Menu.ViewButton;
 import com.litt.wechat.Message.resp.Article;
 import com.litt.wechat.Message.resp.ImageMessage;
 import com.litt.wechat.Message.resp.NewsMessage;
 import com.litt.wechat.Message.resp.TextMessage;
-import com.litt.wechat.Util.HttpUtils;
 import com.litt.wechat.Util.MessageUtil;
-import com.litt.wechat.Util.Menu.WebContextListener;
 import com.litt.wechat.Util.Properties.PropertiesReadUtils;
-import com.litt.wechat.Util.Token.WeixinUtil;
-import com.litt.wechat.Util.User.GetUserInfo;
-
-import net.sf.json.JSONObject;
 
 /**
  * ClassName: EventDispatcher
@@ -42,6 +31,7 @@ public class EventDispatcher {
 	public static String processEvent(Map<String, String> map)
 			throws ParseException, IOException {
 		openid = map.get("FromUserName"); // 用户openid
+		System.out.println("openid5:"+openid);
 		String mpid = map.get("ToUserName"); // 公众号原始ID
 		// 图片消息
 		ImageMessage imgmsg = new ImageMessage();
@@ -65,33 +55,15 @@ public class EventDispatcher {
 		newmsg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
 		if (map.get("Event").equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) { //
 			// 关注事件
-			System.out.println("==============这是关注事件！" + openid.toString());
+			System.out.println("=======222=======这是关注事件！" + openid.toString());
 
-			try {
-				System.out.println("jinlaile-------------------");
-				user userinfo = GetUserInfo.getUserInfo(WeixinUtil
-						.getAccessToken().getAccessToken(), openid);
+			txtmsg.setContent("你好，这里是太原工业学院网络信息中心微信公众平台！                      "
+					+ "回复  '1'  完善个人信息                    "
+					+ "回复  '2'  提交相关业务                    " + "回复  '3'  提交留言信息");
 
-				Article article = new Article();
-				article.setDigest("欢迎使用太原工业学院网络信息管理中心业务对接系统"); // 图文消息的描述
-				article.setPicUrl(userinfo.getUserHeadimgurl()); // 图文消息图片地址
-				article.setTitle("尊敬的：" + userinfo.getUserNickname()
-						+ ",你好！请您先完善您的个人信息，方便提交业务信息。");
-				// 图文消息标题
-				article.setUrl(PropertiesReadUtils
-						.getWechatString("rootdirectory") + "/user/loadInfo?openid="+openid); // 图文url链接
-				List<Article> list = new ArrayList<Article>();
-				list.add(article); // 这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
-				newmsg.setArticleCount(list.size());
-				newmsg.setArticles(list);
-				return MessageUtil.newsMessageToXml(newmsg);
-			} catch (Exception e) {
-				System.out.println("====代码有问题额☺☺☺☺☺！");
-				logger.error(e, e);
-			}
+			return MessageUtil.textMessageToXml(txtmsg);
 
 		}
-		
 
 		if (map.get("Event").equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) { // 取消关注事件
 			System.out.println("==============这是取消关注事件！");
@@ -120,12 +92,5 @@ public class EventDispatcher {
 		return null;
 	}
 
-	public String getOpenid() {
-		return openid;
-	}
-
-	public void setOpenid(String openid) {
-		this.openid = openid;
-	}
 
 }

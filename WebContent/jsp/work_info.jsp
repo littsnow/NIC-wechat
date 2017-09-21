@@ -237,7 +237,7 @@ form .agree input[type="checkbox"] :default{
 						<option value="3">日常运维</option>
 					</select>
 					<table style="width: 100%; font-size: 40px;">
-					<tr>
+					<tr style="display: none;">
 							<td style="width: 30%; "><input type="text" value="${openid}"
 								name="openid" /></td>
 							<td></td>

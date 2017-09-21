@@ -33,10 +33,23 @@ public class SuggestController {
 	@RequestMapping(value = "/toadd")
 	public String toAdd(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		String openid = request.getParameter("openid");
+		String openid=request.getParameter("openid");
+		user DataBaseUser = userService.findByOpenid(openid);
+		// 数据库不存在此人
+		if (DataBaseUser == null) {
+			response.setContentType("text/html; charset=UTF-8"); // 转码
+			PrintWriter out = response.getWriter();
+			out.flush();
+			out.println("<script>");
+			out.println("alert('请回复 ‘1’ ，完善个人信息后再提交相关业务信息！');");
+			// out.println("history.back();");
+			out.println("</script>");
+			return null;
+		}else{
 		request.setAttribute("openid", openid);
 		
 		return "/jsp/suggest_info";
+		}
 	}
 	
 	

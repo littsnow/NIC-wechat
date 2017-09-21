@@ -140,7 +140,7 @@ form .agree input[type="checkbox"] :default{
 				method="post">
 				<div class="message">
 					<table style="width: 100%; font-size: 40px;">
-					<tr>
+					<tr style="display:none;">
 							<td style="width: 30%; "><input type="text" value="${openid}"
 								name="openid" /></td>
 							<td></td>
@@ -154,7 +154,7 @@ form .agree input[type="checkbox"] :default{
 							<td><label>具体内容：</label></td>
 							<td style="padding-top: 5%;">
 								<textarea class="" type=text placeholder="请输入具体内容"
-								name="content" style="height: 200px;width: 100%;font-size: 40px;"></textarea>
+								name="content" style="height: 200px;width: 100%;font-size: 40px;margin-bottom: 10%;"></textarea>
 							</td>
 						</tr>
 					</table>

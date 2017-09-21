@@ -1,5 +1,7 @@
 package com.litt.wechat.Controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,9 +66,29 @@ public class NewsController {
 	@RequestMapping(value = "/shownotice")
 	public String showNotice(HttpServletRequest request,
 			HttpServletResponse response) {
-		int maxid = articleService.findMaxId();
-		article = articleService.findById(maxid);
-		request.setAttribute("article", article);
+		int maxid=0;
+		try{
+		 maxid = articleService.findMaxId();
+		 article = articleService.findById(maxid);
+			request.setAttribute("article", article);
+		}catch (Exception e) {
+			System.out.println("maxid为空");
+			response.setContentType("text/html; charset=UTF-8"); // 转码
+			PrintWriter out = null;
+			try {
+				out = response.getWriter();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			out.flush();
+			out.println("<script>");
+			out.println("alert('暂无公告');");
+			out.println("history.back();");
+			out.println("</script>");
+			return null;
+		}
+		
 
 		return "/jsp/shownotice";
 

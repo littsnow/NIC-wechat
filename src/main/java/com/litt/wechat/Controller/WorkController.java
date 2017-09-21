@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -31,6 +32,7 @@ import com.litt.nic.service.IStatusService;
 import com.litt.nic.service.ITechSupportService;
 import com.litt.nic.service.IUserService;
 import com.litt.wechat.Dispatcher.EventDispatcher;
+import com.litt.wechat.Util.MessageUtil;
 import com.litt.wechat.Util.Token.WeixinUtil;
 
 /**
@@ -40,7 +42,6 @@ import com.litt.wechat.Util.Token.WeixinUtil;
  * 
  */
 @Controller
-@Scope("prototype")
 @RequestMapping(value = "/work")
 public class WorkController {
 
@@ -55,12 +56,16 @@ public class WorkController {
 
 	@Autowired
 	private IStatusService statusService;
-	private user user;
+	private user user=null;
 
 	List<String> tsStatusList = new ArrayList<String>();
 	List<String> mainStatusList = new ArrayList<String>();
 	List<String> reStatusList = new ArrayList<String>();
-
+	
+	private List<techsupport> techsupports=null;
+	private List<maintenance> maintenances=null;
+	private List<repair> repairs=null;
+	
 	@RequestMapping(value = "/addwork")
 	public String addWork(HttpServletRequest request,
 			HttpServletResponse response) throws ParseException, IOException {
@@ -69,11 +74,11 @@ public class WorkController {
 		// 获取当前提交信息的联系人
 		// String openid = EventDispatcher.openid;
 		String openid=request.getParameter("openid");
-		System.out.println("openid==========================" + openid);
+		System.out.println("openid" + openid);
 		
 		user = userService.findByOpenid(openid);
 		System.out.println(user.getUserName() + "===================");
-		System.out.println("openid==========================" + openid);
+		System.out.println("openid2" + openid);
 
 		String uptime = new SimpleDateFormat("yyyy-MM-dd HH:mm")
 				.format(new Date());
@@ -166,7 +171,7 @@ public class WorkController {
 			out.println("</script>");
 		}
 
-		return "/jsp/work_info";
+		return null;
 
 	}
 
@@ -258,7 +263,7 @@ public class WorkController {
 			out.println("alert('请回复 ‘1’ ，完善个人信息后再提交相关业务信息！');");
 			// out.println("history.back();");
 			out.println("</script>");
-			return "/jsp/user_info";
+			return null;
 		}else{
 			request.setAttribute("openid", openid);
 			return "/jsp/work_info";
@@ -270,38 +275,56 @@ public class WorkController {
 	 * 
 	 * @param request
 	 * @param response
+	 * @throws Exception 
 	 */
 	@RequestMapping("/showmsg")
 	public String showmsg(HttpServletRequest request,
-			HttpServletResponse response) {
-
-		// 获取当前提交信息的联系人
-		String openid = EventDispatcher.openid;
+			HttpServletResponse response) throws Exception {
+		System.out.println("这是Showmsg方法");
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		String openid = WechatSecurity.openid;
+		System.out.println("openid===123======" + openid);
 		user = userService.findByOpenid(openid);
 
-		System.out.println("openid==========================" + openid);
-		System.out.println("user==========================" + user.toString());
-		// 根据用户id、未完成状态id 查找该用户提交并且有反馈的业务
-		List<techsupport> techsupports = techSupportService.findFeedback(
-				user.getUserId(), 4);
-		List<maintenance> maintenances = mainTenanceService.findFeedback(
-				user.getUserId(), 4);
-		List<repair> repairs = repairService.findFeedback(user.getUserId(), 4);
-		// 根据状态id查找对应的状态名称
-		if (techsupports.isEmpty() && repairs.isEmpty()
-				&& maintenances.isEmpty()) {
-			return "/jsp/error/null";
+		if (user != null) {
+			System.out.println("user=========================="
+					+ user.toString());
+			// 根据用户id、未完成状态id 查找该用户提交并且有反馈的业务
+			techsupports = techSupportService.findFeedback(user.getUserId(), 5);
+			maintenances = mainTenanceService.findFeedback(user.getUserId(), 5);
+			repairs = repairService.findFeedback(user.getUserId(), 5);
 
+			// 根据状态id查找对应的状态名称
+			if (techsupports.isEmpty() && repairs.isEmpty()
+					&& maintenances.isEmpty()) {
+				return "/jsp/error/null";
+
+			} else {
+				getMainLists(request, maintenances);
+				getReLists(request, repairs);
+				getTSLists(request, techsupports);
+				// 显示信息（密码提交的业务处于什么状态+反馈内容）
+				request.setAttribute("techlist", techsupports);
+				request.setAttribute("mainlist", maintenances);
+				request.setAttribute("relist", repairs);
+				return "/jsp/showmsg_info";
+			}
 		} else {
-			getMainLists(request, maintenances);
-			getReLists(request, repairs);
-			getTSLists(request, techsupports);
-			// 显示信息（密码提交的业务处于什么状态+反馈内容）
-			request.setAttribute("techlist", techsupports);
-			request.setAttribute("mainlist", maintenances);
-			request.setAttribute("relist", repairs);
-			return "/jsp/showmsg_info";
+			response.setContentType("text/html; charset=UTF-8"); // 转码
+			PrintWriter out = response.getWriter();
+			out.flush();
+			out.println("<script>");
+			out.println("alert('请回复 ‘1’ ，完善个人信息后再查看相关信息！');");
+			// out.println("history.back();");
+			out.println("</script>");
+			return null;
 		}
+
+		
 
 	}
 

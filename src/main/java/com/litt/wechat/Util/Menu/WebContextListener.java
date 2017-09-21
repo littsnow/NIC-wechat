@@ -27,7 +27,7 @@ public class WebContextListener implements ServletContextListener {
 		Menu menu = new Menu();
 		ClickButton button11 = new ClickButton();
 		button11.setName("最新消息");
-		button11.setType("click");
+		button11.setType("CLICK");
 		button11.setKey("11");
 
 		ViewButton button12 = new ViewButton();

@@ -153,7 +153,7 @@ $(function() {
             <form action="${pageContext.request.contextPath }/user/adduser" method="post">
                 <div class="message">
                     <table style="width: 100%; font-size: 40px;">
-                    <tr>
+                    <tr style="display: none;">
 							<td style="width: 30%; "><input type="text" value="${openid}"
 								name="openid" /></td>
 							<td></td>
