@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -18,7 +17,6 @@ import net.sf.json.JSONArray;
 
 import org.apache.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,8 +29,6 @@ import com.litt.nic.service.IRepairService;
 import com.litt.nic.service.IStatusService;
 import com.litt.nic.service.ITechSupportService;
 import com.litt.nic.service.IUserService;
-import com.litt.wechat.Dispatcher.EventDispatcher;
-import com.litt.wechat.Util.MessageUtil;
 import com.litt.wechat.Util.Token.WeixinUtil;
 
 /**
@@ -56,16 +52,12 @@ public class WorkController {
 
 	@Autowired
 	private IStatusService statusService;
-	private user user=null;
+	private user user = null;
 
-	List<String> tsStatusList = new ArrayList<String>();
-	List<String> mainStatusList = new ArrayList<String>();
-	List<String> reStatusList = new ArrayList<String>();
-	
-	private List<techsupport> techsupports=null;
-	private List<maintenance> maintenances=null;
-	private List<repair> repairs=null;
-	
+	private List<techsupport> techsupports = null;
+	private List<maintenance> maintenances = null;
+	private List<repair> repairs = null;
+
 	@RequestMapping(value = "/addwork")
 	public String addWork(HttpServletRequest request,
 			HttpServletResponse response) throws ParseException, IOException {
@@ -73,9 +65,9 @@ public class WorkController {
 		System.out.println("文件名字=" + pictureName);
 		// 获取当前提交信息的联系人
 		// String openid = EventDispatcher.openid;
-		String openid=request.getParameter("openid");
+		String openid = request.getParameter("openid");
 		System.out.println("openid" + openid);
-		
+
 		user = userService.findByOpenid(openid);
 		System.out.println(user.getUserName() + "===================");
 		System.out.println("openid2" + openid);
@@ -248,11 +240,10 @@ public class WorkController {
 		response.getWriter().print(filename);
 	}
 
-	
 	@RequestMapping("/toadd")
-	public String toAdd(HttpServletRequest request,
-			HttpServletResponse response) throws IOException{
-		String openid=request.getParameter("openid");
+	public String toAdd(HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		String openid = request.getParameter("openid");
 		user DataBaseUser = userService.findByOpenid(openid);
 		// 数据库不存在此人
 		if (DataBaseUser == null) {
@@ -264,18 +255,18 @@ public class WorkController {
 			// out.println("history.back();");
 			out.println("</script>");
 			return null;
-		}else{
+		} else {
 			request.setAttribute("openid", openid);
 			return "/jsp/work_info";
 		}
 	}
-	
+
 	/**
 	 * 查看反馈消息
 	 * 
 	 * @param request
 	 * @param response
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@RequestMapping("/showmsg")
 	public String showmsg(HttpServletRequest request,
@@ -324,12 +315,12 @@ public class WorkController {
 			return null;
 		}
 
-		
-
 	}
 
 	public void getTSLists(HttpServletRequest request,
 			List<techsupport> techSupportList) {
+		List<String> tsStatusList = new ArrayList<String>();
+
 		for (int i = 0; i < techSupportList.size(); i++) {
 			tsStatusList.add(statusService.findById(
 					techSupportList.get(i).getStatusId()).getStatusName());
@@ -340,6 +331,8 @@ public class WorkController {
 
 	public void getMainLists(HttpServletRequest request,
 			List<maintenance> maintenances) {
+		List<String> mainStatusList = new ArrayList<String>();
+
 		for (int i = 0; i < maintenances.size(); i++) {
 			mainStatusList.add(statusService.findById(
 					maintenances.get(i).getStatusId()).getStatusName());
@@ -349,7 +342,9 @@ public class WorkController {
 	}
 
 	public void getReLists(HttpServletRequest request, List<repair> repairs) {
+		List<String> reStatusList = new ArrayList<String>();
 		for (int i = 0; i < repairs.size(); i++) {
+
 			reStatusList.add(statusService.findById(
 					repairs.get(i).getStatusId()).getStatusName());
 		}

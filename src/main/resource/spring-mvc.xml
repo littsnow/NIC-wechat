@@ -49,7 +49,7 @@
         <property name="maxInMemorySize" value="40960" />    
     </bean>   
     <!-- 解除servlet对静态资源文件访问的限制，使得静态资源先经过 -->  
-	<mvc:default-servlet-handler />  
+ <mvc:default-servlet-handler />  
 	<mvc:annotation-driven />  
 	
 	<mvc:interceptors>  

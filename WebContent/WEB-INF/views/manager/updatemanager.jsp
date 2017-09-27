@@ -57,7 +57,7 @@
 							<label for="sitename">新密码：</label>
 						</div>
 						<div class="field">
-							<input type="text" class="input w50" name="managerPassword"
+							<input type="password" class="input w50" name="managerPassword"
 								value="${managernews.managerPassword}" size="50"
 								placeholder="请输入新密码"
 								data-validate="required:请输入新密码,length#>=5:新密码不能小于5位" />
@@ -89,9 +89,21 @@
 							<label for="sitename">类型：</label>
 						</div>
 						<div class="field">
-							<input type="text" class="input w50" name="managerTyp" size="50"
-								value="${managernews.managerTyp}" placeholder="请输入类型"
-								data-validate="required:类型不为空" />
+						<c:if test="${managernews.managerTyp eq '0'}">
+						<select name="managerTyp" class="input" style="width:200px; line-height:15px;">
+		              <option value="0">管理员用户</option> 
+		              <option value="1">普通用户</option>
+		              
+		            </select>
+					</c:if>
+					<c:if test="${managernews.managerTyp eq '1'}">
+						<select name="managerTyp" class="input" style="width:200px; line-height:15px;">
+		              
+		              <option value="1">普通用户</option>
+		              <option value="0">管理员用户</option> 
+		            </select>
+					</c:if>
+							
 						</div>
 					</div>
 					<div class="form-group">

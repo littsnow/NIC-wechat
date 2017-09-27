@@ -25,13 +25,13 @@
 		</div>
 		<div class="padding border-bottom">
 			<button type="button" class="button border-yellow"
-				onclick="window.location.href='${pageContext.request.contextPath}/manager/ToRegistered'">
+				onclick="window.location.href='${pageContext.request.contextPath}/manager/toadd'">
 				<span class="icon-plus-square-o"></span> 添加内容
 			</button>
 		</div>
 		<table class="table table-hover text-center">
 			<tr>
-				<th width="10%">ID</th>
+				<th width="10%">序号</th>
 				<th width="20%">姓名</th>
 				<th width="15%">电话</th>
 				<th width="20%">职责</th>
@@ -40,14 +40,20 @@
 				<th width="15%">操作</th>
 			</tr>
 
-			<c:forEach items="${record}" var="item" varStatus="status">
+			<c:forEach items="${record}" var="item" varStatus="a">
 				<tr>
-					<td>${item.managerId }</td>
+					<td>${a.index+1}</td>
 					<td>${item.managerName }</td>
 					<td>${item.managerTelephone }</td>
 					<td>${item.managerDuty }</td>
-					<td>${item.managerTyp }</td>
-					<td>${item.managerPassword }</td>
+					
+					<c:if test="${item.managerTyp eq '0'}">
+						<td>管理员用户</td>
+					</c:if>
+					<c:if test="${item.managerTyp eq '1'}">
+						<td>普通用户</td>
+					</c:if>
+					<td><input type="password" value="${item.managerPassword }" style="border-left:0px;border-top:0px;border-right:0px;border-bottom:1px;text-align: center;background-color: white;"  readonly="readonly"/></td>
 					<td>
 						<div class="button-group">
 							<a class="button border-main" 

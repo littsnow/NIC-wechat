@@ -87,8 +87,8 @@
 					
 					<select name="managerTyp" class="input" style="width:200px; line-height:15px;">
 		              <option value="">请选择用户类型</option> 
-		              <option value="0">普通用户</option>
-		              <option value="1">管理员用户</option>
+		              <option value="1">普通用户</option>
+		              <option value="0">管理员用户</option>
 		            </select>
 						<!-- <input type="text" class="input w50" name="managerTyp" size="50"
 						onkeyup="value=value.replace(/[^\d]/g,'') "   
