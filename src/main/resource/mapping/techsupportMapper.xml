@@ -14,11 +14,12 @@
     <result column="techsupport_endtime" property="techsupportEndtime" jdbcType="TIMESTAMP" />
     <result column="status_id" property="statusId" jdbcType="INTEGER" />
     <result column="manager_id" property="managerId" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     techsupport_id, user_id, techsupport_department, techsupport_devicename, techsupport_location, 
     techsupport_describe, techsupport_picture, techsupport_feedback, techsupport_uptime, 
-    techsupport_endtime, status_id, manager_id
+    techsupport_endtime, status_id, manager_id, type_id
   </sql>
   <select id="selectAllTS" resultMap="BaseResultMap">
     select * from nic_techsupport
@@ -64,7 +65,7 @@
      </if>
      </where>
      </select>
- <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from nic_techsupport
@@ -76,8 +77,6 @@
     from nic_techsupport
     where user_id = #{0} and status_id != #{1}
   </select>
-  
-  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from nic_techsupport
     where techsupport_id = #{techsupportId,jdbcType=INTEGER}
@@ -87,14 +86,14 @@
       techsupport_devicename, techsupport_location, 
       techsupport_describe, techsupport_picture, 
       techsupport_feedback, techsupport_uptime, 
-      techsupport_endtime, status_id, manager_id
-      )
+      techsupport_endtime, status_id, manager_id, 
+      type_id)
     values (#{techsupportId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{techsupportDepartment,jdbcType=VARCHAR}, 
       #{techsupportDevicename,jdbcType=VARCHAR}, #{techsupportLocation,jdbcType=VARCHAR}, 
       #{techsupportDescribe,jdbcType=VARCHAR}, #{techsupportPicture,jdbcType=VARCHAR}, 
       #{techsupportFeedback,jdbcType=VARCHAR}, #{techsupportUptime,jdbcType=TIMESTAMP}, 
-      #{techsupportEndtime,jdbcType=TIMESTAMP}, #{statusId,jdbcType=INTEGER}, #{managerId,jdbcType=INTEGER}
-      )
+      #{techsupportEndtime,jdbcType=TIMESTAMP}, #{statusId,jdbcType=INTEGER}, #{managerId,jdbcType=INTEGER}, 
+      #{typeId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.litt.nic.pojo.techsupport" >
     insert into nic_techsupport
@@ -135,6 +134,9 @@
       <if test="managerId != null" >
         manager_id,
       </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="techsupportId != null" >
@@ -168,10 +170,13 @@
         #{techsupportEndtime,jdbcType=TIMESTAMP},
       </if>
       <if test="statusId != null" >
-        #{statusId},
+        #{statusId,jdbcType=INTEGER},
       </if>
       <if test="managerId != null" >
-        #{managerId},
+        #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -211,6 +216,9 @@
       <if test="managerId != null" >
         manager_id = #{managerId,jdbcType=INTEGER},
       </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
     </set>
     where techsupport_id = #{techsupportId,jdbcType=INTEGER}
   </update>
@@ -226,7 +234,8 @@
       techsupport_uptime = #{techsupportUptime,jdbcType=TIMESTAMP},
       techsupport_endtime = #{techsupportEndtime,jdbcType=TIMESTAMP},
       status_id = #{statusId,jdbcType=INTEGER},
-      manager_id = #{managerId,jdbcType=INTEGER}
+      manager_id = #{managerId,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER}
     where techsupport_id = #{techsupportId,jdbcType=INTEGER}
   </update>
   <update id="updateStatus_id" parameterType="java.lang.Integer" >

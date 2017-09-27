@@ -159,11 +159,11 @@ public class WorkController {
 			PrintWriter out = response.getWriter();
 			out.flush();
 			out.println("<script>");
-			out.println("alert('提交成功！');");
+			out.println("alert('我们已经收到您的请求，请耐心等待处理结果！');");
 			out.println("</script>");
 		}
-
-		return null;
+		request.setAttribute("openid", openid);
+		return "/jsp/work_info";
 
 	}
 
@@ -251,7 +251,7 @@ public class WorkController {
 			PrintWriter out = response.getWriter();
 			out.flush();
 			out.println("<script>");
-			out.println("alert('请回复 ‘1’ ，完善个人信息后再提交相关业务信息！');");
+			out.println("alert('请完善个人信息后再提交相关业务信息！');");
 			// out.println("history.back();");
 			out.println("</script>");
 			return null;
@@ -309,7 +309,7 @@ public class WorkController {
 			PrintWriter out = response.getWriter();
 			out.flush();
 			out.println("<script>");
-			out.println("alert('请回复 ‘1’ ，完善个人信息后再查看相关信息！');");
+			out.println("alert('请完善个人信息后再查看相关信息！');");
 			// out.println("history.back();");
 			out.println("</script>");
 			return null;

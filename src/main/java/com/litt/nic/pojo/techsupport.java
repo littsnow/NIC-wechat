@@ -1,5 +1,6 @@
 package com.litt.nic.pojo;
 
+
 public class techsupport {
 	private Integer techsupportId;
 
@@ -24,6 +25,8 @@ public class techsupport {
 	private Integer statusId;
 
 	private Integer managerId;
+
+	private Integer typeId;
 
 	public Integer getTechsupportId() {
 		return techsupportId;
@@ -95,10 +98,6 @@ public class techsupport {
 				: techsupportFeedback.trim();
 	}
 
-	public Integer getStatusId() {
-		return statusId;
-	}
-
 	public String getTechsupportUptime() {
 		return techsupportUptime;
 	}
@@ -115,6 +114,10 @@ public class techsupport {
 		this.techsupportEndtime = techsupportEndtime;
 	}
 
+	public Integer getStatusId() {
+		return statusId;
+	}
+
 	public void setStatusId(Integer statusId) {
 		this.statusId = statusId;
 	}
@@ -127,36 +130,11 @@ public class techsupport {
 		this.managerId = managerId;
 	}
 
-	@Override
-	public String toString() {
-		return "techsupport [techsupportId=" + techsupportId + ", userId=" + userId + ", techsupportDepartment="
-				+ techsupportDepartment + ", techsupportDevicename=" + techsupportDevicename + ", techsupportLocation="
-				+ techsupportLocation + ", techsupportDescribe=" + techsupportDescribe + ", techsupportPicture="
-				+ techsupportPicture + ", techsupportFeedback=" + techsupportFeedback + ", techsupportUptime="
-				+ techsupportUptime + ", techsupportEndtime=" + techsupportEndtime + ", statusId=" + statusId
-				+ ", managerId=" + managerId + "]";
+	public Integer getTypeId() {
+		return typeId;
 	}
 
-	// public techsupport(Integer techsupportId, Integer userId,
-	// String techsupportDepartment, String techsupportDevicename,
-	// String techsupportLocation, String techsupportDescribe,
-	// String techsupportPicture, String techsupportFeedback,
-	// String techsupportUptime, String techsupportEndtime,
-	// Integer statusId, Integer managerId) {
-	// super();
-	// this.techsupportId = techsupportId;
-	// this.userId = userId;
-	// this.techsupportDepartment = techsupportDepartment;
-	// this.techsupportDevicename = techsupportDevicename;
-	// this.techsupportLocation = techsupportLocation;
-	// this.techsupportDescribe = techsupportDescribe;
-	// this.techsupportPicture = techsupportPicture;
-	// this.techsupportFeedback = techsupportFeedback;
-	// this.techsupportUptime = techsupportUptime;
-	// this.techsupportEndtime = techsupportEndtime;
-	// this.statusId = statusId;
-	// this.managerId = managerId;
-	// }
-	
-
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
+	}
 }
