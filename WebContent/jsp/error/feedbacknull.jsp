@@ -8,8 +8,8 @@
 		<title></title>
 		
 		<style type="text/css">
-			body{ margin:0; padding:80px; background:#efefef; font-family:Georgia, Times, Verdana, Geneva, Arial, Helvetica, sans-serif; }
-			h1{ font-size:35px; margin-bottom:35px; }
+			body{ margin:0; padding:5%; background:#efefef; font-family:Georgia, Times, Verdana, Geneva, Arial, Helvetica, sans-serif; }
+			h1{ font-size:46px;margin-left: 5%; }
 		</style>
 	</head>
 	<body>

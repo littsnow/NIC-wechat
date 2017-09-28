@@ -46,9 +46,9 @@
 		<async-supported>true</async-supported>
 
 	</servlet>
-	<listener>  
+	<!-- <listener>  
   <listener-class> com.litt.wechat.Util.Menu.WebContextListener</listener-class>  
-</listener> 
+</listener>  -->
 	
 	<!-- 配置登陆过滤器 -->
  <filter>

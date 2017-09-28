@@ -245,6 +245,7 @@ public class WorkController {
 			throws IOException {
 		String openid = request.getParameter("openid");
 		user DataBaseUser = userService.findByOpenid(openid);
+
 		// 数据库不存在此人
 		if (DataBaseUser == null) {
 			response.setContentType("text/html; charset=UTF-8"); // 转码
@@ -292,7 +293,7 @@ public class WorkController {
 			// 根据状态id查找对应的状态名称
 			if (techsupports.isEmpty() && repairs.isEmpty()
 					&& maintenances.isEmpty()) {
-				return "/jsp/error/null";
+				return "/jsp/error/feedbacknull";
 
 			} else {
 				getMainLists(request, maintenances);

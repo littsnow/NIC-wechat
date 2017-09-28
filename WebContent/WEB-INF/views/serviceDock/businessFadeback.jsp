@@ -238,7 +238,7 @@ $(function(){
 					<th>查看详情</th>
 					<th>提交时间</th>
 					<th>进度</th>
-					<th>处理人</th>
+					<th>处理123人</th>
 				<!-- <th colspan="2">操作</th> -->
 					</tr>
 				<c:forEach items="${tsList }" var="s" varStatus="a">
@@ -248,7 +248,8 @@ $(function(){
 					<tr>
 						<td style="width: 70px; padding-left: 20px;text-align: left;">${a.index+1}
 						<c:if test="${!empty s.techsupportFeedback}">
-							<span style="color: #09c;margin-left: 5px;" title=${s.techsupportFeedback} class="icon-pencil-square-o" ></span>
+							<input type="button" id="btnTest" onclick="" style="color: #09c;width: 60px;margin-left: 5px;"
+					 value="反馈" class="icon-pencil-square-o" />
 						</c:if>
 						</td>
 						<td><input type="checkbox" name="techsupportId"

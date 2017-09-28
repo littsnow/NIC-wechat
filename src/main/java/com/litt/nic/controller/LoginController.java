@@ -57,4 +57,21 @@ public class LoginController {
 			return "/login";
 		}
 	}
+
+	@RequestMapping(value = "/toindex")
+	public String managerindex(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		return "/WEB-INF/views/manager/managerindex";
+
+	}
+
+	@RequestMapping(value = "/toin")
+	public String managerin(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		return "/index";
+
+	}
+
 }
