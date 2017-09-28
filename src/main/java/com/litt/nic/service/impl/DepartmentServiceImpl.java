@@ -9,7 +9,7 @@ import com.litt.nic.Dao.departmentMapper;
 import com.litt.nic.pojo.department;
 import com.litt.nic.service.IDepartmentService;
 @Service
-public class DepartmentServiceImpl implements IDepartmentService {
+public  class DepartmentServiceImpl implements IDepartmentService {
 
 	@Autowired
 	private  departmentMapper departmentmapper;
@@ -17,5 +17,7 @@ public class DepartmentServiceImpl implements IDepartmentService {
 	public List<department> findAllInfo() {
 		return departmentmapper.selectAllInfo();
 	}
+	
+	
 
 }

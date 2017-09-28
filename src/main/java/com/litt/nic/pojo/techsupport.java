@@ -26,7 +26,7 @@ public class techsupport {
 
 	private Integer managerId;
 
-	private Integer typeId;
+	private String type;
 
 	public Integer getTechsupportId() {
 		return techsupportId;
@@ -130,11 +130,25 @@ public class techsupport {
 		this.managerId = managerId;
 	}
 
-	public Integer getTypeId() {
-		return typeId;
+	
+
+	public String getType() {
+		return type;
 	}
 
-	public void setTypeId(Integer typeId) {
-		this.typeId = typeId;
+	public void setType(String type) {
+		this.type = type;
 	}
+
+	@Override
+	public String toString() {
+		return "techsupport [techsupportId=" + techsupportId + ", userId=" + userId + ", techsupportDepartment="
+				+ techsupportDepartment + ", techsupportDevicename=" + techsupportDevicename + ", techsupportLocation="
+				+ techsupportLocation + ", techsupportDescribe=" + techsupportDescribe + ", techsupportPicture="
+				+ techsupportPicture + ", techsupportFeedback=" + techsupportFeedback + ", techsupportUptime="
+				+ techsupportUptime + ", techsupportEndtime=" + techsupportEndtime + ", statusId=" + statusId
+				+ ", managerId=" + managerId + ", type=" + type + "]";
+	}
+
+	
 }

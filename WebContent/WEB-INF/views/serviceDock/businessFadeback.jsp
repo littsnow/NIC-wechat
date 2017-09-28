@@ -254,7 +254,7 @@ $(function(){
 						<td><input type="checkbox" name="techsupportId"
 							value="${s.techsupportId}"></td>
 						<td>${tsUser[a.index]}</td>
-						<td>技术支持</td>
+						<td>${tsType[a.index]}</td>
 						<td>${s.techsupportDevicename}</td>
 						
 						<td>${s.techsupportDepartment}</td>
@@ -296,7 +296,7 @@ $(function(){
 					</tr>
 					<!-- </form> -->
 				</c:forEach>
-				<c:forEach items="${rpList }" var="s" varStatus="b">
+				<%-- <c:forEach items="${rpList }" var="s" varStatus="b">
 						<tr>
 							<td id="rp" style="width: 70px; padding-left: 20px;text-align: left;">${(b.index+1)+(tsLen)}
 							
@@ -380,7 +380,7 @@ $(function(){
 								</c:if>
 							</td>
 						</tr>
-				</c:forEach>
+				</c:forEach> --%>
 			</table>
 		</div>
 	
