@@ -51,7 +51,6 @@ $(function() {
                 $("#DialogDiv").css("top", "100px").css("display", "block");
             });
         })
-
 //搜索
 $(function(){
 	$("#searchArticleForm").off();
@@ -62,7 +61,6 @@ $(function(){
 		var val2=$(this).find("input[name=val]").val();
 		if(val1==null)
 			{
-
 			$(".panel").load("${pageContext.request.contextPath }/feedback/searchLists",{
 				key:key,
 				val:val2
@@ -238,7 +236,7 @@ $(function(){
 					<th>查看详情</th>
 					<th>提交时间</th>
 					<th>进度</th>
-					<th>处理123人</th>
+					<th>处理人</th>
 				<!-- <th colspan="2">操作</th> -->
 					</tr>
 				<c:forEach items="${tsList }" var="s" varStatus="a">
@@ -248,14 +246,13 @@ $(function(){
 					<tr>
 						<td style="width: 70px; padding-left: 20px;text-align: left;">${a.index+1}
 						<c:if test="${!empty s.techsupportFeedback}">
-							<input type="button" id="btnTest" onclick="" style="color: #09c;width: 60px;margin-left: 5px;"
-					 value="反馈" class="icon-pencil-square-o" />
+							<span style="color: #09c;margin-left: 5px;" title=${s.techsupportFeedback} class="icon-pencil-square-o" ></span>
 						</c:if>
 						</td>
 						<td><input type="checkbox" name="techsupportId"
 							value="${s.techsupportId}"></td>
 						<td>${tsUser[a.index]}</td>
-						<td>技术支持</td>
+						<td>${tsType[a.index]}</td>
 						<td>${s.techsupportDevicename}</td>
 						
 						<td>${s.techsupportDepartment}</td>
@@ -297,7 +294,7 @@ $(function(){
 					</tr>
 					<!-- </form> -->
 				</c:forEach>
-				<c:forEach items="${rpList }" var="s" varStatus="b">
+				<%-- <c:forEach items="${rpList }" var="s" varStatus="b">
 						<tr>
 							<td id="rp" style="width: 70px; padding-left: 20px;text-align: left;">${(b.index+1)+(tsLen)}
 							
@@ -360,7 +357,6 @@ $(function(){
 								href="${pageContext.request.contextPath }/load/picture?pName=${s.maintenancePicture}">点击查看</a>
 								</td>
 							<td>${s.maintenanceUptime}</td>
-
 							<td colspan="1"
 							style="text-align-last: center; text-align: center;">
 							<c:if test="${!empty mtStatus[c.index] }" >
@@ -381,7 +377,7 @@ $(function(){
 								</c:if>
 							</td>
 						</tr>
-				</c:forEach>
+				</c:forEach> --%>
 			</table>
 		</div>
 	
