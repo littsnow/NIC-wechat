@@ -16,7 +16,9 @@ import com.litt.nic.pojo.maintenance;
 import com.litt.nic.pojo.repair;
 import com.litt.nic.pojo.techsupport;
 import com.litt.nic.service.IDepartmentService;
+import com.litt.nic.service.IMainTenanceService;
 import com.litt.nic.service.IManagerService;
+import com.litt.nic.service.IRepairService;
 import com.litt.nic.service.IStatusService;
 import com.litt.nic.service.ITechSupportService;
 import com.litt.nic.service.IUserService;
@@ -34,8 +36,10 @@ public class ServiceDockController {
 
 	@Autowired
 	private ITechSupportService techSupportService;
-	
-	
+	@Autowired
+	private IRepairService repairService;
+	@Autowired
+	private IMainTenanceService mainTenanceService;
 	@Autowired
 	private IStatusService statusService;
 	@Autowired
@@ -78,7 +82,9 @@ public class ServiceDockController {
 		departList = departmentService.findAllInfo();
 
 		techSupportList = techSupportService.findAllTS();
-				if (techSupportList.isEmpty() && repairList.isEmpty()
+		repairList = repairService.findAllRP();
+		mainTenList = mainTenanceService.findAllMT();
+		if (techSupportList.isEmpty() && repairList.isEmpty()
 				&& mainTenList.isEmpty()) {
 			return "/jsp/error/null";
 
@@ -108,7 +114,7 @@ public class ServiceDockController {
 			// key是否匹配给定的正则表达式
 			if (key.equals("service")) {
 				switch (value) {
-				/*case "技术支持":
+				case "技术支持":
 					techSupportList = techSupportService.findByMutilInfo(key,
 							value);
 					getTSLists(request, techSupportList);
@@ -122,14 +128,15 @@ public class ServiceDockController {
 					getMTLists(request, mainTenList);
 					break;
 				default:
-					break;*/
+					break;
 				}
 				return "/WEB-INF/views/serviceDock/serviceDockList";
 			} else {
 
 				techSupportList = techSupportService
 						.findByMutilInfo(key, value);
-			
+				repairList = repairService.findByMutilInfo(key, value);
+				mainTenList = mainTenanceService.findByMutiInfo(key, value);
 				getTSLists(request, techSupportList);
 				getRPLists(request, repairList);
 				getMTLists(request, mainTenList);

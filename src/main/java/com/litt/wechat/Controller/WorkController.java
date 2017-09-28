@@ -24,6 +24,8 @@ import com.litt.nic.pojo.maintenance;
 import com.litt.nic.pojo.repair;
 import com.litt.nic.pojo.techsupport;
 import com.litt.nic.pojo.user;
+import com.litt.nic.service.IMainTenanceService;
+import com.litt.nic.service.IRepairService;
 import com.litt.nic.service.IStatusService;
 import com.litt.nic.service.ITechSupportService;
 import com.litt.nic.service.IUserService;
@@ -43,7 +45,10 @@ public class WorkController {
 	private IUserService userService;
 	@Autowired
 	private ITechSupportService techSupportService;
-	
+	@Autowired
+	private IRepairService repairService;
+	@Autowired
+	private IMainTenanceService mainTenanceService;
 
 	@Autowired
 	private IStatusService statusService;
@@ -88,8 +93,8 @@ public class WorkController {
 			out.println("</script>");
 		} else {
 			// 提交信息
-			/*switch (status) {
-			case 1:*/
+			switch (status) {
+			case 1:
 				System.out.println(user.getUserDepartment());
 				techsupport techsupport = new techsupport();
 				techsupport.setTechsupportDepartment(user.getUserDepartment());
@@ -106,7 +111,7 @@ public class WorkController {
 					techsupport.setTechsupportPicture(pictureName);
 				}
 				techSupportService.addtech(techsupport);
-			/*	break;
+				break;
 			case 2:
 
 				repair repair = new repair();
@@ -123,7 +128,7 @@ public class WorkController {
 				} else {
 					repair.setRepairPicture(pictureName);
 				}
-				
+				repairService.addrepair(repair);
 
 				break;
 			case 3:
@@ -144,12 +149,12 @@ public class WorkController {
 				} else {
 					maintenance.setMaintenancePicture(pictureName);
 				}
-				//mainTenanceService.addmaintenance(maintenance);
+				mainTenanceService.addmaintenance(maintenance);
 				break;
 
 			default:
 				break;
-		}*/
+			}
 			response.setContentType("text/html; charset=UTF-8"); // 转码
 			PrintWriter out = response.getWriter();
 			out.flush();
@@ -281,8 +286,8 @@ public class WorkController {
 					+ user.toString());
 			// 根据用户id、未完成状态id 查找该用户提交并且有反馈的业务
 			techsupports = techSupportService.findFeedback(user.getUserId(), 5);
-			/*maintenances = mainTenanceService.findFeedback(user.getUserId(), 5);
-			repairs = repairService.findFeedback(user.getUserId(), 5);*/
+			maintenances = mainTenanceService.findFeedback(user.getUserId(), 5);
+			repairs = repairService.findFeedback(user.getUserId(), 5);
 
 			// 根据状态id查找对应的状态名称
 			if (techsupports.isEmpty() && repairs.isEmpty()

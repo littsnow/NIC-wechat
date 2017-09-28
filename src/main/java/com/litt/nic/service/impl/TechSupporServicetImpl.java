@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.litt.nic.Dao.techsupportMapper;
 import com.litt.nic.pojo.techsupport;
-import com.litt.nic.pojo.type;
 import com.litt.nic.service.ITechSupportService;
 
 @Service
-public  class TechSupporServicetImpl implements ITechSupportService {
+public class TechSupporServicetImpl implements ITechSupportService {
 
 	@Autowired
 	private techsupportMapper techSupportMapper;
@@ -91,11 +90,4 @@ public  class TechSupporServicetImpl implements ITechSupportService {
 		return techSupportMapper.findFeedback(userId, i);
 	}
 
-	@Override
-	public List<techsupport> findByType(String type) {
-		// TODO Auto-generated method stub
-		return techSupportMapper.selectByType(type);
-	}
-
-	
 }
