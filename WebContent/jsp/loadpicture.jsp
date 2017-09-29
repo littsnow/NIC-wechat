@@ -28,7 +28,8 @@
         <div style="width: 100%;border: 1px solid #03b6fd; margin-top: 2%;" >
           <p style=" height:120px;width: 500px; margin: 15px;" readonly="readonly">${note}</p>
         </div>
-        
+         <label style="font-size: 30px;">联系方式：</label>
+         <input value="${phone}">
         </div>
 </body>
 </html>
