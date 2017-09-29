@@ -25,11 +25,13 @@
    <div class="label" style="float: left; margin-left: 5%;margin-top: 3%;width: 500px;height: 200px;">
           <label style="font-size: 30px;">描述：</label>
         
-        <div style="width: 100%;border: 1px solid #03b6fd; margin-top: 2%;" >
-          <p style=" height:120px;width: 500px; margin: 15px;" readonly="readonly">${note}</p>
+        <div style="width: 100%;border: 1px solid #03b6fd; margin-top: 3%;margin-bottom: 5%;" >
+          <p style=" height:120px;width: 500px; margin: 15px;">${note}</p>
         </div>
-         <label style="font-size: 30px;">联系方式：</label>
-         <input value="${phone}">
+         <label style="font-size: 30px; margin-top: 5%;">联系方式：</label>
+         <div style="width: 30%;border: 1px solid #03b6fd; margin-top: 3%;" >
+          <p style="margin: 5%;text-align: center;" readonly="readonly">${phone}</p>
+        </div>
         </div>
 </body>
 </html>
