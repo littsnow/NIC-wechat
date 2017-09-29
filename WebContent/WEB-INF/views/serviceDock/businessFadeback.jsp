@@ -219,7 +219,7 @@ $(function(){
 		        <textarea class="textarea" type="text" value="" name="content" style="height: 200px;width: 380px;">
 		        ${s.techsupportFeedback}
 		        </textarea>
-		        <input type="hidden" id="techid" value="" name="techsupportId" />
+		        <input type="hidden" id="techid"  name="tsid" />
 		        <input type="button" class="button border-main icon-search feedback" value="确认" id="btnyes" 
 		        style="width: 50px;height: 30px;padding: 3px 4px;margin-left: 38%; "/>
 		        <input type="button" class="button border-main icon-search " value="取消" id="btnCancel" 
@@ -308,7 +308,7 @@ $(function(){
 	<script type="text/javascript">
 	
 	$(".submit").click(function(){
-		
+		document.getElementById("techid").value="0";
 		var subform=$('#subform');
 		subform.attr('action','${pageContext.request.contextPath }/feedback/toUpdateStatus');
 		subform.submit();
@@ -316,7 +316,6 @@ $(function(){
 	
 	   
 	$(".feedback").click(function(){
-		alert("tijiaol");
 		$(".textarea").text(" ");
 		/* var subform=$('#subform');
 		subform.attr('action','${pageContext.request.contextPath }/feedback/toaddinfo');
