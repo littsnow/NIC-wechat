@@ -25,12 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.litt.nic.pojo.maintenance;
-import com.litt.nic.pojo.repair;
 import com.litt.nic.pojo.techsupport;
 import com.litt.nic.pojo.user;
-import com.litt.nic.service.IMainTenanceService;
-import com.litt.nic.service.IRepairService;
 import com.litt.nic.service.IStatusService;
 import com.litt.nic.service.ITechSupportService;
 import com.litt.nic.service.IUserService;
@@ -50,18 +46,13 @@ public class WorkController {
 	private IUserService userService;
 	@Autowired
 	private ITechSupportService techSupportService;
-	@Autowired
-	private IRepairService repairService;
-	@Autowired
-	private IMainTenanceService mainTenanceService;
+	
 
 	@Autowired
 	private IStatusService statusService;
 	private user user = null;
 
 	private List<techsupport> techsupports = null;
-	private List<maintenance> maintenances = null;
-	private List<repair> repairs = null;
 
 	@RequestMapping(value = "/addwork")
 	public String addWork(HttpServletRequest request,
@@ -98,8 +89,7 @@ public class WorkController {
 			out.println("</script>");
 		} else {
 			// 提交信息
-			switch (status) {
-			case 1:
+			
 				System.out.println(user.getUserDepartment());
 				techsupport techsupport = new techsupport();
 				techsupport.setTechsupportDepartment(user.getUserDepartment());
@@ -116,50 +106,7 @@ public class WorkController {
 					techsupport.setTechsupportPicture(pictureName);
 				}
 				techSupportService.addtech(techsupport);
-				break;
-			case 2:
-
-				repair repair = new repair();
-				repair.setRepairDepartment(user.getUserDepartment());
-				repair.setRepairDescribe(request.getParameter("description"));
-				repair.setRepairLocation(request.getParameter("location"));
-				repair.setStatusId(1);
-				repair.setRepairDevicename(request.getParameter("devicename"));
-				repair.setUserId(user.getUserId());
-				repair.setRepairUptime(uptime);
-				// 只保存了图片的名字
-				if ("null".equals(pictureName)) {
-					System.out.println("用户没提交照片");
-				} else {
-					repair.setRepairPicture(pictureName);
-				}
-				repairService.addrepair(repair);
-
-				break;
-			case 3:
-				maintenance maintenance = new maintenance();
-				maintenance.setMaintenanceDepartment(user.getUserDepartment());
-				maintenance.setMaintenanceDescribe(request
-						.getParameter("description"));
-				maintenance.setMaintenanceDevicename(request
-						.getParameter("devicename"));
-				maintenance.setMaintenanceLocation(request
-						.getParameter("location"));
-				maintenance.setStatusId(1);
-				maintenance.setUserId(user.getUserId());
-				maintenance.setMaintenanceUptime(uptime);
-				// 只保存了图片的名字
-				if ("null".equals(pictureName)) {
-					System.out.println("用户没提交照片");
-				} else {
-					maintenance.setMaintenancePicture(pictureName);
-				}
-				mainTenanceService.addmaintenance(maintenance);
-				break;
-
-			default:
-				break;
-			}
+			
 			response.setContentType("text/html; charset=UTF-8"); // 转码
 			PrintWriter out = response.getWriter();
 			out.flush();
@@ -250,6 +197,7 @@ public class WorkController {
 			throws IOException {
 		String openid = request.getParameter("openid");
 		user DataBaseUser = userService.findByOpenid(openid);
+
 		// 数据库不存在此人
 		if (DataBaseUser == null) {
 			response.setContentType("text/html; charset=UTF-8"); // 转码
@@ -317,22 +265,17 @@ public class WorkController {
 					+ user.toString());
 			// 根据用户id、未完成状态id 查找该用户提交并且有反馈的业务
 			techsupports = techSupportService.findFeedback(user.getUserId(), 5);
-			maintenances = mainTenanceService.findFeedback(user.getUserId(), 5);
-			repairs = repairService.findFeedback(user.getUserId(), 5);
-
+			
 			// 根据状态id查找对应的状态名称
-			if (techsupports.isEmpty() && repairs.isEmpty()
-					&& maintenances.isEmpty()) {
-				return "/jsp/error/null";
+			if (techsupports.isEmpty() ) {
+				return "/jsp/error/feedbacknull";
 
 			} else {
-				getMainLists(request, maintenances);
-				getReLists(request, repairs);
+			
 				getTSLists(request, techsupports);
 				// 显示信息（密码提交的业务处于什么状态+反馈内容）
 				request.setAttribute("techlist", techsupports);
-				request.setAttribute("mainlist", maintenances);
-				request.setAttribute("relist", repairs);
+				
 				return "/jsp/showmsg_info";
 			}
 		} else {
@@ -360,27 +303,8 @@ public class WorkController {
 		request.setAttribute("tsLen", techSupportList.size());
 	}
 
-	public void getMainLists(HttpServletRequest request,
-			List<maintenance> maintenances) {
-		List<String> mainStatusList = new ArrayList<String>();
+	
 
-		for (int i = 0; i < maintenances.size(); i++) {
-			mainStatusList.add(statusService.findById(
-					maintenances.get(i).getStatusId()).getStatusName());
-		}
-		request.setAttribute("mainStatus", mainStatusList);
-		request.setAttribute("mainLen", maintenances.size());
-	}
 
-	public void getReLists(HttpServletRequest request, List<repair> repairs) {
-		List<String> reStatusList = new ArrayList<String>();
-		for (int i = 0; i < repairs.size(); i++) {
-
-			reStatusList.add(statusService.findById(
-					repairs.get(i).getStatusId()).getStatusName());
-		}
-		request.setAttribute("reStatus", reStatusList);
-		request.setAttribute("reLen", repairs.size());
-	}
 
 }

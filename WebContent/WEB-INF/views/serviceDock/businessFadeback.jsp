@@ -51,7 +51,6 @@ $(function() {
                 $("#DialogDiv").css("top", "100px").css("display", "block");
             });
         })
-
 //搜索
 $(function(){
 	$("#searchArticleForm").off();
@@ -62,7 +61,6 @@ $(function(){
 		var val2=$(this).find("input[name=val]").val();
 		if(val1==null)
 			{
-
 			$(".panel").load("${pageContext.request.contextPath }/feedback/searchLists",{
 				key:key,
 				val:val2
@@ -254,7 +252,7 @@ $(function(){
 						<td><input type="checkbox" name="techsupportId"
 							value="${s.techsupportId}"></td>
 						<td>${tsUser[a.index]}</td>
-						<td>技术支持</td>
+						<td>${tsType[a.index]}</td>
 						<td>${s.techsupportDevicename}</td>
 						
 						<td>${s.techsupportDepartment}</td>
@@ -296,7 +294,7 @@ $(function(){
 					</tr>
 					<!-- </form> -->
 				</c:forEach>
-				<c:forEach items="${rpList }" var="s" varStatus="b">
+				<%-- <c:forEach items="${rpList }" var="s" varStatus="b">
 						<tr>
 							<td id="rp" style="width: 70px; padding-left: 20px;text-align: left;">${(b.index+1)+(tsLen)}
 							
@@ -359,7 +357,6 @@ $(function(){
 								href="${pageContext.request.contextPath }/load/picture?pName=${s.maintenancePicture}">点击查看</a>
 								</td>
 							<td>${s.maintenanceUptime}</td>
-
 							<td colspan="1"
 							style="text-align-last: center; text-align: center;">
 							<c:if test="${!empty mtStatus[c.index] }" >
@@ -380,7 +377,7 @@ $(function(){
 								</c:if>
 							</td>
 						</tr>
-				</c:forEach>
+				</c:forEach> --%>
 			</table>
 		</div>
 	

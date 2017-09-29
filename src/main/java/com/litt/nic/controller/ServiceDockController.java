@@ -12,13 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.litt.nic.pojo.department;
-import com.litt.nic.pojo.maintenance;
-import com.litt.nic.pojo.repair;
 import com.litt.nic.pojo.techsupport;
 import com.litt.nic.service.IDepartmentService;
-import com.litt.nic.service.IMainTenanceService;
 import com.litt.nic.service.IManagerService;
-import com.litt.nic.service.IRepairService;
 import com.litt.nic.service.IStatusService;
 import com.litt.nic.service.ITechSupportService;
 import com.litt.nic.service.IUserService;
@@ -36,10 +32,7 @@ public class ServiceDockController {
 
 	@Autowired
 	private ITechSupportService techSupportService;
-	@Autowired
-	private IRepairService repairService;
-	@Autowired
-	private IMainTenanceService mainTenanceService;
+	
 	@Autowired
 	private IStatusService statusService;
 	@Autowired
@@ -50,8 +43,7 @@ public class ServiceDockController {
 	private IDepartmentService departmentService;
 
 	private List<techsupport> techSupportList;
-	private List<repair> repairList;
-	private List<maintenance> mainTenList;
+	
 
 	List<String> tsStatusList = new ArrayList<String>();
 	List<String> tsManagerList = new ArrayList<String>();
@@ -82,16 +74,13 @@ public class ServiceDockController {
 		departList = departmentService.findAllInfo();
 
 		techSupportList = techSupportService.findAllTS();
-		repairList = repairService.findAllRP();
-		mainTenList = mainTenanceService.findAllMT();
-		if (techSupportList.isEmpty() && repairList.isEmpty()
-				&& mainTenList.isEmpty()) {
+		
+		if (techSupportList.isEmpty()) {
 			return "/jsp/error/null";
 
 		} else {
 			getDPNameList(request, departList);
-			getMTLists(request, mainTenList);
-			getRPLists(request, repairList);
+		
 			getTSLists(request, techSupportList);
 			return "/WEB-INF/views/serviceDock/serviceDockList";
 		}
@@ -113,7 +102,7 @@ public class ServiceDockController {
 		if (key != null) {
 			// key是否匹配给定的正则表达式
 			if (key.equals("service")) {
-				switch (value) {
+				/*switch (value) {
 				case "技术支持":
 					techSupportList = techSupportService.findByMutilInfo(key,
 							value);
@@ -129,17 +118,15 @@ public class ServiceDockController {
 					break;
 				default:
 					break;
-				}
+				}*/
 				return "/WEB-INF/views/serviceDock/serviceDockList";
 			} else {
 
 				techSupportList = techSupportService
 						.findByMutilInfo(key, value);
-				repairList = repairService.findByMutilInfo(key, value);
-				mainTenList = mainTenanceService.findByMutiInfo(key, value);
+				
 				getTSLists(request, techSupportList);
-				getRPLists(request, repairList);
-				getMTLists(request, mainTenList);
+				
 				/*departList = departmentService.findAllInfo();
 				getDPNameList(request, departList);*/
 				return "/WEB-INF/views/serviceDock/serviceDockList";
@@ -169,7 +156,7 @@ public class ServiceDockController {
 		request.setAttribute("tsLen", techSupportList.size());
 	}
 
-	public void getRPLists(HttpServletRequest request, List<repair> repairList) {
+	/*public void getRPLists(HttpServletRequest request, List<repair> repairList) {
 		for (int i = 0; i < repairList.size(); i++) {
 			rpStatusList.add(statusService.findById(
 					repairList.get(i).getStatusId()).getStatusName());
@@ -202,7 +189,7 @@ public class ServiceDockController {
 		request.setAttribute("mtUser", mtUserList);
 		request.setAttribute("mtLen", mainTenList.size());
 
-	}
+	}*/
 
 	public void getDPNameList(HttpServletRequest request,
 			List<department> departList) {
