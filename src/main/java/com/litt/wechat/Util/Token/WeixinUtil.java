@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -47,7 +48,12 @@ public class WeixinUtil {
 			.getWechatString("appid");
 	private static final String APPSECRET = PropertiesReadUtils
 			.getWechatString("AppSecret");
-
+	//微信OAuth2.0授权
+	private static final String OAuth2="https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URL&response_type=code&scope=snsapi_base#wechat_redirect";
+	//获取授权code
+	private static final String CodeUrl="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=APPSECRET&code=CODE&grant_type=authorization_code";
+	
+	
 	private static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 	// 新增临时素材,媒体文件在微信后台保存时间为3天，即3天后media_id失效。
 	private static final String UPLOAD_URL = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
@@ -382,5 +388,42 @@ public class WeixinUtil {
 	public static String getAppid() {
 		return APPID;
 	}
-
+	//用户授权
+	public static String getOAuth2(){
+		String OAuth2Url=OAuth2.replace("APPID", APPID);
+		System.out.println("授权连接--->"+OAuth2Url);
+		return OAuth2Url;
+	}
+	
+	//通过code获取用户openid的值 
+	public static String getOpenid(String code){
+		String url=CodeUrl.replace("APPID", APPID).replace("APPSECRET", APPSECRET).replace("CODE",code);
+		System.out.println("授权连接code--->"+url);
+		String openId="";
+		try {
+			URL getUrl=new URL(url);
+			HttpURLConnection http=(HttpURLConnection)getUrl.openConnection();
+			http.setRequestMethod("GET"); 
+			http.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+			http.setDoOutput(true);
+			http.setDoInput(true);
+	
+			http.connect();
+			InputStream is = http.getInputStream(); 
+			int size = is.available(); 
+			byte[] b = new byte[size];
+			is.read(b);
+			String message = new String(b, "UTF-8");
+	
+			JSONObject json = JSONObject.fromObject(message);
+			openId = json.getString("openid");
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("此时的openid="+openId);
+		return openId;
+	 	
+	}
 }
