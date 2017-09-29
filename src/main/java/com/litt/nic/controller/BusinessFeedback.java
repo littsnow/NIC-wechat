@@ -93,30 +93,85 @@ public class BusinessFeedback {
 	public String updateStatus(HttpServletRequest request,
 			HttpServletResponse response) {
 		int techsupportId = 0;
+		int idnow=0;
+		try {
+			idnow=Integer.parseInt(request.getParameter("tsid"));
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("异常");
+		}
 		
+		System.out.println(idnow+"pppppppppppppppp");
 		status status = statusService
 				.findByName(request.getParameter("status"));
 		manager manager = managerService.findByName(request
 				.getParameter("manager"));
-		String[] techsupportIdArray = request
-				.getParameterValues("techsupportId");
-		
+		if(idnow==0){
+			System.out.println("*************多天信息********");
+				String[] techsupportIdArray = request
+						.getParameterValues("techsupportId");
+			String info = request.getParameter("content").trim();
+			System.out.println(info+"反馈信息");
+			if (info.equals("")) {
+				System.out.println("全是空格");
+			} else {
+				System.out.println("不为空吧，要反馈了啊");
+			
+				addinfo(request,techsupportIdArray,info);
+			}
+			try {// 技术支持
+	
+				System.out.println(techsupportIdArray.length + "到底是几个数组");
+				for (int i = 0; i < techsupportIdArray.length; i++) {
+					techsupportId = Integer.parseInt(techsupportIdArray[i]);
+					System.out
+							.println("后台获取需要修改的技术支持id数组：" + techsupportIdArray[i]);
+					System.out.println("此时的技术支持id为：" + techsupportId);
+					techsupport techsupport = techSupportService
+							.findById(techsupportId);
+					request.setAttribute("techsupportId", techsupport
+							.getTechsupportId().toString());
+	
+					System.out.println("========");
+					String techsupportEndtime = new SimpleDateFormat(
+							"yyyy-MM-dd HH:mm:ss").format(new Date());
+	
+					System.out.println(status.getStatusName());
+	
+					techSupportService.updateEndTime(techsupportId,
+							techsupportEndtime);
+					System.out.println("更新了时间");
+					if (status != null) {
+						techSupportService.updateStatus_id(techsupportId,
+								status.getStatusId());
+						System.out.println("更新了状态");
+					}
+					if (manager != null) {
+						techSupportService.updateManager_id(techsupportId,
+								manager.getManagerId());
+						System.out.println("更新了处理人");
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("技术支持出现异常");
+			}
+		}else{
+			System.out.println("*************单条信息********");
+			int techsupportIdArray = idnow;
 		String info = request.getParameter("content").trim();
-		System.out.println(info);
+		System.out.println(info+"反馈信息");
 		if (info.equals("")) {
 			System.out.println("全是空格");
 		} else {
 			System.out.println("不为空吧，要反馈了啊");
 		
-			addinfo(request,techsupportIdArray,info);
+			addoneinfo(request,techsupportIdArray,info);
 		}
 		try {// 技术支持
 
-			System.out.println(techsupportIdArray.length + "到底是几个数组");
-			for (int i = 0; i < techsupportIdArray.length; i++) {
-				techsupportId = Integer.parseInt(techsupportIdArray[i]);
-				System.out
-						.println("后台获取需要修改的技术支持id数组：" + techsupportIdArray[i]);
+			
+				techsupportId = techsupportIdArray;
 				System.out.println("此时的技术支持id为：" + techsupportId);
 				techsupport techsupport = techSupportService
 						.findById(techsupportId);
@@ -142,13 +197,12 @@ public class BusinessFeedback {
 							manager.getManagerId());
 					System.out.println("更新了处理人");
 				}
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("技术支持出现异常");
 		}
 		
-
+		}
 		return "redirect:unfinishedlist";
 	}
 
@@ -274,6 +328,28 @@ public class BusinessFeedback {
 				techSupportService.updateFeedback(techsupportId, info);
 			}
 
+		}
+		
+		return "redirect:unfinishedlist";
+
+	}
+	
+	/**
+	 * 提交单条反馈信息
+	 * 
+	 */
+	@RequestMapping(value = "/addoneinfo")
+	public String addoneinfo(HttpServletRequest request, int techIdArray,
+			 String info) {
+		
+		System.out.println("不为空，并且真该反馈");
+
+		System.out.println(info);
+		if (techIdArray != 0) {
+				System.out.println("techId=" + techIdArray);
+				int techsupportId = techIdArray;
+				System.out.println("技术支持-------" + info + techsupportId);
+				techSupportService.updateFeedback(techsupportId, info);
 		}
 		
 		return "redirect:unfinishedlist";
