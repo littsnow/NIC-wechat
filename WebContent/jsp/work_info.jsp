@@ -18,7 +18,7 @@
 function config() {
 	$.ajax({
 		type : 'post',
-		url : "http://tit.tunnel.qydev.com/NIC-wechat/work/config",
+		url : "http://87dd23de.ngrok.io/NIC-wechat/work/config",
 		data : {'url' :location.href.split('#')[0]},
 		dataType : 'json',
 		contentType : "application/x-www-form-urlencoded; charset=utf-8",
@@ -256,6 +256,7 @@ form .agree input[type="checkbox"] :default{
 							<td>
 								<textarea class="" type=text placeholder="请输入具体描述"
 								name="description" style="height: 200px;width: 100%;font-size: 40px;"></textarea></td>
+							<td><input  name="openid" value="${openid }"/></td>
 						</tr>
 						
 						<tr align="center" style="margin-top: 14%;">

@@ -34,11 +34,13 @@ public class MenuMain {
 				+ "/news/shownotice");
 
 		ViewButton button23 = new ViewButton();
-		button23.setName("完善个人信息");
+		button23.setName("完善信息");
 		button23.setType("view");
-		button23.setUrl(PropertiesReadUtils.getWechatString("rootdirectory")
-				+ "/user/loadInfo");
-
+//		button23.setUrl(PropertiesReadUtils.getWechatString("rootdirectory")
+//				+ "/user/loadInfo");
+		button23.setUrl("http://6a1dd76f.ngrok.io/NIC-wechat/user/loadInfo");
+		//button23.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6f7d35bce110c2e3&redirect_uri=https://6a1dd76f.ngrok.io/NIC-wechat/work/load&response_type=code&scope=snsapi_base#wechat_redirect");
+		
 		ViewButton button24 = new ViewButton();
 		button24.setName("查看反馈信息");
 		button24.setType("view");

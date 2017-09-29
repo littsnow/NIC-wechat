@@ -1,7 +1,11 @@
 package com.litt.wechat.Controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +20,10 @@ import com.litt.nic.pojo.department;
 import com.litt.nic.pojo.user;
 import com.litt.nic.service.IDepartmentService;
 import com.litt.nic.service.IUserService;
-import com.litt.wechat.Dispatcher.EventDispatcher;
 import com.litt.wechat.Util.Token.WeixinUtil;
 import com.litt.wechat.Util.User.GetUserInfo;
+
+import net.sf.json.JSONObject;
 
 /**
  * 用户身份信息的完善
@@ -36,7 +41,18 @@ public class UserController {
 	private IDepartmentService departmentService;
 
 	private user user;
+	
+	@RequestMapping(value = "/load")
+	public String loadWorkJsp(String code){
+		System.out.println("code------>"+code);
+		String openid=WeixinUtil.getOpenid(code);
+		System.out.println("--------");
+	//	request.setAttribute("openid", openid);
+		return "redirect:/user/loadInfo?openid="+openid;
+	}
+	
 
+	
 	/**
 	 * 加载完善用户信息
 	 * 
@@ -47,16 +63,18 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/loadInfo")
 	public String loadInfo(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+			HttpServletResponse response,String openid) throws IOException {
+		System.out.println("--------"+openid);
+		request.setAttribute("openid", openid);
 		// 加载页面
 		List<department> listDepartment = departmentService.findAllInfo();
 		for (department department : listDepartment) {
 			System.out.println(department.getDepartmentName());
 		}
 		request.setAttribute("listDepartment", listDepartment);
-		// 判断
-		String openid = request.getParameter("openid");
-		System.out.println("openid=" + openid);
+// 		判断
+//		String openid = request.getParameter("openid");
+//		System.out.println("openid=" + openid);
 		user DataBaseUser = userService.findByOpenid(openid);
 		// 数据库已存在此人
 		if (DataBaseUser != null) {
@@ -150,5 +168,36 @@ public class UserController {
 		System.out.println("name=" + name + "tele" + telephone);
 		return null;
 	}
+	
+	public static String getOpenId(String code){
+		String url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx6f7d35bce110c2e3&secret=162b3c93a3c265dbba32e5c9ddbff023&code="+code+"&grant_type=authorization_code";
+		String openId="";
+		try {
+		URL getUrl=new URL(url);
+		HttpURLConnection http=(HttpURLConnection)getUrl.openConnection();
+		http.setRequestMethod("GET"); 
+		http.setRequestProperty("Content-Type",
+		"application/x-www-form-urlencoded");
+		http.setDoOutput(true);
+		http.setDoInput(true);
 
+		http.connect();
+		InputStream is = http.getInputStream(); 
+		int size = is.available(); 
+		byte[] b = new byte[size];
+		is.read(b);
+		String message = new String(b, "UTF-8");
+
+		JSONObject json = JSONObject.fromObject(message);
+		openId = json.getString("openid");
+		} catch (MalformedURLException e) {
+		e.printStackTrace();
+		} catch (IOException e) {
+		e.printStackTrace();
+		}
+		System.out.println("此时的openid="+openId);
+		return openId;
+		}
+
+	
 }

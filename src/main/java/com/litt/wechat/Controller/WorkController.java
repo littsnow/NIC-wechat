@@ -1,7 +1,11 @@
 package com.litt.wechat.Controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.apache.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -210,6 +215,31 @@ public class WorkController {
 	}
 
 	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/loadWork")
+	public String loadWokeJsp(HttpServletRequest request,
+			HttpServletResponse response,String code){
+		String openid=WeixinUtil.getOpenid(code);
+		System.out.println("--------");
+		request.setAttribute("openid", openid);
+		//return "redirect:/work/showmsg?openid="+openid;
+		return "/jsp/work_info";
+	}
+	@RequestMapping("/loadCheck")
+	public String loadCheckJsp(HttpServletRequest request,
+			HttpServletResponse response,String code){
+		String openid=WeixinUtil.getOpenid(code);
+		System.out.println("--------");
+		//request.setAttribute("openid", openid);
+		return "redirect:/work/showmsg?openid="+openid;
+		
+	}
+	
+	/**
 	 * 查看反馈消息
 	 * 
 	 * @param request
@@ -218,15 +248,16 @@ public class WorkController {
 	 */
 	@RequestMapping("/showmsg")
 	public String showmsg(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+			HttpServletResponse response,String openid) throws Exception {
 		System.out.println("这是Showmsg方法");
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		String openid = WechatSecurity.openid;
+		//String openid = WechatSecurity.openid;
 		System.out.println("openid===123======" + openid);
+		request.setAttribute("openid", openid);
 		user = userService.findByOpenid(openid);
 
 		if (user != null) {
