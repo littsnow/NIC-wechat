@@ -19,6 +19,7 @@ import com.litt.nic.pojo.manager;
 import com.litt.nic.pojo.status;
 import com.litt.nic.pojo.techsupport;
 import com.litt.nic.pojo.type;
+import com.litt.nic.pojo.user;
 import com.litt.nic.service.IDepartmentService;
 import com.litt.nic.service.IManagerService;
 import com.litt.nic.service.IStatusService;
@@ -55,10 +56,11 @@ public class BusinessFeedback {
 
 	/**
 	 * 加载所有未完成的信息
+	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/unfinishedlist")
 	public String loadAllUnfinished(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws IOException {
 		System.out.println("执行了未完成加载");
 		techsupportList = techSupportService.findAllUnfinished();
 
@@ -156,10 +158,11 @@ public class BusinessFeedback {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/searchLists")
 	public String searchByInfo(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws IOException {
 		List<status> listStatus = statusService.findAllStatus();
 		request.setAttribute("listStatus", listStatus);
 
@@ -179,6 +182,14 @@ public class BusinessFeedback {
 			    techsupportList=techSupportService.findByType(value);
 			    System.out.println("techsupportList="+techsupportList);
 			    getTSLists(request, techsupportList);
+			    
+			    response.setContentType("text/html; charset=UTF-8"); // 转码
+			    PrintWriter out = response.getWriter();
+				out.flush();
+				out.println("<script>");
+				out.println("$('#btnClose').click(function() { $('#BgDiv').css('display', 'none'); $('#DialogDiv').css('display', 'none'); });$('#btnCancel').click(function() {$('#BgDiv').css('display', 'none');$('#DialogDiv').css('display', 'none');});$('#btnTest').click(function() {$('#BgDiv').css({ display: 'block', height: $(document).height() });var yscroll = document.documentElement.scrollTop;$('#DialogDiv').css('top', '100px').css('display', 'block');})");
+				out.println("</script>");
+				
 			    return "/WEB-INF/views/serviceDock/businessFadeback";
 			} else {
 				techsupportList = techSupportService
@@ -187,6 +198,13 @@ public class BusinessFeedback {
 				getTSLists(request, techsupportList);
 				
 				getDPNameList(request);
+				
+				 response.setContentType("text/html; charset=UTF-8"); // 转码
+				    PrintWriter out = response.getWriter();
+					out.flush();
+					out.println("<script>");
+					out.println("$('#btnClose').click(function() { $('#BgDiv').css('display', 'none'); $('#DialogDiv').css('display', 'none'); });$('#btnCancel').click(function() {$('#BgDiv').css('display', 'none');$('#DialogDiv').css('display', 'none');});$('#btnTest').click(function() {$('#BgDiv').css({ display: 'block', height: $(document).height() });var yscroll = document.documentElement.scrollTop;$('#DialogDiv').css('top', '100px').css('display', 'block');})");
+					out.println("</script>");
 
 				return "/WEB-INF/views/serviceDock/businessFadeback";
 			} 
@@ -295,7 +313,7 @@ public class BusinessFeedback {
 	public void getTSLists(HttpServletRequest request,
 			List<techsupport> techSupportList) {
 		List<String> tsStatusList = new ArrayList<String>();
-		List<String> tsUserList = new ArrayList<String>();
+		List<user> tsUserList = new ArrayList<user>();
 		List<String> tsManagerList = new ArrayList<String>();
 	    List<String> tsTypeNameList=new ArrayList<String>();
 	    List<String> tsDepartNameList=new ArrayList<String>();
@@ -306,7 +324,7 @@ public class BusinessFeedback {
 			
 			tsStatusList.add(statusService.findById(
 					techSupportList.get(i).getStatusId()).getStatusName());
-
+			
 			System.out.println(tsStatusList.get(i)
 					+ "ppppppppppppppppppp"
 					+ techSupportList.get(i).getStatusId()
@@ -316,7 +334,7 @@ public class BusinessFeedback {
 							.getStatusName());
 
 			tsUserList.add(userService.findById(
-					techSupportList.get(i).getUserId()).getUserName());
+					techSupportList.get(i).getUserId()));
 			if (techSupportList.get(i).getManagerId() != null) {
 				System.out.println("处理人==="
 						+ managerService.findById(

@@ -36,23 +36,11 @@
 <script
 	src="${pageContext.request.contextPath }/js/jquery.editable-select.min.js"></script>
 <script type="text/javascript">
-$(function() {
-            $("#btnClose").click(function() {
-                $("#BgDiv").css("display", "none");
-                $("#DialogDiv").css("display", "none");
-            });
-            $("#btnCancel").click(function() {
-                $("#BgDiv").css("display", "none");
-                $("#DialogDiv").css("display", "none");
-            });
-            $("#btnTest").click(function() {
-                $("#BgDiv").css({ display: "block", height: $(document).height() });
-                var yscroll = document.documentElement.scrollTop;
-                $("#DialogDiv").css("top", "100px").css("display", "block");
-            });
-        })
+
+        
 //搜索
 $(function(){
+	
 	$("#searchArticleForm").off();
 	$("#searchArticleForm").bind("submit",function(){
 		var key=$(this).find("select[name=key]").val();
@@ -123,6 +111,21 @@ $(function(){
         
        } 
 } 
+	$(function() {
+	            $("#btnClose").click(function() {
+	                $("#BgDiv").css("display", "none");
+	                $("#DialogDiv").css("display", "none");
+	            });
+	            $("#btnCancel").click(function() {
+	                $("#BgDiv").css("display", "none");
+	                $("#DialogDiv").css("display", "none");
+	            });
+	             $("#btnTest").click(function() {
+	                $("#BgDiv").css({ display: "block", height: $(document).height() });
+	                var yscroll = document.documentElement.scrollTop;
+	                $("#DialogDiv").css("top", "100px").css("display", "block");
+	            }); 
+	        })
 </script>
 </head>
 <body style="padding-bottom: 100px;">
@@ -213,8 +216,10 @@ $(function(){
 			<div id="DialogDiv" style="display:none">
 			<h2>请输入反馈信息<a href="#" id="btnClose">关闭</a></h2>
 		    <div class="form">
-		        <textarea class="" type="text" value="" name="content" style="height: 200px;width: 380px;">
+		        <textarea class="textarea" type="text" value="" name="content" style="height: 200px;width: 380px;">
+		        ${s.techsupportFeedback}
 		        </textarea>
+		        <input type="hidden" id="techid" value="" name="techsupportId" />
 		        <input type="button" class="button border-main icon-search feedback" value="确认" id="btnyes" 
 		        style="width: 50px;height: 30px;padding: 3px 4px;margin-left: 38%; "/>
 		        <input type="button" class="button border-main icon-search " value="取消" id="btnCancel" 
@@ -246,12 +251,15 @@ $(function(){
 					<tr>
 						<td style="width: 70px; padding-left: 20px;text-align: left;">${a.index+1}
 						<c:if test="${!empty s.techsupportFeedback}">
-							<span style="color: #09c;margin-left: 5px;" title=${s.techsupportFeedback} class="icon-pencil-square-o" ></span>
+							<!-- <span style="color: #09c;margin-left: 5px;" title=${s.techsupportFeedback} class="icon-pencil-square-o" ></span> -->
+							<!-- <input type="button" class="icon-pencil-square-o" id="btnTest" onclick=""style="color: #09c;margin-left: 5px;"
+				  /> -->
+				  	<a href="javascript:void(0);"  onclick="feed('${s.techsupportFeedback}','${s.techsupportId}')"><span style="color: #09c;margin-left: 5px;" title=${s.techsupportFeedback} class="icon-pencil-square-o" ></span></a>
 						</c:if>
 						</td>
 						<td><input type="checkbox" name="techsupportId"
 							value="${s.techsupportId}"></td>
-						<td>${tsUser[a.index]}</td>
+						<td>${tsUser[a.index].userName}</td>
 						<td>${tsType[a.index]}</td>
 						<td>${s.techsupportDevicename}</td>
 						
@@ -259,14 +267,9 @@ $(function(){
 						
 						
 						<td style="width:16%; word-wrap:break-word;word-break:break-all;">${s.techsupportLocation}</td>
-						<%-- <c:if test="${!empty techsupportFeedback}">
-						<td><span class="icon-pencil-square-o"></span></td>
-						</c:if>
-						<c:if test="${empty techsupportFeedback}">
-						<td ></td>
-						</c:if> --%>
+						
 						<td><a
-								href="${pageContext.request.contextPath }/load/picture?pName=${s.techsupportPicture}&&note=${s.techsupportDescribe}">点击查看</a></td>
+								href="${pageContext.request.contextPath }/load/picture?pName=${s.techsupportPicture}&&note=${s.techsupportFeedback }&&phone=${tsUser[a.index].userTelephone}">点击查看</a></td>
 						
 						
 						<td>${s.techsupportUptime}</td>
@@ -294,90 +297,7 @@ $(function(){
 					</tr>
 					<!-- </form> -->
 				</c:forEach>
-				<%-- <c:forEach items="${rpList }" var="s" varStatus="b">
-						<tr>
-							<td id="rp" style="width: 70px; padding-left: 20px;text-align: left;">${(b.index+1)+(tsLen)}
-							
-							<c:if test="${!empty s.repairFeedback}">
-							<span style="color: #09c;margin-left: 5px;" class="icon-pencil-square-o" ></span>
-							</c:if>
-							</td>
-							
-							<td><input type="checkbox" 	value="${s.repairId}" name="repairId"
-						></td>
-								
-							
-							<td>${rpUser[b.index]}</td>
-							<td>设备报修</td>
-							<td>${s.repairDevicename}</td>
-							<td>${s.repairDepartment}</td>
-							<td>${s.repairLocation}</td>
-						<td><a
-								href="${pageContext.request.contextPath }/load/picture?pName=${s.repairPicture}">点击查看</a></td>
-							<td>${s.repairUptime}</td>
-							<td colspan="1"
-								style="text-align-last: center; text-align: center;">
-								<c:if test="${!empty rpStatus[b.index] }" >
-									${rpStatus[b.index] }
-								</c:if>
-								<c:if test="${empty rpStatus[b.index] }">
-									请选择
-								</c:if>
-							</td>
-							<td colspan="1"
-							style="text-align-last: center; text-align: center;">
-								<c:if test="${!empty rpManagerList[b.index] }">
-								${rpManagerList[b.index] }
-								</c:if>
-								<c:if test="${empty rpManagerList[b.index] }">
-								暂无处理人
-								</c:if>
-							
-							</td>
-						</tr>
-				</c:forEach>
-				<c:forEach items="${mtList }" var="s" varStatus="c">
-					
-						<tr>
-							<td id="mt" style="width: 70px; padding-left: 20px;text-align: left;">${(c.index+1)+(tsLen)+(rpLen)}
-							
-							<c:if test="${!empty s.maintenanceFeedback}">
-							<span style="color: #09c;margin-left: 5px;" class="icon-pencil-square-o" ></span>
-						</c:if>
-							</td>
-							<td><input type="checkbox" value="${s.maintenanceId}"
-							name="maintenanceId"></td>
-							
-						<td>${mtUser[c.index]}</td>
-							<td>日常运维</td>
-							<td>${s.maintenanceDevicename}</td>
-							<td>${s.maintenanceDepartment}</td>
-							<td>${s.maintenanceLocation}</td>
-						<td><a
-								href="${pageContext.request.contextPath }/load/picture?pName=${s.maintenancePicture}">点击查看</a>
-								</td>
-							<td>${s.maintenanceUptime}</td>
-							<td colspan="1"
-							style="text-align-last: center; text-align: center;">
-							<c:if test="${!empty mtStatus[c.index] }" >
-									${mtStatus[c.index] }
-								</c:if>
-								<c:if test="${empty mtStatus[c.index] }">
-									请选择
-								</c:if>
-							
-							</td>
-							<td colspan="1"
-							style="text-align-last: center; text-align: center;">
-								<c:if test="${!empty mtManagerList[c.index] }">
-								${mtManagerList[c.index] }
-								</c:if>
-								<c:if test="${empty mtManagerList[c.index] }">
-								暂无处理人
-								</c:if>
-							</td>
-						</tr>
-				</c:forEach> --%>
+				
 			</table>
 		</div>
 	
@@ -386,18 +306,32 @@ $(function(){
 </form>
 	</div>
 	<script type="text/javascript">
+	
 	$(".submit").click(function(){
 		
 		var subform=$('#subform');
 		subform.attr('action','${pageContext.request.contextPath }/feedback/toUpdateStatus');
 		subform.submit();
 	});
+	
+	   
 	$(".feedback").click(function(){
+		alert("tijiaol");
+		$(".textarea").text(" ");
 		/* var subform=$('#subform');
 		subform.attr('action','${pageContext.request.contextPath }/feedback/toaddinfo');
 		subform.submit(); */
 		document.getElementById("subform").submit();   
 	});
+	function feed(str,id){
+		$(".textarea").text(str);
+		document.getElementById("techid").value=id;
+        $("#BgDiv").css({ display: "block", height: $(document).height() });
+        var yscroll = document.documentElement.scrollTop;
+        $("#DialogDiv").css("top", "100px").css("display", "block");
+        
+    }
+	           
 	</script>
 </body>
 </html>
