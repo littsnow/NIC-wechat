@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.litt.nic.pojo.techsupport;
-import com.litt.nic.pojo.type;
 
 public interface techsupportMapper {
 	int deleteByPrimaryKey(Integer techsupportId);
@@ -24,6 +23,7 @@ public interface techsupportMapper {
 
 	List<techsupport> selectTSMultiInfo(@Param("key") String key,
 			@Param("val") String val);
+
 	List<techsupport> selectByType(String type);
 
 	/**
@@ -56,5 +56,5 @@ public interface techsupportMapper {
 	List<techsupport> selectUnFinishedTSByMultiInfo(@Param("key") String key,
 			@Param("val") String val);
 
-	List<techsupport> findFeedback(Integer userId, int i);
+	List<techsupport> findFeedback(Integer userId);
 }

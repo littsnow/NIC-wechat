@@ -269,7 +269,7 @@ $(function(){
 						<td style="width:16%; word-wrap:break-word;word-break:break-all;">${s.techsupportLocation}</td>
 						
 						<td><a
-								href="${pageContext.request.contextPath }/load/picture?pName=${s.techsupportPicture}&&note=${s.techsupportFeedback }&&phone=${tsUser[a.index].userTelephone}">点击查看</a></td>
+								href="${pageContext.request.contextPath }/load/picture?pName=${s.techsupportPicture}&&note=${s.techsupportDescribe }&&phone=${tsUser[a.index].userTelephone}">点击查看</a></td>
 						
 						
 						<td>${s.techsupportUptime}</td>

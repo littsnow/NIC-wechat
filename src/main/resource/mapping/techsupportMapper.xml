@@ -83,9 +83,9 @@
   </select>
   
   <select id="findFeedback" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select *
+   select *
     from nic_techsupport
-    where user_id = #{0} and status_id != #{1}
+    where user_id = 1 and date(techsupport_endtime) >= date_sub(CURDATE(), INTERVAL 7 DAY)
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from nic_techsupport

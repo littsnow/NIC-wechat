@@ -69,6 +69,7 @@
 					<th>设备名称</th>
 					<th>部门</th>
 					<th>具体地点</th>
+					<th>查看详情</th>
 					<th>提交时间</th>
 					<th>进度</th>
 					<th>处理人</th>
@@ -78,50 +79,22 @@
 						<td>${a.index+1}</td>
 						<td><input type="hidden" name="techsupportId"
 							value="${s.techsupportId}"></td>
-						<td>${tsUser[a.index]}</td>
-						<td>技术支持</td>
+						<td>${tsUser[a.index].userName}</td>
+						<td>${tsType[a.index]}</td>
 						<td>${s.techsupportDevicename}</td>
 						<td>${s.techsupportDepartment}</td>
 						<td>${s.techsupportLocation}</td>
 						<%--  <td> ${s.techsupportDescribe}</td> --%>
+						<td><a
+								href="${pageContext.request.contextPath }/load/picture?pName=${s.techsupportPicture}&&note=${s.techsupportDescribe }&&phone=${tsUser[a.index].userTelephone}">点击查看</a></td>
+						
+						
 						<td>${s.techsupportUptime}</td>
 						<td>已完成</td>
 						<td>${tsManagerList[a.index]}</td>
 					</tr>
 				</c:forEach>
-				<c:forEach items="${rpList }" var="s" varStatus="b">
-						<tr>
-							<!--   <td style="text-align:left; padding-left:20px;"><input type="checkbox" name="id[]" value="" />
-           1</td> -->
-							<td id="rp">${(b.index+1)+(tsLen)}</td>
-							<td><input type="hidden" name="repairId"
-								value="${s.repairId}"></td>
-							<td>${rpUser[b.index]}</td>
-							<td>设备报修</td>
-							<td>${s.repairDevicename}</td>
-							<td>${s.repairDepartment}</td>
-							<td>${s.repairLocation}</td>
-							<td>${s.repairUptime}</td>
-							<td>已完成</td>
-							<td>${rpmanager[b.index]}</td>
-						</tr>
-				</c:forEach>
-				<c:forEach items="${mtList }" var="s" varStatus="c">
-						<tr>
-							<td id="mt">${(c.index+1)+(tsLen)+(rpLen)}</td>
-							<td><input type="hidden" name="maintenanceId"
-								value="${s.maintenanceId}"></td>
-							<td>${mtUser[c.index]}</td>
-							<td>日常运维</td>
-							<td>${s.maintenanceDevicename}</td>
-							<td>${s.maintenanceDepartment}</td>
-							<td>${s.maintenanceLocation}</td>
-							<%--   <td>${s.maintenanceDescribe}</td> --%>
-							<td>${s.maintenanceUptime}</td>
-							<td>已完成</td>
-							<td>${mtmanager[c.index]}</td>
-						</tr>
-				</c:forEach>
+				
 			</table>
 		</div>
 	</div>

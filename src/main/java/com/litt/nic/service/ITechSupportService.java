@@ -3,10 +3,10 @@ package com.litt.nic.service;
 import java.util.List;
 
 import com.litt.nic.pojo.techsupport;
-import com.litt.nic.pojo.type;
 
 public interface ITechSupportService {
 	List<techsupport> findAllTS();
+
 	List<techsupport> findByType(String type);
 
 	List<techsupport> findByMutilInfo(String key, String val);
@@ -41,5 +41,5 @@ public interface ITechSupportService {
 
 	void addtech(techsupport techsupport);
 
-	List<techsupport> findFeedback(Integer userId, int i);
+	List<techsupport> findFeedback(Integer userId);
 }
