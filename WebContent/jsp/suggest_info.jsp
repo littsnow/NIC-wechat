@@ -52,8 +52,8 @@ body{
     padding: 6% 5%;
 }
 .content form input:not(:nth-child(6)){
-    border: 0;
-    border-bottom: 1px solid #c3c3c5;
+  /*   border: 0; */
+   /*  border-bottom: 1px solid #c3c3c5; */
 }
 .content form{
     width: 100%;
@@ -65,8 +65,10 @@ body{
     position: relative;
 }
 .message input{
-    width: 90%;
-    padding: 4% 0 4% 10%;
+    width: 100%;
+    padding: 2% 0 2% 0%;
+    margin-top:4%;
+    margin-bottom:4%;
     font-size: 0.875em;
     font-family: "Microsoft YaHei";
 }
@@ -114,7 +116,7 @@ select{
     background: #21a9f5;
     color: #ffffff;
     border: 0;
-    padding: 3.25% 0;
+    padding: 2% 0;
     font-size: 1em;
     font-family: "Microsoft YaHei";
 }
@@ -146,15 +148,17 @@ form .agree input[type="checkbox"] :default{
 							<td></td>
 						</tr>
 						<tr>
-							<td style="width: 30%;"><label>留言主题：</label></td>
-							<td><input type="text" placeholder="请输入留言主题"
-								name="title" /></td>
+							<td style="width: 30%;"><label>留言主题：</label></td></tr>
+							<tr>
+							<td><div><input type="text" placeholder="请输入留言主题"
+								name="title" style="border:1px solid #535353;"/></div></td>
 						</tr>
 						<tr>
-							<td><label>具体内容：</label></td>
+							<td><label>具体内容：</label></td></tr>
+							<tr>
 							<td style="padding-top: 5%;">
-								<textarea class="" type=text placeholder="请输入具体内容"
-								name="content" style="height: 200px;width: 100%;font-size: 40px;margin-bottom: 10%;"></textarea>
+								<textarea class="" type="text"  placeholder="请输入具体内容" 
+								name="content" style="height: 200px;width: 100%;  font-size:1em;  margin-bottom: 10%;border:1px solid #535353;"></textarea>
 							</td>
 						</tr>
 					</table>

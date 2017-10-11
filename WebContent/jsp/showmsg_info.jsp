@@ -46,8 +46,9 @@
 							<td></td>
 						</tr>
 						<tr>
-							<td style="width: 30%;"><label>设备名称：</label></td>
-							<td>${item.techsupportDevicename }</td>
+							<td style="width: 30%;"><label><strong>设备名称：</strong></label></td>
+							<td><strong>${item.techsupportDevicename }</strong></td>
+							
 						</tr>
 						<tr>
 							<td><label>提交时间：</label></td>
