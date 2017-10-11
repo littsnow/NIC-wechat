@@ -67,11 +67,11 @@ public class WorkController {
 		System.out.println("当前时间是：" + uptime);
 
 		// 获取表单信息
-		int status = Integer.parseInt(request.getParameter("worktype"));
+		String type = request.getParameter("worktype");
 		String desc = request.getParameter("description");
 		String location = request.getParameter("location");
 		String devicename = request.getParameter("devicename");
-		if ("0".equals(status) || "".equals(desc) || "".equals(location)
+		if ("0".equals(type) || "".equals(desc) || "".equals(location)
 				|| "".equals(devicename)) {
 			System.out.println("有空值，");
 			response.setContentType("text/html; charset=UTF-8"); // 转码
@@ -92,7 +92,9 @@ public class WorkController {
 			techsupport.setStatusId(1);
 			techsupport.setTechsupportDevicename(devicename);
 			techsupport.setTechsupportUptime(uptime);
+			techsupport.setTechsupportEndtime(uptime);
 			techsupport.setUserId(user.getUserId());
+			techsupport.setType(type);
 			// 只保存了图片的名字
 			if ("null".equals(pictureName)) {
 				System.out.println("用户没提交照片");
@@ -189,7 +191,9 @@ public class WorkController {
 	@RequestMapping("/toadd")
 	public String toAdd(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
+
 		String openid = request.getParameter("openid");
+		System.out.println(openid + "-------------");
 		user DataBaseUser = userService.findByOpenid(openid);
 
 		// 数据库不存在此人
@@ -213,15 +217,29 @@ public class WorkController {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws IOException
 	 */
 	@RequestMapping("/loadWork")
 	public String loadWokeJsp(HttpServletRequest request,
-			HttpServletResponse response, String code) {
+			HttpServletResponse response, String code) throws IOException {
 		String openid = WeixinUtil.getOpenid(code);
 		System.out.println("--------");
 		request.setAttribute("openid", openid);
+		user DataBaseUser = userService.findByOpenid(openid);
 		// return "redirect:/work/showmsg?openid="+openid;
-		return "/jsp/work_info";
+		if (DataBaseUser == null) {
+			response.setContentType("text/html; charset=UTF-8"); // 转码
+			PrintWriter out = response.getWriter();
+			out.flush();
+			out.println("<script>");
+			out.println("alert('请完善个人信息后再提交相关业务信息！');");
+			// out.println("history.back();");
+			out.println("</script>");
+			return null;
+		} else {
+			request.setAttribute("openid", openid);
+			return "/jsp/work_info";
+		}
 	}
 
 	@RequestMapping("/loadCheck")
@@ -245,12 +263,6 @@ public class WorkController {
 	public String showmsg(HttpServletRequest request,
 			HttpServletResponse response, String openid) throws Exception {
 		System.out.println("这是Showmsg方法");
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		// String openid = WechatSecurity.openid;
 		System.out.println("openid===123======" + openid);
 		request.setAttribute("openid", openid);
 		user = userService.findByOpenid(openid);

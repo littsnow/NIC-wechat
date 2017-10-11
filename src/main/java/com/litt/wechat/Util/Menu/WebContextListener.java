@@ -9,7 +9,6 @@ import net.sf.json.JSONObject;
 
 import org.apache.http.ParseException;
 
-import com.litt.wechat.Dispatcher.EventDispatcher;
 import com.litt.wechat.Menu.Button;
 import com.litt.wechat.Menu.ClickButton;
 import com.litt.wechat.Menu.Menu;
@@ -17,8 +16,6 @@ import com.litt.wechat.Menu.ViewButton;
 import com.litt.wechat.Util.HttpUtils;
 import com.litt.wechat.Util.Properties.PropertiesReadUtils;
 import com.litt.wechat.Util.Token.WeixinUtil;
-
-import javafx.event.EventDispatchChain;
 
 public class WebContextListener implements ServletContextListener {
 
@@ -36,35 +33,39 @@ public class WebContextListener implements ServletContextListener {
 		button12.setUrl(PropertiesReadUtils.getWechatString("rootdirectory")
 				+ "/news/shownotice");
 
-		
-		
 		ViewButton button21 = new ViewButton();
 		button21.setName("完善个人信息");
 		button21.setType("view");
-//		button21.setUrl(PropertiesReadUtils.getWechatString("rootdirectory")
-//				+ "/user/loadInfo");
-		String Info_URL=PropertiesReadUtils.getWechatString("rootdirectory")+ "/user/load";
-		button21.setUrl(WeixinUtil.getOAuth2().replace("REDIRECT_URL", Info_URL));
-		
+		// button21.setUrl(PropertiesReadUtils.getWechatString("rootdirectory")
+		// + "/user/loadInfo");
+		String Info_URL = PropertiesReadUtils.getWechatString("rootdirectory")
+				+ "/user/load";
+		button21.setUrl(WeixinUtil.getOAuth2()
+				.replace("REDIRECT_URL", Info_URL));
 
 		ViewButton button22 = new ViewButton();
 		button22.setName("提交业务");
 		button22.setType("view");
-		String commitUrl=PropertiesReadUtils.getWechatString("rootdirectory")+ "/work/loadWork";
-		button22.setUrl(WeixinUtil.getOAuth2().replace("REDIRECT_URL",commitUrl));
-		
+		String commitUrl = PropertiesReadUtils.getWechatString("rootdirectory")
+				+ "/work/loadWork";
+		button22.setUrl(WeixinUtil.getOAuth2().replace("REDIRECT_URL",
+				commitUrl));
+
 		ViewButton button23 = new ViewButton();
 		button23.setName("查看反馈信息");
 		button23.setType("view");
-		String checkUrl=PropertiesReadUtils.getWechatString("rootdirectory")+ "/work/loadCheck";
-		button23.setUrl(WeixinUtil.getOAuth2().replace("REDIRECT_URL",checkUrl));
+		String checkUrl = PropertiesReadUtils.getWechatString("rootdirectory")
+				+ "/work/loadCheck";
+		button23.setUrl(WeixinUtil.getOAuth2()
+				.replace("REDIRECT_URL", checkUrl));
 
 		ViewButton button24 = new ViewButton();
 		button24.setName("我要留言");
 		button24.setType("view");
-		String suggestUrl=PropertiesReadUtils.getWechatString("rootdirectory")
-				+ "/jsp/suggest_info.jsp";
-		button24.setUrl(WeixinUtil.getOAuth2().replace("REDIRECT_URL",suggestUrl));
+		String suggestUrl = PropertiesReadUtils
+				.getWechatString("rootdirectory") + "/suggest/loadsuggest";
+		button24.setUrl(WeixinUtil.getOAuth2().replace("REDIRECT_URL",
+				suggestUrl));
 
 		ViewButton button3 = new ViewButton();
 		button3.setName("关于我们");
@@ -112,4 +113,4 @@ public class WebContextListener implements ServletContextListener {
 
 	}
 
-} 
+}

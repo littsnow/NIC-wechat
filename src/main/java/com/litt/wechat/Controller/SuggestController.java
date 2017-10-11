@@ -16,7 +16,7 @@ import com.litt.nic.pojo.suggest;
 import com.litt.nic.pojo.user;
 import com.litt.nic.service.ISuggestService;
 import com.litt.nic.service.IUserService;
-import com.litt.wechat.Dispatcher.EventDispatcher;
+import com.litt.wechat.Util.Token.WeixinUtil;
 
 @Controller
 @RequestMapping(value = "/suggest")
@@ -29,11 +29,10 @@ public class SuggestController {
 	@Autowired
 	private ISuggestService suggestService;
 
-	
 	@RequestMapping(value = "/toadd")
-	public String toAdd(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-		String openid=request.getParameter("openid");
+	public String toAdd(HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		String openid = request.getParameter("openid");
 		user DataBaseUser = userService.findByOpenid(openid);
 		// 数据库不存在此人
 		if (DataBaseUser == null) {
@@ -45,16 +44,13 @@ public class SuggestController {
 			// out.println("history.back();");
 			out.println("</script>");
 			return null;
-		}else{
-		request.setAttribute("openid", openid);
-		
-		return "/jsp/suggest_info";
+		} else {
+			request.setAttribute("openid", openid);
+
+			return "/jsp/suggest_info";
 		}
 	}
-	
-	
-	
-	
+
 	@RequestMapping(value = "/addsuggest")
 	public String addSuggest(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -62,7 +58,10 @@ public class SuggestController {
 		suggest suggest = new suggest();
 		String openid = request.getParameter("openid");
 		user = userService.findByOpenid(openid);
-		System.out.println(user.getUserName() + "===================");
+		if (user == null) {
+			System.out.println("user时空的");
+		}
+		// System.out.println(user.getuserName() + "===================");
 		System.out.println("openid==========================" + openid);
 		suggest.setSuggestTitle(request.getParameter("title"));
 		suggest.setSuggestContent(request.getParameter("content"));
@@ -79,5 +78,28 @@ public class SuggestController {
 		out.println("</script>");
 
 		return null;
+	}
+
+	@RequestMapping("/loadsuggest")
+	public String loadWokeJsp(HttpServletRequest request,
+			HttpServletResponse response, String code) throws IOException {
+		String openid = WeixinUtil.getOpenid(code);
+		System.out.println("--------");
+		request.setAttribute("openid", openid);
+		user DataBaseUser = userService.findByOpenid(openid);
+		// return "redirect:/work/showmsg?openid="+openid;
+		if (DataBaseUser == null) {
+			response.setContentType("text/html; charset=UTF-8"); // 转码
+			PrintWriter out = response.getWriter();
+			out.flush();
+			out.println("<script>");
+			out.println("alert('请完善个人信息后再提交相关业务信息！');");
+			// out.println("history.back();");
+			out.println("</script>");
+			return null;
+		} else {
+			request.setAttribute("openid", openid);
+			return "/jsp/suggest_info";
+		}
 	}
 }

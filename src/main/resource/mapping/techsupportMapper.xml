@@ -85,7 +85,7 @@
   <select id="findFeedback" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
    select *
     from nic_techsupport
-    where user_id = 1 and date(techsupport_endtime) >= date_sub(CURDATE(), INTERVAL 7 DAY)
+    where user_id = #{userId} and date(techsupport_endtime) >= date_sub(CURDATE(), INTERVAL 7 DAY)
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from nic_techsupport
@@ -103,7 +103,7 @@
       #{techsupportDescribe,jdbcType=VARCHAR}, #{techsupportPicture,jdbcType=VARCHAR}, 
       #{techsupportFeedback,jdbcType=VARCHAR}, #{techsupportUptime,jdbcType=TIMESTAMP}, 
       #{techsupportEndtime,jdbcType=TIMESTAMP}, #{statusId,jdbcType=INTEGER}, #{managerId,jdbcType=INTEGER}, 
-      #{type,jdbcType=VARCHAR}
+      #{type,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.litt.nic.pojo.techsupport" >
     insert into nic_techsupport

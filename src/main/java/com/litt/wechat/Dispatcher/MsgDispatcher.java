@@ -80,25 +80,33 @@ public class MsgDispatcher {
 				newmsg.setArticleCount(list.size());
 				newmsg.setArticles(list);
 				return MessageUtil.newsMessageToXml(newmsg);
-			} /*
-			 * else if (map.get("Content").equals("3")) { Article article = new
-			 * Article(); article.setDigest("点击提交留言信息"); // 图文消息的描述
-			 * article.setPicUrl(PropertiesReadUtils
-			 * .getWechatString("rootdirectory") + "/images/liuyan.jpg"); //
-			 * 图文消息图片地址 article.setTitle("尊敬的：" + userinfo.getUserNickname() +
-			 * ",你好！请点击这里提交留言信息。"); // 图文消息标题 article.setUrl(PropertiesReadUtils
-			 * .getWechatString("rootdirectory") + "/suggest/toadd?openid=" +
-			 * openid); // 图文url链接 List<Article> list = new
-			 * ArrayList<Article>(); list.add(article); //
-			 * 这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
-			 * newmsg.setArticleCount(list.size()); newmsg.setArticles(list);
-			 * return MessageUtil.newsMessageToXml(newmsg); }
-			 */
+			} else if (map.get("Content").equals("3")) {
+				Article article = new Article();
+				article.setDigest("点击提交留言信息"); // 图文消息的描述
+				article.setPicUrl(PropertiesReadUtils
+						.getWechatString("rootdirectory")
+						+ "/images/liuyan.jpg"); //
+				// 图文消息图片地址
+				article.setTitle("尊敬的：" + userinfo.getUserNickname()
+						+ ",你好！请点击这里提交留言信息。");
+				// 图文消息标题
+				article.setUrl(PropertiesReadUtils
+						.getWechatString("rootdirectory")
+						+ "/suggest/toadd?openid=" + openid);
+				// 图文url链接
+				List<Article> list = new ArrayList<Article>();
+				list.add(article);
+				// 这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
+				newmsg.setArticleCount(list.size());
+				newmsg.setArticles(list);
+				return MessageUtil.newsMessageToXml(newmsg);
+			}
 
 			System.out.println("==============这是文本消息！" + openid);
 			txtmsg.setContent("你好，这里是太原工业学院网络信息中心微信公众平台！                      "
 					+ "回复  '1'  完善个人信息                    "
-					+ "回复  '2'  提交相关业务                    ");
+					+ "回复  '2'  提交相关业务                    "
+					+ "回复  '3'  我要留言                            ");
 
 			return MessageUtil.textMessageToXml(txtmsg);
 		}
@@ -107,7 +115,8 @@ public class MsgDispatcher {
 			System.out.println("==============这是图片消息！");
 			txtmsg.setContent("你好，这里是太原工业学院网络信息中心微信公众平台！                      "
 					+ "回复  '1'  完善个人信息                    "
-					+ "回复  '2'  提交相关业务                    ");
+					+ "回复  '2'  提交相关业务                    "
+					+ "回复  '3'  我要留言                            ");
 
 			return MessageUtil.textMessageToXml(txtmsg);
 		}
@@ -116,7 +125,8 @@ public class MsgDispatcher {
 			System.out.println("==============这是链接消息！");
 			txtmsg.setContent("你好，这里是太原工业学院网络信息中心微信公众平台！                      "
 					+ "回复  '1'  完善个人信息                    "
-					+ "回复  '2'  提交相关业务                    ");
+					+ "回复  '2'  提交相关业务                    "
+					+ "回复  '3'  我要留言                            ");
 			return MessageUtil.textMessageToXml(txtmsg);
 		}
 
@@ -124,7 +134,8 @@ public class MsgDispatcher {
 			System.out.println("==============这是位置消息！");
 			txtmsg.setContent("你好，这里是太原工业学院网络信息中心微信公众平台！                      "
 					+ "回复  '1'  完善个人信息                    "
-					+ "回复  '2'  提交相关业务                    ");
+					+ "回复  '2'  提交相关业务                    "
+					+ "回复  '3'  我要留言                            ");
 			return MessageUtil.textMessageToXml(txtmsg);
 		}
 
@@ -132,7 +143,8 @@ public class MsgDispatcher {
 			System.out.println("==============这是语音消息！" + openid);
 			txtmsg.setContent("你好，这里是太原工业学院网络信息中心微信公众平台！                      "
 					+ "回复  '1'  完善个人信息                    "
-					+ "回复  '2'  提交相关业务                    ");
+					+ "回复  '2'  提交相关业务                    "
+					+ "回复  '3'  我要留言                            ");
 			return MessageUtil.textMessageToXml(txtmsg);
 		}
 

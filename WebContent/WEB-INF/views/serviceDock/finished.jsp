@@ -89,7 +89,7 @@
 								href="${pageContext.request.contextPath }/load/picture?pName=${s.techsupportPicture}&&note=${s.techsupportDescribe }&&phone=${tsUser[a.index].userTelephone}">点击查看</a></td>
 						
 						
-						<td>${s.techsupportUptime}</td>
+						<td>${s.techsupportEndtime}</td>
 						<td>已完成</td>
 						<td>${tsManagerList[a.index]}</td>
 					</tr>

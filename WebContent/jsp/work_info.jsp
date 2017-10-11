@@ -18,7 +18,7 @@
 function config() {
 	$.ajax({
 		type : 'post',
-		url : "http://87dd23de.ngrok.io/NIC-wechat/work/config",
+		url : "http://7a34cebd.ngrok.io/NIC-wechat/work/config",
 		data : {'url' :location.href.split('#')[0]},
 		dataType : 'json',
 		contentType : "application/x-www-form-urlencoded; charset=utf-8",
@@ -232,9 +232,9 @@ form .agree input[type="checkbox"] :default{
 				<div class="message">
 					<select name="worktype">
 						<option value="0">选择业务类型</option>
-						<option value="1">技术支持</option>
-						<option value="2">设备报修</option>
-						<option value="3">日常运维</option>
+						<option value="技术支持">技术支持</option>
+						<option value="设备报修">设备报修</option>
+						<option value="日常运维">日常运维</option>
 					</select>
 					<table style="width: 100%; font-size: 40px;">
 					<tr style="display: none;">
@@ -256,7 +256,7 @@ form .agree input[type="checkbox"] :default{
 							<td>
 								<textarea class="" type=text placeholder="请输入具体描述"
 								name="description" style="height: 200px;width: 100%;font-size: 40px;"></textarea></td>
-							<td><input  name="openid" value="${openid }"/></td>
+							<td style="display: none;"><input  name="openid" value="${openid }"/></td>
 						</tr>
 						
 						<tr align="center" style="margin-top: 14%;">
@@ -264,7 +264,7 @@ form .agree input[type="checkbox"] :default{
 						<td>
 							<div style="width: 80%; margin-top: 7%;margin-left:-25%; height: 120px; margin-bottom: 5%;">
 							<input type="button" value="点击上传图片"
-								onclick="takePicture()" />
+								onclick="takePicture()" /></br>
 								<span style="color:red;">(请选择小于2M的图片)</span>
 							</div>	
 							</td>
