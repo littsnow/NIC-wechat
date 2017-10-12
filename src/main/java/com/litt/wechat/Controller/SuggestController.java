@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,7 +44,7 @@ public class SuggestController {
 			out.println("alert('请回复 ‘1’ ，完善个人信息后再提交相关业务信息！');");
 			// out.println("history.back();");
 			out.println("</script>");
-			return null;
+			return "redirect:/user/loadInfo?openid="+openid;
 		} else {
 			request.setAttribute("openid", openid);
 
@@ -82,7 +83,7 @@ public class SuggestController {
 
 	@RequestMapping("/loadsuggest")
 	public String loadWokeJsp(HttpServletRequest request,
-			HttpServletResponse response, String code) throws IOException {
+			HttpServletResponse response, String code) throws IOException, ServletException {
 		String openid = WeixinUtil.getOpenid(code);
 		System.out.println("--------");
 		request.setAttribute("openid", openid);
@@ -96,7 +97,10 @@ public class SuggestController {
 			out.println("alert('请完善个人信息后再提交相关业务信息！');");
 			// out.println("history.back();");
 			out.println("</script>");
-			return null;
+			System.out.println("跳转完善信息页面");
+			
+			
+			return "forward:/user/loadInfo?openid="+openid;
 		} else {
 			request.setAttribute("openid", openid);
 			return "/jsp/suggest_info";

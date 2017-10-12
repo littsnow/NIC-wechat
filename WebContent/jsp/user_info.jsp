@@ -53,8 +53,8 @@ body{
     padding: 6% 5%;
 }
 .content form input:not(:nth-child(6)){
-    border: 0;
-    border-bottom: 1px solid #c3c3c5;
+    /* border: 0;
+    border-bottom: 1px solid #c3c3c5; */
 }
 .content form{
     width: 100%;
@@ -62,12 +62,15 @@ body{
 }
 .message{
     background: #ffffff;
-    padding:2% 5% 0 5%;
+    padding:2% 5% 2% 5%;
     position: relative;
 }
 .message input{
-    width: 90%;
-    padding: 4% 0 4% 10%;
+    width: 100%;
+     margin-top:3%;
+    margin-bottom:3%;
+    padding: 2% 0 2% 0%;
+   
     font-size: 0.875em;
     font-family: "Microsoft YaHei";
 }
@@ -101,9 +104,9 @@ body{
     font-family: "Microsoft YaHei";
 }
 select{
-    width: 55%;
-    padding: 3% 2%;
-    margin: 8% 5%;
+    width: 100%;
+     padding: 2% 0 2% 0%;
+    margin: 2% 0%;
     font-size: 1em;
     color: #909093;
     border: solid 1px #909093;
@@ -115,7 +118,7 @@ select{
     background: #21a9f5;
     color: #ffffff;
     border: 0;
-    padding: 3.25% 0;
+    padding: 2% 0;
     font-size: 1em;
     font-family: "Microsoft YaHei";
 }
@@ -159,14 +162,18 @@ $(function() {
 							<td></td>
 						</tr>
 	                	<tr>
-	                		<td style="width:30%;"><label>姓名：</label></td>
-	                		<td><input type="text" placeholder="请输入姓名"  name="name" /></td>
+	                		<td style="width:30%;"><label>姓名：</label></td></tr>
+	                		<tr>
+	                		<td><input type="text" placeholder="请输入姓名"  name="name" style="margin-top:2%;border:1px solid #535353;"/></td>
 	                	</tr>
 	                	<tr>
-	                		<td> <label>联系方式：</label></td>
-	                		<td><input type=tel placeholder="请输入联系方式" name="telephone"/></td>
+	                		<td> <label>联系方式：</label></td></tr>
+	                		<tr>
+	                		<td><input type=tel placeholder="请输入联系方式" name="telephone" style="border:1px solid #535353;"/></td>
 	                	</tr>
-                		
+                		<tr>
+                		<td> <label>请选择部门：</label></td>
+                		</tr>
                 	<tr>
 	                	<%-- <td colspan="6"
 								style="text-align-last: center; text-align: center;"><select

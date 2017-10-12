@@ -235,7 +235,7 @@ public class WorkController {
 			out.println("alert('请完善个人信息后再提交相关业务信息！');");
 			// out.println("history.back();");
 			out.println("</script>");
-			return null;
+			return "forward:/user/loadInfo?openid="+openid;
 		} else {
 			request.setAttribute("openid", openid);
 			return "/jsp/work_info";
@@ -293,7 +293,7 @@ public class WorkController {
 			out.println("alert('请完善个人信息后再查看相关信息！');");
 			// out.println("history.back();");
 			out.println("</script>");
-			return null;
+			return "forward:/user/loadInfo?openid="+openid;
 		}
 
 	}
