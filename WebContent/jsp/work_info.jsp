@@ -18,7 +18,7 @@
 function config() {
 	$.ajax({
 		type : 'post',
-		url : "http://7a34cebd.ngrok.io/NIC-wechat/work/config",
+		url : "http://tit.tunnel.qydev.com/NIC-wechat/work/config",
 		data : {'url' :location.href.split('#')[0]},
 		dataType : 'json',
 		contentType : "application/x-www-form-urlencoded; charset=utf-8",
@@ -102,7 +102,6 @@ function takePicture(){
 }
 </script>
 <style type="text/css">
-
 body{
     font-size: 1em;
     font-family: "Microsoft YaHei";
@@ -145,8 +144,8 @@ body{
     padding: 6% 5%;
 }
 .content form input:not(:nth-child(6)){
-    border: 0;
-    border-bottom: 1px solid #c3c3c5;
+  /*   border: 0; */
+   /*  border-bottom: 1px solid #c3c3c5; */
 }
 .content form{
     width: 100%;
@@ -158,8 +157,10 @@ body{
     position: relative;
 }
 .message input{
-    width: 90%;
-    padding: 4% 0 4% 10%;
+    width: 100%;
+    padding: 2% 0 2% 0%;
+    margin-top:4%;
+    margin-bottom:4%;
     font-size: 0.875em;
     font-family: "Microsoft YaHei";
 }
@@ -193,9 +194,9 @@ body{
     font-family: "Microsoft YaHei";
 }
 select{
-    width: 55%;
+    width: 100%;
     padding: 3% 2%;
-    margin: 8% 5%;
+    margin: 4% 0;
     font-size: 1em;
     color: #909093;
     border: solid 1px #909093;
@@ -207,7 +208,7 @@ select{
     background: #21a9f5;
     color: #ffffff;
     border: 0;
-    padding: 3.25% 0;
+    padding: 2% 0;
     font-size: 1em;
     font-family: "Microsoft YaHei";
 }
@@ -221,55 +222,73 @@ form .agree input[type="checkbox"] :default{
 								
 	 <div class="register">
 		<div class="regTop">
-			<span>提交报修信息</span>
+			<span>提交业务信息</span>
 		</div>
-		<div class="content">
+		<div class="content" style="padding-bottom: 5%;">
 			<div class="point">
-				<span style="font-size: 45px;">用户须完善信息之后才能提交业务信息。</span>
+				<span style="font-size: 45px;">用户须完善信息之后才能提交业务信息！</span>
 			</div>
 			<form action="${pageContext.request.contextPath }/work/addwork"
 				method="post">
 				<div class="message">
-					<select name="worktype">
-						<option value="0">选择业务类型</option>
-						<option value="技术支持">技术支持</option>
-						<option value="设备报修">设备报修</option>
-						<option value="日常运维">日常运维</option>
-					</select>
-					<table style="width: 100%; font-size: 40px;">
+					<table style="width: 100%; margin-left: 0%;  font-size: 40px;">
 					<tr style="display: none;">
-							<td style="width: 30%; "><input type="text" value="${openid}"
-								name="openid" /></td>
-							<td></td>
+							<td style="width: 100%;">
+								<input  type="text" value="${openid}"
+									name="openid" />
+								</td>
+						</tr>
+					<tr style="margin-top: 4%;">
+						<td style="width: 100%; ">业务类型 ：</td>
+					</tr>
+					<tr>
+						
+						<td>
+							<select name="worktype">
+							<option value="0">选择业务类型</option>
+							<option value="技术支持">技术支持</option>
+							<option value="设备报修">设备报修</option>
+							<option value="日常运维">日常运维</option>
+							</select>
+						</td>
+					</tr>
+						<tr>
+							<td><label>设备名称：</label></td>
 						</tr>
 						<tr>
-							<td style="width: 30%;"><label>设备名称：</label></td>
-							<td><input type="text" placeholder="请输入设备名称"
+							<td><input class="input" style="width: 100%;border:1px solid #535353;" class="input" type="text" placeholder="请输入设备名称"
 								name="devicename" /></td>
 						</tr>
 						<tr>
 							<td><label>具体地点：</label></td>
-							<td><input type=text placeholder="请输入具体地点" name="location" /></td>
+						</tr>
+						<tr>
+							<td><input class="input" style="width: 100%;border:1px solid #535353;" class="input" type=text placeholder="请输入具体地点" name="location" /></td>
 						</tr>
 						<tr>
 							<td><label>具体描述：</label></td>
+						</tr>
+						<tr>
+						
 							<td>
-								<textarea class="" type=text placeholder="请输入具体描述"
-								name="description" style="height: 200px;width: 100%;font-size: 40px;"></textarea></td>
+								<div style="margin-top: 3%;"></div>
+								<textarea  type="text" placeholder="请输入具体描述"
+								name="description" style="height: 200px; border:1px solid #535353; font-size: 1em; width: 100%;"></textarea></td>
 							<td style="display: none;"><input  name="openid" value="${openid }"/></td>
 						</tr>
 						
 						<tr align="center" style="margin-top: 14%;">
-						<td></td>
-						<td>
-							<div style="width: 80%; margin-top: 7%;margin-left:-25%; height: 120px; margin-bottom: 5%;">
-							<input type="button" value="点击上传图片"
-								onclick="takePicture()" /></br>
-								<span style="color:red;">(请选择小于2M的图片)</span>
-							</div>	
+							<td>
+								<div style=" margin-top: 4%;margin：0 auto; height: 100px; margin-bottom: 10%;">
+									<input  type="button" value="点击上传图片" style="width:50%;  background-color:#21a9f5; padding: 2% 0 2% 0%;font-size: 1em;font-family: 'Microsoft YaHei'; "
+										onclick="takePicture()" /></br>
+										<span style="color:red;margin-top: -2%;">(请选择小于2M的图片)</span>
+								</div>	
 							</td>
 						</tr>
+						<tr style="padding-bottom: 5%;">
 						<td><input type="hidden" id="fileName"  name="filename" /></td>
+						</tr>
 					</table>
 				</div>
 				<button class="submit" type="submit">提交信息</button>
