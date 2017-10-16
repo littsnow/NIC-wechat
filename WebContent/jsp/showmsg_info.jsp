@@ -39,7 +39,7 @@
 				method="post">
 				<div class="message">
 				<c:forEach items="${techlist}" var="item" varStatus="a">
-					<table style="width: 100%; font-size: 40px; margin-bottom: 40px; margin-top: 35px; ">
+					<table style="width: 100%;table-layout: fixed; border-spacing:0px 10px; font-size: 40px; margin-bottom: 40px; margin-top: 35px; ">
 					<tr>
 							<td style="width: 30%; "><input type="text" style="display: none;" value="${openid}"
 								name="openid" /></td>
@@ -51,14 +51,42 @@
 							
 						</tr>
 						<tr>
+							<td><label>业务类型：</label></td>
+							<td>${item.type }</td>
+						</tr>
+						<tr>
 							<td><label>提交时间：</label></td>
 							<td>${item.techsupportUptime }</td>
 						</tr>
 						<tr>
-							<td style="vertical-align:top;"><label>反馈信息：</label></td>
-							<td style="width:70%; word-wrap:break-word;word-break:break-all;">业务当前状态为：${tsStatus[a.index]}。<br>
-							${item.techsupportFeedback }</td>
+							<td><label>具体描述：</label></td>
+							<td  style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;">${item.techsupportDescribe }</td>
 						</tr>
+						<tr>
+							<td><label>当前状态：</label></td>
+							<td>${tsStatus[a.index]}</td>
+						</tr>
+						<tr>
+							<td style="vertical-align:top;"><label>反馈信息：</label></td>
+							<c:if test="${!empty item.techsupportFeedback}">
+								<td style="width:70%; word-wrap:break-word;word-break:break-all;">
+								${item.techsupportFeedback }</td>
+							</c:if>
+							<c:if test="${empty item.techsupportFeedback}">
+								<td style="width:70%; word-wrap:break-word;word-break:break-all;">
+								暂无反馈信息，请耐心等待</td>
+							</c:if>
+						</tr>
+						<c:if test="${!empty tsManagerList[a.index]}">
+							<tr>
+								<td><label>处理人：</label></td>
+								<td>${tsManagerList[a.index].managerName }</td>
+							</tr>
+							<tr>
+								<td><label>联系方式：</label></td>
+								<td><a href="tel:${tsManagerList[a.index].managerTelephone }">${tsManagerList[a.index].managerTelephone }</a></td>
+							</tr>
+						</c:if>
 					</table>
 					<hr style=" height:2px;border:none;border-top:2px dotted #185598;">
 				</c:forEach>

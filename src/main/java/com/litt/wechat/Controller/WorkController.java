@@ -20,8 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.litt.nic.pojo.manager;
 import com.litt.nic.pojo.techsupport;
 import com.litt.nic.pojo.user;
+import com.litt.nic.service.IManagerService;
 import com.litt.nic.service.IStatusService;
 import com.litt.nic.service.ITechSupportService;
 import com.litt.nic.service.IUserService;
@@ -41,7 +43,8 @@ public class WorkController {
 	private IUserService userService;
 	@Autowired
 	private ITechSupportService techSupportService;
-
+	@Autowired
+	private IManagerService managerService;
 	@Autowired
 	private IStatusService statusService;
 	private user user = null;
@@ -73,14 +76,40 @@ public class WorkController {
 		String devicename = request.getParameter("devicename");
 		if ("0".equals(type) || "".equals(desc) || "".equals(location)
 				|| "".equals(devicename)) {
-			System.out.println("有空值，");
-			response.setContentType("text/html; charset=UTF-8"); // 转码
-			PrintWriter out = response.getWriter();
-			out.flush();
-			out.println("<script>");
-			out.println("alert('请把信息填写完整！');");
-			out.println("history.back();");
-			out.println("</script>");
+
+			if ("0".equals(type)) {
+				response.setContentType("text/html; charset=UTF-8"); // 转码
+				PrintWriter out = response.getWriter();
+				out.flush();
+				out.println("<script>");
+				out.println("alert('请选择业务类型！');");
+				out.println("history.back();");
+				out.println("</script>");
+			} else if ("".equals(desc)) {
+				response.setContentType("text/html; charset=UTF-8"); // 转码
+				PrintWriter out = response.getWriter();
+				out.flush();
+				out.println("<script>");
+				out.println("alert('请填写具体描述！');");
+				out.println("history.back();");
+				out.println("</script>");
+			} else if ("".equals(location)) {
+				response.setContentType("text/html; charset=UTF-8"); // 转码
+				PrintWriter out = response.getWriter();
+				out.flush();
+				out.println("<script>");
+				out.println("alert('请填写具体地点！');");
+				out.println("history.back();");
+				out.println("</script>");
+			} else if ("".equals(devicename)) {
+				response.setContentType("text/html; charset=UTF-8"); // 转码
+				PrintWriter out = response.getWriter();
+				out.flush();
+				out.println("<script>");
+				out.println("alert('请输入设备名称！');");
+				out.println("history.back();");
+				out.println("</script>");
+			}
 		} else {
 			// 提交信息
 
@@ -235,7 +264,7 @@ public class WorkController {
 			out.println("alert('请完善个人信息后再提交相关业务信息！');");
 			// out.println("history.back();");
 			out.println("</script>");
-			return "forward:/user/loadInfo?openid="+openid;
+			return "forward:/user/loadInfo?openid=" + openid;
 		} else {
 			request.setAttribute("openid", openid);
 			return "/jsp/work_info";
@@ -293,7 +322,7 @@ public class WorkController {
 			out.println("alert('请完善个人信息后再查看相关信息！');");
 			// out.println("history.back();");
 			out.println("</script>");
-			return "forward:/user/loadInfo?openid="+openid;
+			return "forward:/user/loadInfo?openid=" + openid;
 		}
 
 	}
@@ -301,13 +330,24 @@ public class WorkController {
 	public void getTSLists(HttpServletRequest request,
 			List<techsupport> techSupportList) {
 		List<String> tsStatusList = new ArrayList<String>();
-
+		List<manager> tsManagerList = new ArrayList<>();
 		for (int i = 0; i < techSupportList.size(); i++) {
 			tsStatusList.add(statusService.findById(
 					techSupportList.get(i).getStatusId()).getStatusName());
+
+			if (techSupportList.get(i).getManagerId() != null) {
+				System.out.println("处理人==="
+						+ managerService.findById(techSupportList.get(i)
+								.getManagerId()));
+				tsManagerList.add(managerService.findById(techSupportList
+						.get(i).getManagerId()));
+			} else {
+				tsManagerList.add(null);
+			}
 		}
 		request.setAttribute("tsStatus", tsStatusList);
 		request.setAttribute("tsLen", techSupportList.size());
+		request.setAttribute("tsManagerList", tsManagerList);
 	}
 
 }

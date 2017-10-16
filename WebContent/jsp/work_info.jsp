@@ -6,6 +6,11 @@
 			+ path + "/";
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<meta charset="UTF-8"> 
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"> 
+<meta content="yes" name="apple-mobile-web-app-capable"> 
+<meta content="black" name="apple-mobile-web-app-status-bar-style"> 
+ <meta content="telephone=no" name="format-detection"> 
 <html>
 <head>
 <base href="<%=basePath%>">
@@ -161,7 +166,7 @@ body{
     padding: 2% 0 2% 0%;
     margin-top:4%;
     margin-bottom:4%;
-    font-size: 0.875em;
+    font-size: 40px;
     font-family: "Microsoft YaHei";
 }
 .message .icons b{
@@ -190,7 +195,7 @@ body{
     top: 60%;
     right:10%;
     color: #21a9f5;
-    font-size: 0.875em;
+    font-size: 40px;;
     font-family: "Microsoft YaHei";
 }
 select{
@@ -209,7 +214,7 @@ select{
     color: #ffffff;
     border: 0;
     padding: 2% 0;
-    font-size: 1em;
+    font-size: 20px;
     font-family: "Microsoft YaHei";
 }
 form .agree input[type="checkbox"] :default{
@@ -218,7 +223,7 @@ form .agree input[type="checkbox"] :default{
 
 </style>
 </head>
-<body style="font-size: 60px;">
+<body style="font-size: 25px;">
 								
 	 <div class="register">
 		<div class="regTop">
@@ -226,12 +231,12 @@ form .agree input[type="checkbox"] :default{
 		</div>
 		<div class="content" style="padding-bottom: 5%;">
 			<div class="point">
-				<span style="font-size: 45px;">用户须完善信息之后才能提交业务信息！</span>
+				<span style="font-size: 16px;">用户须完善信息之后才能提交业务信息！</span>
 			</div>
 			<form action="${pageContext.request.contextPath }/work/addwork"
 				method="post">
-				<div class="message">
-					<table style="width: 100%; margin-left: 0%;  font-size: 40px;">
+				<div class="message"  >
+					<table style="width: 100%; margin-left: 0%;  font-size: 40px;padding-bottom: -20px;">
 					<tr style="display: none;">
 							<td style="width: 100%;">
 								<input  type="text" value="${openid}"
@@ -239,11 +244,11 @@ form .agree input[type="checkbox"] :default{
 								</td>
 						</tr>
 					<tr style="margin-top: 4%;">
-						<td style="width: 100%; ">业务类型 ：</td>
+						<td style="width: 100%;font-size: 14px; ">业务类型 ：</td>
 					</tr>
 					<tr>
 						
-						<td>
+						<td style="font-size: 14px;">
 							<select name="worktype">
 							<option value="0">选择业务类型</option>
 							<option value="技术支持">技术支持</option>
@@ -253,42 +258,42 @@ form .agree input[type="checkbox"] :default{
 						</td>
 					</tr>
 						<tr>
-							<td><label>设备名称：</label></td>
+							<td><label style="font-size: 14px;">设备名称：</label></td>
 						</tr>
 						<tr>
-							<td><input class="input" style="width: 100%;border:1px solid #535353;" class="input" type="text" placeholder="请输入设备名称"
+							<td><input class="input" style="width: 100%;border:1px solid #708090;font-size: 12px;" class="input" type="text" placeholder="请输入设备名称"
 								name="devicename" /></td>
 						</tr>
 						<tr>
-							<td><label>具体地点：</label></td>
+							<td><label style="font-size: 14px;">具体地点：</label></td>
 						</tr>
 						<tr>
-							<td><input class="input" style="width: 100%;border:1px solid #535353;" class="input" type=text placeholder="请输入具体地点" name="location" /></td>
+							<td><input class="input" style="width: 100%;border:1px solid #708090;font-size: 12px;" class="input" type=text placeholder="请输入具体地点" name="location" /></td>
 						</tr>
 						<tr>
-							<td><label>具体描述：</label></td>
+							<td><label style="font-size: 14px;">具体描述：</label></td>
 						</tr>
 						<tr>
 						
-							<td>
+							<td style="font-size: 1em;">
 								<div style="margin-top: 3%;"></div>
 								<textarea  type="text" placeholder="请输入具体描述"
-								name="description" style="height: 200px; border:1px solid #535353; font-size: 1em; width: 100%;"></textarea></td>
-							<td style="display: none;"><input  name="openid" value="${openid }"/></td>
+								name="description" style="height: 60px; border:1px solid #708090; font-size: 12px; width: 100%;padding-top: 2%;"></textarea></td>
+							
 						</tr>
-						
+						<tr><td style="display: none;"><input  name="openid" value="${openid }"/></td></tr>
 						<tr align="center" style="margin-top: 14%;">
 							<td>
-								<div style=" margin-top: 4%;margin：0 auto; height: 100px; margin-bottom: 10%;">
-									<input  type="button" value="点击上传图片" style="width:50%;  background-color:#21a9f5; padding: 2% 0 2% 0%;font-size: 1em;font-family: 'Microsoft YaHei'; "
+								<div style=" margin-top: 4%;margin：0 auto; height: 80px; ">
+									<input  type="button" value="点击上传图片" style="width:50%; margin-bottom: 2%;  background-color:#21a9f5; padding: 2% 0 2% 0%;font-size: 14px;color:#ffffff; font-family: 'Microsoft YaHei'; "
 										onclick="takePicture()" /></br>
-										<span style="color:red;margin-top: -2%;">(请选择小于2M的图片)</span>
+										<span style="color:red;margin-top: -2%;font-size: 14px;">(请选择小于2M的图片)</span>
 								</div>	
 							</td>
 						</tr>
-						<tr style="padding-bottom: 5%;">
+						<tr style="padding-bottom: 2%;">
 						<td><input type="hidden" id="fileName"  name="filename" /></td>
-						</tr>
+						</tr> 
 					</table>
 				</div>
 				<button class="submit" type="submit">提交信息</button>

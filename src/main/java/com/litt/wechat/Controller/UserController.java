@@ -11,6 +11,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import org.apache.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +24,6 @@ import com.litt.nic.service.IDepartmentService;
 import com.litt.nic.service.IUserService;
 import com.litt.wechat.Util.Token.WeixinUtil;
 import com.litt.wechat.Util.User.GetUserInfo;
-
-import net.sf.json.JSONObject;
 
 /**
  * 用户身份信息的完善
@@ -41,18 +41,17 @@ public class UserController {
 	private IDepartmentService departmentService;
 
 	private user user;
-	
-	@RequestMapping(value = "/load")
-	public String loadWorkJsp(String code){
-		System.out.println("code------>"+code);
-		String openid=WeixinUtil.getOpenid(code);
-		System.out.println("--------");
-	//	request.setAttribute("openid", openid);
-		return "redirect:/user/loadInfo?openid="+openid;
-	}
-	
 
-	
+	@RequestMapping(value = "/load")
+	public String loadWorkJsp(String code) {
+		System.out.println("code------>" + code);
+		String openid = WeixinUtil.getOpenid(code);
+		System.out.println("--------");
+
+		// request.setAttribute("openid", openid);
+		return "redirect:/user/loadInfo?openid=" + openid;
+	}
+
 	/**
 	 * 加载完善用户信息
 	 * 
@@ -63,8 +62,8 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/loadInfo")
 	public String loadInfo(HttpServletRequest request,
-			HttpServletResponse response,String openid) throws IOException {
-		System.out.println("--------"+openid);
+			HttpServletResponse response, String openid) throws IOException {
+		System.out.println("--------" + openid);
 		request.setAttribute("openid", openid);
 		// 加载页面
 		List<department> listDepartment = departmentService.findAllInfo();
@@ -72,9 +71,6 @@ public class UserController {
 			System.out.println(department.getDepartmentName());
 		}
 		request.setAttribute("listDepartment", listDepartment);
-// 		判断
-//		String openid = request.getParameter("openid");
-//		System.out.println("openid=" + openid);
 		user DataBaseUser = userService.findByOpenid(openid);
 		// 数据库已存在此人
 		if (DataBaseUser != null) {
@@ -86,7 +82,9 @@ public class UserController {
 			out.println("alert('此用户名已存在,请不要重复绑定！');");
 			out.println("history.back();");
 			out.println("</script>");
-
+			System.out.println("要返回值了");
+			request.setAttribute("dbuser", DataBaseUser);
+			return "/jsp/user_info";
 		}
 		request.setAttribute("openid", openid);
 		return "/jsp/user_info";
@@ -111,14 +109,33 @@ public class UserController {
 		String depart = request.getParameter("department");
 		System.out.println("depart----" + depart);
 		if ("0".equals(depart) || "".equals(name) || "".equals(telephone)) {
-			System.out.println("depart----" + depart);
-			response.setContentType("text/html; charset=UTF-8"); // 转码
-			PrintWriter out = response.getWriter();
-			out.flush();
-			out.println("<script>");
-			out.println("alert('请把信息填写完整！');");
-			out.println("history.back();");
-			out.println("</script>");
+
+			if ("0".equals(depart)) {
+				response.setContentType("text/html; charset=UTF-8"); // 转码
+				PrintWriter out = response.getWriter();
+				out.flush();
+				out.println("<script>");
+				out.println("alert('请选择所属部门！');");
+				out.println("history.back();");
+				out.println("</script>");
+			} else if ("".equals(name)) {
+				response.setContentType("text/html; charset=UTF-8"); // 转码
+				PrintWriter out = response.getWriter();
+				out.flush();
+				out.println("<script>");
+				out.println("alert('请输入您的姓名！');");
+				out.println("history.back();");
+				out.println("</script>");
+			} else if ("".equals(telephone)) {
+				response.setContentType("text/html; charset=UTF-8"); // 转码
+				PrintWriter out = response.getWriter();
+				out.flush();
+				out.println("<script>");
+				out.println("alert('请输入您的联系电话！');");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+
 		} else {
 			String openid = request.getParameter("openid");
 			System.out.println("openid=" + openid);
@@ -168,36 +185,37 @@ public class UserController {
 		System.out.println("name=" + name + "tele" + telephone);
 		return null;
 	}
-	
-	public static String getOpenId(String code){
-		String url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx6f7d35bce110c2e3&secret=162b3c93a3c265dbba32e5c9ddbff023&code="+code+"&grant_type=authorization_code";
-		String openId="";
+
+	public static String getOpenId(String code) {
+		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx6f7d35bce110c2e3&secret=162b3c93a3c265dbba32e5c9ddbff023&code="
+				+ code + "&grant_type=authorization_code";
+		String openId = "";
 		try {
-		URL getUrl=new URL(url);
-		HttpURLConnection http=(HttpURLConnection)getUrl.openConnection();
-		http.setRequestMethod("GET"); 
-		http.setRequestProperty("Content-Type",
-		"application/x-www-form-urlencoded");
-		http.setDoOutput(true);
-		http.setDoInput(true);
+			URL getUrl = new URL(url);
+			HttpURLConnection http = (HttpURLConnection) getUrl
+					.openConnection();
+			http.setRequestMethod("GET");
+			http.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded");
+			http.setDoOutput(true);
+			http.setDoInput(true);
 
-		http.connect();
-		InputStream is = http.getInputStream(); 
-		int size = is.available(); 
-		byte[] b = new byte[size];
-		is.read(b);
-		String message = new String(b, "UTF-8");
+			http.connect();
+			InputStream is = http.getInputStream();
+			int size = is.available();
+			byte[] b = new byte[size];
+			is.read(b);
+			String message = new String(b, "UTF-8");
 
-		JSONObject json = JSONObject.fromObject(message);
-		openId = json.getString("openid");
+			JSONObject json = JSONObject.fromObject(message);
+			openId = json.getString("openid");
 		} catch (MalformedURLException e) {
-		e.printStackTrace();
+			e.printStackTrace();
 		} catch (IOException e) {
-		e.printStackTrace();
+			e.printStackTrace();
 		}
-		System.out.println("此时的openid="+openId);
+		System.out.println("此时的openid=" + openId);
 		return openId;
-		}
+	}
 
-	
 }

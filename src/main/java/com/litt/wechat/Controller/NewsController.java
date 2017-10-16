@@ -66,12 +66,12 @@ public class NewsController {
 	@RequestMapping(value = "/shownotice")
 	public String showNotice(HttpServletRequest request,
 			HttpServletResponse response) {
-		int maxid=0;
-		try{
-		 maxid = articleService.findMaxId();
-		 article = articleService.findById(maxid);
+		int maxid = 0;
+		try {
+			maxid = articleService.findMaxId();
+			article = articleService.findById(maxid);
 			request.setAttribute("article", article);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println("maxid为空");
 			response.setContentType("text/html; charset=UTF-8"); // 转码
 			PrintWriter out = null;
@@ -86,9 +86,8 @@ public class NewsController {
 			out.println("alert('暂无公告');");
 			out.println("history.back();");
 			out.println("</script>");
-			return null;
+			return "/jsp/error/feedbacknull.jsp";
 		}
-		
 
 		return "/jsp/shownotice";
 

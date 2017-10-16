@@ -164,12 +164,27 @@ $(function() {
 	                	<tr>
 	                		<td style="width:30%;"><label>姓名：</label></td></tr>
 	                		<tr>
-	                		<td><input type="text" placeholder="请输入姓名"  name="name" style="margin-top:2%;border:1px solid #535353;"/></td>
+	                		<td>
+	                			<c:if test="${empty dbuser}">
+	                				<input type="text" placeholder="请输入姓名"  name="name" style="margin-top:2%;border:1px solid #535353;"/>
+	                			</c:if>
+	                			<c:if test="${!empty dbuser}">
+	                				<input type="text" value="${dbuser.userName }" placeholder="${dbuser.userName }"  name="name" style="margin-top:2%;border:1px solid #535353;"/>
+	                			</c:if>
+	                		</td>
 	                	</tr>
 	                	<tr>
 	                		<td> <label>联系方式：</label></td></tr>
 	                		<tr>
-	                		<td><input type=tel placeholder="请输入联系方式" name="telephone" style="border:1px solid #535353;"/></td>
+	                		<td>
+	                			
+	                			<c:if test="${empty dbuser}">
+	                				<input type=tel placeholder="请输入联系方式" name="telephone" style="border:1px solid #535353;"/>
+	                			</c:if>
+	                			<c:if test="${!empty dbuser}">
+	                				<input type=tel value="${dbuser.userTelephone }" placeholder="${dbuser.userTelephone }" name="telephone" style="border:1px solid #535353;"/>
+	                			</c:if>
+	                		</td>
 	                	</tr>
                 		<tr>
                 		<td> <label>请选择部门：</label></td>
@@ -184,14 +199,22 @@ $(function() {
 									</c:forEach>
 							</select></td> --%>
 						<td id="depart" colspan="6">
-							 <select name="department">
-							 	 <option value="0">选择部门</option>
-								 <c:forEach items="${listDepartment}" var="item" varStatus="status">
-								 
-			                        
-			                        <option value="${item.departmentName }">${item.departmentName }</option>
-			                     </c:forEach>
-	                    	</select> 
+							<c:if test="${empty dbuser}">
+								 <select name="department">
+								 	 <option value="0">选择部门</option>
+									 <c:forEach items="${listDepartment}" var="item" varStatus="status">
+				                        <option value="${item.departmentName }">${item.departmentName }</option>
+				                     </c:forEach>
+		                    	</select> 
+		                    </c:if>
+		                    <c:if test="${!empty dbuser}">
+								 <select name="department">
+								 	 <option value="${dbuser.userDepartment }">${dbuser.userDepartment }</option>
+									 <c:forEach items="${listDepartment}" var="item" varStatus="status">
+				                        <option value="${item.departmentName }">${item.departmentName }</option>
+				                     </c:forEach>
+		                    	</select> 
+		                    </c:if>
                     	</td>
 					</tr>
                   
